@@ -1,16 +1,17 @@
-# bs-css
+# bs-css-core
 
-statically typed DSL for writing css in reason.
+Statically typed DSL for writing CSS in ReasonML.
 
-Bs-css is a statically typed interface to [Glamor](https://github.com/threepointone/glamor)
+This is a fork of [bs-css](https://github.com/SentiaAnalytics/bs-css) that
+extracts the Css module, so that it can be used by variuos CSS-in-JS bindings.
 
 ## Installation
 
 ```sh
-npm install --save bs-css
+yarn add bs-css-core
 ```
 
-In your `bsconfig.json`, include `"bs-css"` in the `bs-dependencies`.
+In your `bsconfig.json`, include `"bs-css-core"` in the `bs-dependencies`.
 
 ## Usage
 
@@ -33,43 +34,11 @@ let styles = Css.({
     marginBottom(Theme.basePadding)
   ])
 });
-
-<div className=styles##card>
-  <h1 className=styles##title> (ReasonReact.stringToElement("Hello")) </h1>
-</div>
 ```
-
-**Merging css rules**
-
-You can merge css rules using `merge`
-
-```reason
-let text_primary = style([ color(white) ]);
-let small = style([ fontSize(px(10)) ]);
-
-
-<p className=merge([ text_primary, small ])> ...
-```
-
-bs-css will make sure that rules are merged in the correct order, managing nesting and precedence for you.
-
-**Global css**
-
- You can defined global css rules with `global`
-
- ```reason
- Css.(
-   global("body", [margin(px(0))])
- );
-
- Css.(
-   global("h1, h2, h3", [color(rgb(33, 33, 33))])
- );
- ```
 
 **Keyframes**
 
-define animation keyframes;
+Define animation keyframes;
 
 ```reason
 let bounce = Css.keyframes([
@@ -85,25 +54,22 @@ let styles = css([
   height(px(50)),
   backgroundColor(rgb(255, 0, 0))
 ]);
-
-// ...
-<div className=styles>
-  (ReasonReact.stringToElement("bounce!"))
-</div>
 ```
-
 
 ## Development
 
 ```sh
-npm run start
+yarn start
 ```
 
 ## Where is the documentation?
-Its on its way!
-until then you can check out [css.rei](./src/Css.rei).
+
+Its on its way! Until then you can check out [css.rei](./src/Css.rei).
 
 ## Thanks
-Thanks to [glamor](https://github.com/threepointone/glamor) which is doing all the heavi lifting.
-Thanks to [bs-glamor](https://github.com/poeschko/bs-glamor) which this repo was forked from.
-Thanks to [elm-css](https://github.com/rtfeldman/elm-css) for dsl design inspiration.
+
+Thanks to [bs-css](https://github.com/SentiaAnalytics/bs-css) that introduced
+the DSL. Thanks to [bs-glamor](https://github.com/poeschko/bs-glamor) which
+bs-css was forked from. Thanks to
+[elm-css](https://github.com/rtfeldman/elm-css) for DSL design inspiration.
+
