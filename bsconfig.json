@@ -1,26 +1,13 @@
 {
-  "name": "bs-css",
-  "reason": {
-    "react-jsx": 2
-  },
+  "name": "bs-css-core",
   "refmt": 3,
-  "bs-dev-dependencies": [
-    "reason-react"
-  ],
   "bsc-flags": [
-    "-bs-super-errors",
     "-w",
     "+a-4-6-7-9-27-29-32..39-41..42-40-44-45-48-50",
     "-warn-error",
     "-a+8"
   ],
   "sources": [
-    {
-      "dir": "src"
-    },
-    {
-      "dir": "example",
-      "type": "dev"
-    }
+    "src"
   ]
 }
