@@ -1,6 +1,6 @@
+.*.swp
 .DS_Store
 /node_modules*
-/lib/
+/lib/bs
 npm-debug.log
-finalOutput/*.js
 .merlin
