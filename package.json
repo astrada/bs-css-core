@@ -1,15 +1,14 @@
 {
-  "name": "bs-css",
-  "version": "5.0.0",
-  "description": "BuckleScript bindings for glamor",
-  "main": "src/glamor.re",
+  "name": "bs-css-core",
+  "version": "0.1.0",
+  "description": "BuckleScript statically typed DSL for CSS",
+  "main": "src/css.re",
   "scripts": {
     "build": "bsb -make-world",
     "webpack": "webpack -w",
     "start": "bsb -make-world -w"
   },
   "keywords": [
-    "glamor",
     "bucklescript",
     "reason",
     "css"
@@ -18,20 +17,9 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/poeschko/bs-glamor.git"
-  },
-  "dependencies": {
-    "glamor": "^2.0.0"
+    "url": "git+https://github.com/astrada/bs-css-core.git"
   },
   "devDependencies": {
-    "bs-jest": "^0.1.0",
-    "bs-platform": "^2.0.0",
-    "reason-react": "^0.2.4",
-    "webpack": "^3.8.1"
-  },
-  "jest": {
-    "roots": [
-      "lib/js/src"
-    ]
+    "bs-platform": "^2.1.0"
   }
 }
