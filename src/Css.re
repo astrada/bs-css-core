@@ -58,9 +58,305 @@ let rgb = (r, g, b) => {j|rgb($r, $g, $b)|j};
 
 let rgba = (r, g, b, a) => {j|rgba($r, $g, $b, $a)|j};
 
+/* CSS Level 1 */
+let black = "black";
+
+let silver = "silver";
+
+let gray = "gray";
+
 let white = "white";
 
-let black = "black";
+let maroon = "maroon";
+
+let red = "red";
+
+let purple = "purple";
+
+let fuchsia = "fuchsia";
+
+let green = "green";
+
+let lime = "lime";
+
+let olive = "olive";
+
+let yellow = "yellow";
+
+let navy = "navy";
+
+let blue = "blue";
+
+let teal = "teal";
+
+let aqua = "aqua";
+
+/* CSS Level 2 (Revision 1) */
+let orange = "orange";
+
+/* CSS Color Module Level 3 */
+let aliceblue = "aliceblue";
+
+let antiquewhite = "antiquewhite";
+
+let aquamarine = "aquamarine";
+
+let azure = "azure";
+
+let beige = "beige";
+
+let bisque = "bisque";
+
+let blanchedalmond = "blanchedalmond";
+
+let blueviolet = "blueviolet";
+
+let brown = "brown";
+
+let burlywood = "burlywood";
+
+let cadetblue = "cadetblue";
+
+let chartreuse = "chartreuse";
+
+let chocolate = "chocolate";
+
+let coral = "coral";
+
+let cornflowerblue = "cornflowerblue";
+
+let cornsilk = "cornsilk";
+
+let crimson = "crimson";
+
+let cyan = "cyan"; /*synonym of aqua*/
+
+let darkblue = "darkblue";
+
+let darkcyan = "darkcyan";
+
+let darkgoldenrod = "darkgoldenrod";
+
+let darkgray = "darkgray";
+
+let darkgreen = "darkgreen";
+
+let darkgrey = "darkgrey";
+
+let darkkhaki = "darkkhaki";
+
+let darkmagenta = "darkmagenta";
+
+let darkolivegreen = "darkolivegreen";
+
+let darkorange = "darkorange";
+
+let darkorchid = "darkorchid";
+
+let darkred = "darkred";
+
+let darksalmon = "darksalmon";
+
+let darkseagreen = "darkseagreen";
+
+let darkslateblue = "darkslateblue";
+
+let darkslategray = "darkslategray";
+
+let darkslategrey = "darkslategrey";
+
+let darkturquoise = "darkturquoise";
+
+let darkviolet = "darkviolet";
+
+let deeppink = "deeppink";
+
+let deepskyblue = "deepskyblue";
+
+let dimgray = "dimgray";
+
+let dimgrey = "dimgrey";
+
+let dodgerblue = "dodgerblue";
+
+let firebrick = "firebrick";
+
+let floralwhite = "floralwhite";
+
+let forestgreen = "forestgreen";
+
+let gainsboro = "gainsboro";
+
+let ghostwhite = "ghostwhite";
+
+let gold = "gold";
+
+let goldenrod = "goldenrod";
+
+let greenyellow = "greenyellow";
+
+let grey = "grey";
+
+let honeydew = "honeydew";
+
+let hotpink = "hotpink";
+
+let indianred = "indianred";
+
+let indigo = "indigo";
+
+let ivory = "ivory";
+
+let khaki = "khaki";
+
+let lavender = "lavender";
+
+let lavenderblush = "lavenderblush";
+
+let lawngreen = "lawngreen";
+
+let lemonchiffon = "lemonchiffon";
+
+let lightblue = "lightblue";
+
+let lightcoral = "lightcoral";
+
+let lightcyan = "lightcyan";
+
+let lightgoldenrodyellow = "lightgoldenrodyellow";
+
+let lightgray = "lightgray";
+
+let lightgreen = "lightgreen";
+
+let lightgrey = "lightgrey";
+
+let lightpink = "lightpink";
+
+let lightsalmon = "lightsalmon";
+
+let lightseagreen = "lightseagreen";
+
+let lightskyblue = "lightskyblue";
+
+let lightslategray = "lightslategray";
+
+let lightslategrey = "lightslategrey";
+
+let lightsteelblue = "lightsteelblue";
+
+let lightyellow = "lightyellow";
+
+let limegreen = "limegreen";
+
+let linen = "linen";
+
+let magenta = "magenta"; /* synonym of fuchsia */
+
+let mediumaquamarine = "mediumaquamarine";
+
+let mediumblue = "mediumblue";
+
+let mediumorchid = "mediumorchid";
+
+let mediumpurple = "mediumpurple";
+
+let mediumseagreen = "mediumseagreen";
+
+let mediumslateblue = "mediumslateblue";
+
+let mediumspringgreen = "mediumspringgreen";
+
+let mediumturquoise = "mediumturquoise";
+
+let mediumvioletred = "mediumvioletred";
+
+let midnightblue = "midnightblue";
+
+let mintcream = "mintcream";
+
+let mistyrose = "mistyrose";
+
+let moccasin = "moccasin";
+
+let navajowhite = "navajowhite";
+
+let oldlace = "oldlace";
+
+let olivedrab = "olivedrab";
+
+let orangered = "orangered";
+
+let orchid = "orchid";
+
+let palegoldenrod = "palegoldenrod";
+
+let palegreen = "palegreen";
+
+let paleturquoise = "paleturquoise";
+
+let palevioletred = "palevioletred";
+
+let papayawhip = "papayawhip";
+
+let peachpuff = "peachpuff";
+
+let peru = "peru";
+
+let pink = "pink";
+
+let plum = "plum";
+
+let powderblue = "powderblue";
+
+let rosybrown = "rosybrown";
+
+let royalblue = "royalblue";
+
+let saddlebrown = "saddlebrown";
+
+let salmon = "salmon";
+
+let sandybrown = "sandybrown";
+
+let seagreen = "seagreen";
+
+let seashell = "seashell";
+
+let sienna = "sienna";
+
+let skyblue = "skyblue";
+
+let slateblue = "slateblue";
+
+let slategray = "slategray";
+
+let slategrey = "slategrey";
+
+let snow = "snow";
+
+let springgreen = "springgreen";
+
+let steelblue = "steelblue";
+
+let tan = "tan";
+
+let thistle = "thistle";
+
+let tomato = "tomato";
+
+let turquoise = "turquoise";
+
+let violet = "violet";
+
+let wheat = "wheat";
+
+let whitesmoke = "whitesmoke";
+
+let yellowgreen = "yellowgreen";
+
+/* CSS Color Module Level 4 */
+let rebeccapurple = "rebeccapurple";
 
 let hex = (v) => "#" ++ v;
 

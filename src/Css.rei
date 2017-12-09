@@ -53,9 +53,305 @@ let rgba: (int, int, int, float) => color;
 
 let hex: string => color;
 
+/* CSS Level 1 */
+let black: color;
+
+let silver: color;
+
+let gray: color;
+
 let white: color;
 
-let black: color;
+let maroon: color;
+
+let red: color;
+
+let purple: color;
+
+let fuchsia: color;
+
+let green: color;
+
+let lime: color;
+
+let olive: color;
+
+let yellow: color;
+
+let navy: color;
+
+let blue: color;
+
+let teal: color;
+
+let aqua: color;
+
+/* CSS Level 2 (Revision 1) */
+let orange: color;
+
+/* CSS Color Module Level 3 */
+let aliceblue: color;
+
+let antiquewhite: color;
+
+let aquamarine: color;
+
+let azure: color;
+
+let beige: color;
+
+let bisque: color;
+
+let blanchedalmond: color;
+
+let blueviolet: color;
+
+let brown: color;
+
+let burlywood: color;
+
+let cadetblue: color;
+
+let chartreuse: color;
+
+let chocolate: color;
+
+let coral: color;
+
+let cornflowerblue: color;
+
+let cornsilk: color;
+
+let crimson: color;
+
+let cyan: color; /*synonym of aqua*/
+
+let darkblue: color;
+
+let darkcyan: color;
+
+let darkgoldenrod: color;
+
+let darkgray: color;
+
+let darkgreen: color;
+
+let darkgrey: color;
+
+let darkkhaki: color;
+
+let darkmagenta: color;
+
+let darkolivegreen: color;
+
+let darkorange: color;
+
+let darkorchid: color;
+
+let darkred: color;
+
+let darksalmon: color;
+
+let darkseagreen: color;
+
+let darkslateblue: color;
+
+let darkslategray: color;
+
+let darkslategrey: color;
+
+let darkturquoise: color;
+
+let darkviolet: color;
+
+let deeppink: color;
+
+let deepskyblue: color;
+
+let dimgray: color;
+
+let dimgrey: color;
+
+let dodgerblue: color;
+
+let firebrick: color;
+
+let floralwhite: color;
+
+let forestgreen: color;
+
+let gainsboro: color;
+
+let ghostwhite: color;
+
+let gold: color;
+
+let goldenrod: color;
+
+let greenyellow: color;
+
+let grey: color;
+
+let honeydew: color;
+
+let hotpink: color;
+
+let indianred: color;
+
+let indigo: color;
+
+let ivory: color;
+
+let khaki: color;
+
+let lavender: color;
+
+let lavenderblush: color;
+
+let lawngreen: color;
+
+let lemonchiffon: color;
+
+let lightblue: color;
+
+let lightcoral: color;
+
+let lightcyan: color;
+
+let lightgoldenrodyellow: color;
+
+let lightgray: color;
+
+let lightgreen: color;
+
+let lightgrey: color;
+
+let lightpink: color;
+
+let lightsalmon: color;
+
+let lightseagreen: color;
+
+let lightskyblue: color;
+
+let lightslategray: color;
+
+let lightslategrey: color;
+
+let lightsteelblue: color;
+
+let lightyellow: color;
+
+let limegreen: color;
+
+let linen: color;
+
+let magenta: color; /* synonym of fuchsia */
+
+let mediumaquamarine: color;
+
+let mediumblue: color;
+
+let mediumorchid: color;
+
+let mediumpurple: color;
+
+let mediumseagreen: color;
+
+let mediumslateblue: color;
+
+let mediumspringgreen: color;
+
+let mediumturquoise: color;
+
+let mediumvioletred: color;
+
+let midnightblue: color;
+
+let mintcream: color;
+
+let mistyrose: color;
+
+let moccasin: color;
+
+let navajowhite: color;
+
+let oldlace: color;
+
+let olivedrab: color;
+
+let orangered: color;
+
+let orchid: color;
+
+let palegoldenrod: color;
+
+let palegreen: color;
+
+let paleturquoise: color;
+
+let palevioletred: color;
+
+let papayawhip: color;
+
+let peachpuff: color;
+
+let peru: color;
+
+let pink: color;
+
+let plum: color;
+
+let powderblue: color;
+
+let rosybrown: color;
+
+let royalblue: color;
+
+let saddlebrown: color;
+
+let salmon: color;
+
+let sandybrown: color;
+
+let seagreen: color;
+
+let seashell: color;
+
+let sienna: color;
+
+let skyblue: color;
+
+let slateblue: color;
+
+let slategray: color;
+
+let slategrey: color;
+
+let snow: color;
+
+let springgreen: color;
+
+let steelblue: color;
+
+let tan: color;
+
+let thistle: color;
+
+let tomato: color;
+
+let turquoise: color;
+
+let violet: color;
+
+let wheat: color;
+
+let whitesmoke: color;
+
+let yellowgreen: color;
+
+/* CSS Color Module Level 4 */
+let rebeccapurple: color;
 
 /* CSS RULES */
 let unsafe: (string, string) => rule;
