@@ -7,7 +7,14 @@
     "-warn-error",
     "-a+8"
   ],
+  "bs-dev-dependencies": ["bs-jest"],
   "sources": [
-    "src"
+    {
+      "dir": "src"
+    },
+    {
+      "dir": "__tests__",
+      "type": "dev"
+    }
   ]
 }
