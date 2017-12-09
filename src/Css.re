@@ -1,32 +1,23 @@
-type css = string;
+/* Based on https://github.com/SentiaAnalytics/bs-css/blob/master/src/Css.re */
+type styleObject('style) = Js.t(({..} as 'style));
+
+type keyframes = Js.Dict.t(Js.Json.t);
 
 type rule =
   | Property(string, string)
-  | Selector(string, list(rule));
+  | Selector(string, list(rule))
+  | Keyframes(string, keyframes);
 
 type angle = string;
 
-module Glamor = {
-  [@bs.module "glamor"] external make : Js.Json.t => css = "css";
-  [@bs.scope "css"] [@bs.module "glamor"] external makeGlobal : (string, Js.Json.t) => unit =
-    "global";
-  [@bs.scope "css"] [@bs.module "glamor"] external makeKeyFrames : Js.Dict.t(Js.Json.t) => string =
-    "keyframes";
-  let merge: list(string) => string = [%bs.raw
-    {|
-      function (styles) {
-          const glamor = require('glamor');
-          return glamor.css.apply(glamor, styles)
-      }
-  |}
-  ];
-};
+external toStyleObject : Js.Json.t => styleObject('style) = "%identity";
 
 let rec makeDict = (ruleset) => {
   let toJs = (rule) =>
     switch rule {
     | Property(name, value) => (name, Js.Json.string(value))
     | Selector(name, ruleset) => (name, makeDict(ruleset))
+    | Keyframes(name, dict) => (name, dict |> Js.Json.object_)
     };
   ruleset |> List.map(toJs) |> Js.Dict.fromList |> Js.Json.object_
 };
@@ -44,19 +35,12 @@ let intProp = (name, v) => Property(name, string_of_int(v));
 
 let stringProp = (name, v) => Property(name, v);
 
-let style = (rules) => makeDict(rules) |> Glamor.make;
-
-let global = (selector, rules) => makeDict(rules) |> Glamor.makeGlobal(selector);
+let style = (rules) => makeDict(rules) |> toStyleObject;
 
 let keyframes = (keyframes) =>
-  keyframes
-  |> List.map(((k, ruleset)) => (k, makeDict(ruleset)))
-  |> Js.Dict.fromList
-  |> Glamor.makeKeyFrames;
+  keyframes |> List.map(((k, ruleset)) => (k, makeDict(ruleset))) |> Js.Dict.fromList;
 
-let merge = Glamor.merge;
-
-let empty = style([]);
+let empty = () => style([]);
 
 let important = (v) =>
   switch v {
@@ -667,9 +651,7 @@ let boxShadow = stringProp("boxShadow");
 let boxShadows = (shadows) => Property("boxShadow", join(", ", shadows));
 
 /* ANIMATION */
-type keyframes = string;
-
-let animationName = stringProp("animationName");
+let animationName = (keyframes) => Keyframes("animationName", keyframes);
 
 let animationDuration = (ms) => Property("animationDuration", string_of_int(ms) ++ "ms");
 
@@ -717,8 +699,8 @@ let animationIterationCount = (v) =>
   Property(
     "animationIterationCount",
     switch v {
-      | Infinite => "infinite"
-      | Iterate(v) => string_of_int(v)
+    | Infinite => "infinite"
+    | Iterate(v) => string_of_int(v)
     }
   );
 

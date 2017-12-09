@@ -1,4 +1,5 @@
-type css = string;
+/* Based on https://github.com/SentiaAnalytics/bs-css/blob/master/src/Css.rei */
+type styleObject('style) = Js.t(({..} as 'style));
 
 type rule;
 
@@ -18,15 +19,11 @@ let deg: float => angle;
 
 let turn: float => angle;
 
-let style: list(rule) => css;
-
-let global: (string, list(rule)) => unit;
+let style: list(rule) => styleObject('style);
 
 let keyframes: list((string, list(rule))) => keyframes;
 
-let merge: list(css) => css;
-
-let empty: css;
+let empty: unit => styleObject('style);
 
 let important: rule => rule;
 
