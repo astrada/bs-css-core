@@ -10,7 +10,7 @@
     "test": "yarn build && jest"
   },
   "keywords": ["bucklescript", "reason", "css"],
-  "author": "Jan Poeschko <jan@poeschko.com>",
+  "author": "Alessandro Strada <alessandro.strada@gmail.com>",
   "license": "ISC",
   "repository": {
     "type": "git",
