@@ -2,7 +2,7 @@
   "name": "bs-css-core",
   "version": "0.1.0",
   "description": "BuckleScript statically typed DSL for CSS",
-  "main": "src/css.re",
+  "main": "src/Css.re",
   "scripts": {
     "build": "bsb -make-world",
     "webpack": "webpack -w",
@@ -10,7 +10,11 @@
     "test": "yarn build && jest"
   },
   "keywords": ["bucklescript", "reason", "css"],
-  "author": "Alessandro Strada <alessandro.strada@gmail.com>",
+  "author": "Jan Poeschko <jan@poeschko.com>",
+  "contributors": [
+    "Sentia (http://www.sentia.io)",
+    "Alessandro Strada <alessandro.strada@gmail.com>"
+  ],
   "license": "ISC",
   "repository": {
     "type": "git",
