@@ -1,12 +1,6 @@
 {
   "name": "bs-css-core",
   "refmt": 3,
-  "bsc-flags": [
-    "-w",
-    "+a-4-6-7-9-27-29-32..39-41..42-40-44-45-48-50",
-    "-warn-error",
-    "-a+8"
-  ],
   "bs-dev-dependencies": ["bs-jest"],
   "sources": [
     {
