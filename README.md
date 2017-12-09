@@ -8,7 +8,7 @@ extracts the Css module, so that it can be used by variuos CSS-in-JS bindings.
 ## Installation
 
 ```sh
-yarn add bs-css-core
+yarn add --dev bs-css-core
 ```
 
 In your `bsconfig.json`, include `"bs-css-core"` in the `bs-dependencies`.
@@ -16,24 +16,22 @@ In your `bsconfig.json`, include `"bs-css-core"` in the `bs-dependencies`.
 ## Usage
 
 ```reason
-module Theme = {
-  open Css;
-  let textColor = hex("333");
-  let basePadding = px(15);
+type theme = {
+  textColor: Css.color,
+  basePadding: Css.cssunit
 };
 
-let styles = Css.({
-  "card": style([
-    backgroundColor(white),
-    boxShadow(~y=3, ~blur=5, rgba(0, 0, 0, 0.3)),
-    padding(Theme.basePadding)
-  ]),
-  "title": style([
-    fontSize(rem(1.5)),
-    color(Theme.textColor),
-    marginBottom(Theme.basePadding)
-  ])
-});
+let makeStyle = (theme) =>
+  Css.(
+    style([
+      backgroundColor(white),
+      boxShadow(shadow(~y=3, ~blur=5, rgba(0, 0, 0, 0.3))),
+      padding(theme.basePadding),
+      fontSize(rem(1.5)),
+      color(theme.textColor),
+      marginBottom(theme.basePadding)
+    ])
+  );
 ```
 
 **Keyframes**
@@ -41,19 +39,25 @@ let styles = Css.({
 Define animation keyframes;
 
 ```reason
-let bounce = Css.keyframes([
-  ("0%", [ transform( scale(0.1, 0.1) ),  opacity(0.0) ]),
-  ("60%", [ transform( scale(1.2, 1.2) ),  opacity(1.0) ]),
-  ("100%", [ transform( scale(1.0,1.0) ), opacity(1.0) ])
-]);
+let bounce =
+  Css.(
+    keyframes([
+      ("0%", [transform(scale(0.1, 0.1)), opacity(0.0)]),
+      ("60%", [transform(scale(1.2, 1.2)), opacity(1.0)]),
+      ("100%", [transform(scale(1.0, 1.0)), opacity(1.0)])
+    ])
+  );
 
-let styles = css([
-  animationName(bounce),
-  animationDuration(2000),
-  width(px(50)),
-  height(px(50)),
-  backgroundColor(rgb(255, 0, 0))
-]);
+let makeStyle = (_theme) =>
+  Css.(
+    style([
+      animationName(bounce),
+      animationDuration(2000),
+      width(px(50)),
+      height(px(50)),
+      backgroundColor(rgb(255, 0, 0))
+    ])
+  );
 ```
 
 ## Development
