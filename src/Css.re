@@ -559,7 +559,7 @@ let zIndex = intProp("zIndex");
 /* FLEXBOX */
 let flex = intProp("flex");
 
-let flexBasis = intProp("flexBasis");
+let flexBasis = stringProp("flexBasis");
 
 let flexGrow = intProp("flexGrow");
 

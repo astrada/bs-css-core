@@ -337,7 +337,7 @@ type flexDirection =
 
 let flexDirection: flexDirection => rule;
 
-let flexBasis: int => rule;
+let flexBasis: cssunit => rule;
 
 let flexFlow: int => rule;
 
