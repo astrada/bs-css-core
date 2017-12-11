@@ -3,7 +3,7 @@
 Statically typed DSL for writing CSS in ReasonML.
 
 This is a fork of [bs-css](https://github.com/SentiaAnalytics/bs-css) that
-extracts the Css module, so that it can be used by variuos CSS-in-JS bindings.
+extracts the Css module, so that it can be used by various CSS-in-JS bindings. See [bs-react-fela-examples](https://github.com/astrada/bs-react-fela-examples) and [bs-styletron-react-examples](https://github.com/astrada/bs-styletron-react-examples) for practical examples of usage.
 
 ## Installation
 
