@@ -937,6 +937,35 @@ let alignSelf = (v) => Property("alignSelf", alignmentToString(v));
 
 let justifyContent = (v) => Property("justifyContent", justifyToString(v));
 
+/* CSS GRID */
+let gridTemplate = stringProp("gridTemplate");
+
+let gridTemplateRows = stringProp("gridTemplateRows");
+
+let gridTemplateColumns = stringProp("gridTemplateColumns");
+
+let gridAutoRows = stringProp("gridAutoRows");
+
+let gridAutoColumns = stringProp("gridAutoColumns");
+
+let gridAutoFlow = stringProp("gridAutoFlow");
+
+let gridRowStart = stringProp("gridRowStart");
+
+let gridColumnStart = stringProp("gridColumnStart");
+
+let gridRowEnd = stringProp("gridRowEnd");
+
+let gridColumnEnd = stringProp("gridColumnEnd");
+
+let gridRow = stringProp("gridRow");
+
+let gridColumn = stringProp("gridColumn");
+
+let gridRowGap = stringProp("gridRowGap");
+
+let gridColumnGap = stringProp("gridColumnGap");
+
 /* SHADOW */
 type shadow = string;
 

@@ -672,6 +672,35 @@ let justifyContent: justify => rule;
 
 let order: int => rule;
 
+/* CSS GRID */
+let gridTemplate: string => rule;
+
+let gridTemplateRows: string => rule;
+
+let gridTemplateColumns: string => rule;
+
+let gridAutoRows: string => rule;
+
+let gridAutoColumns: string => rule;
+
+let gridAutoFlow: string => rule;
+
+let gridRowStart: string => rule;
+
+let gridColumnStart: string => rule;
+
+let gridRowEnd: string => rule;
+
+let gridColumnEnd: string => rule;
+
+let gridRow: string => rule;
+
+let gridColumn: string => rule;
+
+let gridRowGap: cssunit => rule;
+
+let gridColumnGap: cssunit => rule;
+
 /* SHADOW */
 type shadow;
 
