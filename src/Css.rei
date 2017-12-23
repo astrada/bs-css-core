@@ -73,6 +73,10 @@ type transform;
 /*** Returns an empty style object. */
 let empty: unit => styleObject('style);
 
+let unsafeValue: string => 'a;
+
+let label: string => rule;
+
 
 /***
  * Builds a style object from a list of rules.
@@ -168,6 +172,20 @@ let em: float => cssunit;
 
 
 /***
+ * Returns a length in ex units (x-height of the element's font).
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/length#ex
+ */
+let ex: float => cssunit;
+
+
+/***
+ * Returns a length in ch units (width, or more precisely the advance measure, of the glyph "0").
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/length#ex
+ */
+let ch: float => cssunit;
+
+
+/***
  * Returns a length in vh units (1% of the height of the viewport's initial containing block).
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#vh
  */
@@ -179,6 +197,10 @@ let vh: float => cssunit;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#vw
  */
 let vw: float => cssunit;
+
+let vmin: float => cssunit;
+
+let vmax: float => cssunit;
 
 
 /***
@@ -195,8 +217,33 @@ let cm: float => cssunit;
 let mm: float => cssunit;
 
 
+/***
+ * Returns a length in quarters of a millimiter.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/length#q
+ */
+let q: float => cssunit;
+
+
+/***
+ * Returns a length in inches.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/length#in
+ */
+let inch: float => cssunit;
+
+
+/***
+ * Returns a length in picas (1 pica = 12 points).
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/length#pc
+ */
+let pc: float => cssunit;
+
+
 /*** Returns a length of zero. */
 let zero: cssunit;
+
+
+/*** Used to specify an auto height/lenght. */
+let auto: cssunit;
 
 /* COLORS */
 
@@ -215,10 +262,38 @@ let rgba: (int, int, int, float) => color;
 
 
 /***
+ * Returns a color from its hue, saturation, and lightness components.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#hsl()
+ */
+let hsl: (angle, int, int) => color;
+
+
+/***
+ * Returns a color from its hue, saturation, lightness, and alpha components.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#hsla()
+ */
+let hsla: (angle, int, int, float) => color;
+
+
+/***
  * Returns a color from its hexadecimal notation.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#Syntax
  */
 let hex: string => color;
+
+
+/***
+ * The currentColor keyword represents the value of an element's color property.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentColor
+ */
+let currentColor: color;
+
+
+/***
+ * The transparent keyword represents a fully transparent color.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#transparent
+ */
+let transparent: color;
 
 /* CSS Level 1 colors. */
 let black: color;
@@ -522,12 +597,115 @@ let rebeccapurple: color;
 
 /* CSS PROPERTIES */
 
+/*** Gradient direction. */
+type direction =
+  | Angle(angle)
+  | ToTop
+  | ToBottom
+  | ToLeft
+  | ToRight
+  | ToTopLeft
+  | ToTopRight
+  | ToBottomLeft
+  | ToBottomRight;
+
+
+/*** Gradient vertical position. */
+type verticalPosition =
+  | Top
+  | FromTop(cssunit)
+  | Center
+  | Bottom
+  | FromBottom(cssunit);
+
+
+/*** Gradient horizontal position. */
+type horizontalPosition =
+  | Left
+  | FromLeft(cssunit)
+  | Center
+  | Right
+  | FromRight(cssunit);
+
+
+/*** Gradient shape. */
+type shape =
+  | Circle
+  | Ellipse;
+
+
+/*** Gradient extent. */
+type extent =
+  | ClosestSide
+  | ClosestCorner
+  | FarthestSide
+  | FarthestCorner;
+
+
+/*** Gradient color stop. */
+type colorStop = (color, cssunit);
+
+
+/***
+ * The <gradient> CSS data type is a special type of <image> that consists of a progressive
+ * transition between two or more colors.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/gradient
+ */
+type gradient;
+
+
+/***
+ * The linear-gradient() CSS function creates an image consisting of a progressive
+ * transition between two or more colors along a straight line.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient
+ */
+let linearGradient: (direction, list(colorStop)) => gradient;
+
+
+/***
+ * The radial-gradient() CSS function creates an image consisting of a progressive
+ * transition between two or more colors that radiate from an origin.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/radial-gradient
+ */
+let radialGradient:
+  (shape, verticalPosition, horizontalPosition, extent, list(colorStop)) =>
+  gradient;
+
+
+/***
+ * The repeating-linear-gradient() CSS function creates an image consisting of repeating linear gradients.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/repeating-linear-gradient
+ */
+let repeatingLinearGradient: (direction, list(colorStop)) => gradient;
+
+
+/***
+ * The repeating-radial-gradient() CSS function creates an image consisting of repeating gradients that radiate from an origin.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/repeating-radial-gradient
+ */
+let repeatingRadialGradient:
+  (shape, verticalPosition, horizontalPosition, extent, list(colorStop)) =>
+  gradient;
+
+
+/***
+ * The <image> CSS data type represents a two-dimensional image.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/image
+ */
+type image =
+  | Url(string)
+  | Gradient(gradient)
+  | Element(string);
+
+
 /***
  * The opacity CSS property specifies the level of transparency of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/opacity
  */
 let opacity: float => rule;
 
+
+/*** Visibility values. */
 type visibility =
   | Visible
   | Hidden
@@ -540,6 +718,52 @@ type visibility =
  */
 let visibility: visibility => rule;
 
+type listStyleType =
+  | Disc
+  | Circle
+  | Square
+  | Decimal
+  | DecimalLeadingZero
+  | LowerRoman
+  | UpperRoman
+  | LowerGreek
+  | LowerLatin
+  | UpperLatin
+  | Armenian
+  | Georgian
+  | LowerAlpha
+  | UpperAlpha
+  | None;
+
+
+/***
+ * The list-style-type CSS property specifies the appearance of a list item element.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type
+ */
+let listStyleType: listStyleType => rule;
+
+type listStyleImage =
+  | None
+  | Url(string);
+
+
+/***
+ * The list-style-image property specifies an image to be used as the list item marker.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-image
+ */
+let listStyleImage: listStyleImage => rule;
+
+type listStylePosition =
+  | Inside
+  | Outside;
+
+
+/***
+ * The list-style-position property specifies the position of the marker box in the principal block box.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position
+ */
+let listStylePopsition: listStylePosition => rule;
+
 /* BACKGROUND */
 
 /***
@@ -547,6 +771,12 @@ let visibility: visibility => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/background-image
  */
 let backgroundImage: string => rule;
+
+
+/***
+ * Sets a gradient as a background-image.
+ */
+let backgroundGradient: gradient => rule;
 
 type backgroundAttachment =
   | Scroll
@@ -686,6 +916,19 @@ type fontWeight =
  */
 let fontWeight: fontWeight => rule;
 
+type fontVariant =
+  | Normal
+  | SmallCaps;
+
+
+/***
+ * The font-variant CSS property is a shorthand for the longhand properties
+ * font-variant-caps, font-variant-numeric, font-variant-alternates, font-variant-ligatures,
+ * and font-variant-east-asian.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant
+ */
+let fontVariant: fontVariant => rule;
+
 type textDecoration =
   | None
   | Underline(color)
@@ -696,7 +939,45 @@ type textDecoration =
  * The text-decoration CSS property specifies the appearance of decorative lines used on text.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration
  */
+[@deprecated "Use the individual textDecoration properties instead"]
 let textDecoration: textDecoration => rule;
+
+type textDecorationLineValue =
+  | Underline
+  | Overline
+  | LineThrough;
+
+type textDecorationLine =
+  | None
+  | Values(list(textDecorationLineValue));
+
+
+/***
+ * The text-decoration-line CSS property sets the kind of decoration that is used on text in an element.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-line
+ */
+let textDecorationLine: textDecorationLine => rule;
+
+type textDecorationStyle =
+  | Solid
+  | Double
+  | Dotted
+  | Dashed
+  | Wavy;
+
+
+/***
+ * The text-decoration-style CSS property sets the style of the lines specified by text-decoration-line.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-style
+ */
+let textDecorationStyle: textDecorationStyle => rule;
+
+
+/***
+ * The text-decoration-color CSS property sets the color of the decorative additions to text that are specified by text-decoration-line.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-color
+ */
+let textDecorationColor: color => rule;
 
 type textAlign =
   | Auto
@@ -739,6 +1020,37 @@ type textTransform =
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform
  */
 let textTransform: textTransform => rule;
+
+type textOverflow =
+  | Clip
+  | Ellipsis;
+
+
+/***
+ * The text-overflow CSS property determines how overflowed content that is not displayed is signaled to users.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow
+ */
+let textOverflow: textOverflow => rule;
+
+type overflowWrap =
+  | Normal
+  | BreakWord;
+
+
+/***
+ * The overflow-wrap CSS property specifies whether or not the browser should insert line breaks within words
+ * to prevent text from overflowing its content box.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap
+ */
+let overflowWrap: overflowWrap => rule;
+
+
+/***
+ * The overflow-wrap CSS property specifies whether or not the browser should insert line breaks within words
+ * to prevent text from overflowing its content box.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap
+ */
+let wordWrap: overflowWrap => rule;
 
 
 /***
@@ -1027,6 +1339,25 @@ let margin: cssunit => rule;
 
 
 /***
+ * Returns a margin from its vertical and horizontal components.
+ */
+let margin2: (~v: cssunit, ~h: cssunit) => rule;
+
+
+/***
+ * Returns a margin from its top, horizontal, and bottom components.
+ */
+let margin3: (~top: cssunit, ~h: cssunit, ~bottom: cssunit) => rule;
+
+
+/***
+ * Returns a margin from its top, right, bottom, and left components.
+ */
+let margin4:
+  (~top: cssunit, ~right: cssunit, ~bottom: cssunit, ~left: cssunit) => rule;
+
+
+/***
  * The margin-left CSS property sets the margin area on the left side of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/margin-left
  */
@@ -1059,6 +1390,25 @@ let marginBottom: cssunit => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/padding
  */
 let padding: cssunit => rule;
+
+
+/***
+ * Returns a padding from its vertical and horizontal components.
+ */
+let padding2: (~v: cssunit, ~h: cssunit) => rule;
+
+
+/***
+ * Returns a padding from its top, horizontal, and bottom components.
+ */
+let padding3: (~top: cssunit, ~h: cssunit, ~bottom: cssunit) => rule;
+
+
+/***
+ * Returns a padding from its top, right, bottom, and left components.
+ */
+let padding4:
+  (~top: cssunit, ~right: cssunit, ~bottom: cssunit, ~left: cssunit) => rule;
 
 
 /***
@@ -1680,6 +2030,20 @@ let rotateY: angle => transform;
  */
 let rotateZ: angle => transform;
 
+type whiteSpace =
+  | Normal
+  | Nowrap
+  | Pre
+  | PreWrap
+  | PreLine;
+
+
+/***
+ * The white-space CSS property determines how whitespace inside an element is handled.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
+ */
+let whiteSpace: whiteSpace => rule;
+
 
 /***
  * The skew() CSS function defines a transformation that skews an element on the 2D plane.
@@ -1772,6 +2136,20 @@ let hover: list(rule) => rule;
 
 
 /***
+ * In CSS, ::before creates a pseudo-element that is the first child of the selected element.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/::before
+ */
+let before: list(rule) => rule;
+
+
+/***
+ * In CSS, ::after creates a pseudo-element that is the last child of the selected element.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/::after
+ */
+let after: list(rule) => rule;
+
+
+/***
  * The :first-child CSS pseudo-class represents the first element among a group of sibling elements.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/:first-child
  */
@@ -1825,7 +2203,41 @@ let outline: (cssunit, borderStyle, color) => rule;
 
 type cursor =
   | Auto
+  | Default
+  | None
+  | ContextMenu
+  | Help
   | Pointer
+  | Progress
+  | Wait
+  | Cell
+  | Crosshair
+  | Text
+  | VerticalText
+  | Alias
+  | Copy
+  | Move
+  | NoDrop
+  | NotAllowed
+  | AllScroll
+  | ColResize
+  | RowResize
+  | NResize
+  | EResize
+  | SResize
+  | WResize
+  | NEResize
+  | NWResize
+  | SEResize
+  | SWResize
+  | EWResize
+  | NSResize
+  | NESWResize
+  | NWSEResize
+  | ZoomIn
+  | ZoomOut
+  | Grab
+  | Grabbing
   | Custom(string);
 
 
@@ -1862,3 +2274,41 @@ let outlineWidth: cssunit => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/outline-color
  */
 let outlineColor: color => rule;
+
+
+/***
+ * Scalable Vector Graphics (SVG) is an XML-based markup language for describing two dimensional based vector graphics.
+ * https://developer.mozilla.org/en-US/docs/Web/SVG
+ */
+module SVG: {
+
+  /***
+   * For shapes and text, the fill attribute is a presentation attribute that define the color of the interior of the given graphical element.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill
+   */
+  let fill: color => rule;
+
+  /***
+   * This attribute specifies the opacity of the color or the content the current object is filled with.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-opacity
+   */
+  let fillOpacity: float => rule;
+
+  /***
+   * The stroke attribute defines the color of the outline on a given graphical element.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke
+   */
+  let stroke: color => rule;
+
+  /***
+   * the stroke-width attribute specifies the width of the outline on the current object.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-width
+   */
+  let strokeWidth: cssunit => rule;
+
+  /***
+   * the stroke-opacity attribute specifies the opacity of the outline on the current object.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-opacity
+   */
+  let strokeOpacity: float => rule;
+};

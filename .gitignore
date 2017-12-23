@@ -6,3 +6,4 @@
 /lib/js/__tests__
 npm-debug.log
 .merlin
+.bsb.lock

@@ -50,6 +50,8 @@ let important = v =>
   | _ => v
   };
 
+let unsafeValue: string => 'a = Obj.magic;
+
 
 /*********
  * COLORS
@@ -59,6 +61,14 @@ type color = string;
 let rgb = (r, g, b) => {j|rgb($r, $g, $b)|j};
 
 let rgba = (r, g, b, a) => {j|rgba($r, $g, $b, $a)|j};
+
+let hsl = (h, s, l) => {j|hsl($h, $s%, $l%)|j};
+
+let hsla = (h, s, l, a) => {j|hsl($h, $s%, $l%, $a)|j};
+
+let currentColor = "currentColor";
+
+let transparent = "transparent";
 
 /* CSS Level 1 */
 let black = "black";
@@ -376,15 +386,31 @@ let rem = i => {j|$(i)rem|j};
 
 let em = i => {j|$(i)em|j};
 
+let ex = i => {j|$(i)ex|j};
+
+let ch = i => {j|$(i)ch|j};
+
 let cm = i => {j|$(i)cm|j};
 
 let mm = i => {j|$(i)mm|j};
+
+let q = i => {j|$(i)q|j};
+
+let inch = i => {j|$(i)in|j};
+
+let pc = i => {j|$(i)pc|j};
 
 let vh = i => {j|$(i)vh|j};
 
 let vw = i => {j|$(i)vw|j};
 
+let vmin = i => {j|$(i)vmin|j};
+
+let vmax = i => {j|$(i)vmax|j};
+
 let zero = "0";
+
+let auto = "auto";
 
 
 /*********
@@ -400,9 +426,138 @@ let turn = i => {j|$(i)turn|j};
 
 
 /*********
+ * IMAGE
+ **********/
+type direction =
+  | Angle(angle)
+  | ToTop
+  | ToBottom
+  | ToLeft
+  | ToRight
+  | ToTopLeft
+  | ToTopRight
+  | ToBottomLeft
+  | ToBottomRight;
+
+let _encodeDirection =
+  fun
+  | Angle(angle) => angle
+  | ToTop => "to top"
+  | ToBottom => "to bottom"
+  | ToLeft => "to left"
+  | ToRight => "to right"
+  | ToTopLeft => "to top left"
+  | ToTopRight => "to top right"
+  | ToBottomLeft => "to bottom left"
+  | ToBottomRight => "to bottom right";
+
+type verticalPosition =
+  | Top
+  | FromTop(cssunit)
+  | Center
+  | Bottom
+  | FromBottom(cssunit);
+
+let _encodeVerticalPosition =
+  fun
+  | Top => "top"
+  | FromTop(v) => {j|top $v|j}
+  | Center => "center"
+  | Bottom => "bottom"
+  | FromBottom(v) => {j|bottom $v|j};
+
+type horizontalPosition =
+  | Left
+  | FromLeft(cssunit)
+  | Center
+  | Right
+  | FromRight(cssunit);
+
+let _encodeHorizontalPosition =
+  fun
+  | Left => "left"
+  | FromLeft(v) => {j|left $v|j}
+  | Center => "center"
+  | Right => "right"
+  | FromRight(v) => {j|right $v|j};
+
+type shape =
+  | Circle
+  | Ellipse;
+
+let _encodeShape =
+  fun
+  | Circle => "circle"
+  | Ellipse => "ellipse";
+
+type extent =
+  | ClosestSide
+  | ClosestCorner
+  | FarthestSide
+  | FarthestCorner;
+
+let _encodeExtent =
+  fun
+  | ClosestSide => "closest-side"
+  | ClosestCorner => "closest-corner"
+  | FarthestSide => "farthest-side"
+  | FarthestCorner => "farthest-corner";
+
+type colorStop = (color, cssunit);
+
+let _encodeColorStops = stops =>
+  stops |> List.map(((color, pos)) => {j|$color $pos|j}) |> String.concat(", ");
+
+type gradient = string;
+
+let linearGradient = (direction, stops) => {
+  let direction = _encodeDirection(direction);
+  let stops = _encodeColorStops(stops);
+  {j|linear-gradient($direction, $stops)|j};
+};
+
+let radialGradient = (shape, v, h, extent, stops) => {
+  let shape = _encodeShape(shape);
+  let v = _encodeVerticalPosition(v);
+  let h = _encodeHorizontalPosition(h);
+  let extent = _encodeExtent(extent);
+  let stops = _encodeColorStops(stops);
+  {j|radial-gradient($shape $extent at $v $h, $stops)|j};
+};
+
+let repeatingLinearGradient = (direction, stops) => {
+  let direction = _encodeDirection(direction);
+  let stops = _encodeColorStops(stops);
+  {j|repeating-linear-gradient($direction, $stops)|j};
+};
+
+let repeatingRadialGradient = (shape, v, h, extent, stops) => {
+  let shape = _encodeShape(shape);
+  let v = _encodeVerticalPosition(v);
+  let h = _encodeHorizontalPosition(h);
+  let extent = _encodeExtent(extent);
+  let stops = _encodeColorStops(stops);
+  {j|repeating-radial-gradient($shape $extent at $v $h, $stops)|j};
+};
+
+type image =
+  | Url(string)
+  | Gradient(gradient)
+  | Element(string);
+
+let _encodeImage =
+  fun
+  | Url(url) => {j|url($url)|j}
+  | Gradient(gradient) => gradient
+  | Element(selector) => {j|element($selector)|j};
+
+
+/*********
  * CSS RULES
  **********/
-let unsafe = (name, value) => Property(name, value);
+let label = label => Property("label", label);
+
+let unsafe = (name, value) => Property(name, Obj.magic(value));
 
 type visibility =
   | Visible
@@ -421,8 +576,76 @@ let visibility = v =>
 
 let opacity = v => Property("opacity", {j|$v|j});
 
+type listStyleType =
+  | Disc
+  | Circle
+  | Square
+  | Decimal
+  | DecimalLeadingZero
+  | LowerRoman
+  | UpperRoman
+  | LowerGreek
+  | LowerLatin
+  | UpperLatin
+  | Armenian
+  | Georgian
+  | LowerAlpha
+  | UpperAlpha
+  | None;
+
+let listStyleType = value => {
+  let value =
+    switch value {
+    | Disc => "disc"
+    | Circle => "circle"
+    | Square => "square"
+    | Decimal => "decimal"
+    | DecimalLeadingZero => "decimal-leading-zero"
+    | LowerRoman => "lower-roman"
+    | UpperRoman => "upper-roman"
+    | LowerGreek => "lower-greek"
+    | LowerLatin => "lower-latin"
+    | UpperLatin => "upper-latin"
+    | Armenian => "armenian"
+    | Georgian => "georgian"
+    | LowerAlpha => "lower-alpha"
+    | UpperAlpha => "upper-alpha"
+    | None => "none"
+    };
+  Property("listStyleType", value);
+};
+
+type listStyleImage =
+  | None
+  | Url(string);
+
+let listStyleImage = value => {
+  let value =
+    switch value {
+    | None => "none"
+    | Url(url) => {j|url($url)|j}
+    };
+  Property("listStyleImage", value);
+};
+
+type listStylePosition =
+  | Inside
+  | Outside;
+
+let listStylePopsition = value => {
+  let value =
+    switch value {
+    | Inside => "inside"
+    | Outside => "outside"
+    };
+  Property("listStylePosition", value);
+};
+
 /* BACKGROUND */
-let backgroundImage = url => Property("backgroundImage", "url(" ++ url ++ ")");
+let backgroundImage = value =>
+  Property("backgroundImage", _encodeImage(Url(value)));
+
+let backgroundGradient = value => Property("backgroundImage", value);
 
 type backgroundAttachment =
   | Scroll
@@ -513,7 +736,7 @@ let background = v =>
     switch v {
     | None => "none"
     | Color(color) => color
-    | Image(url) => {j|url($url)|j}
+    | Image(url) => _encodeImage(Url(url))
     }
   );
 
@@ -570,6 +793,19 @@ let fontWeight = v =>
     }
   );
 
+type fontVariant =
+  | Normal
+  | SmallCaps;
+
+let fontVariant = value => {
+  let value =
+    switch value {
+    | Normal => "normal"
+    | SmallCaps => "small-caps"
+    };
+  Property("fontVariant", value);
+};
+
 let textShadow = (x, y, color) =>
   Property("textShadow", {j|$(x) $(y) $(color)|j});
 
@@ -609,6 +845,53 @@ let textDecoration = v =>
     }
   );
 
+type textDecorationLineValue =
+  | Underline
+  | Overline
+  | LineThrough;
+
+type textDecorationLine =
+  | None
+  | Values(list(textDecorationLineValue));
+
+let textDecorationLine = value => {
+  let value =
+    switch value {
+    | None => "none"
+    | Values(values) =>
+      values
+      |> List.map(
+           fun
+           | Underline => "underline"
+           | Overline => "overline"
+           | LineThrough => "line-through"
+         )
+      |> String.concat(" ")
+    };
+  Property("textDecorationLine", value);
+};
+
+type textDecorationStyle =
+  | Solid
+  | Double
+  | Dotted
+  | Dashed
+  | Wavy;
+
+let textDecorationStyle = value => {
+  let value =
+    switch value {
+    | Solid => "solid"
+    | Double => "double"
+    | Dotted => "dotted"
+    | Dashed => "dashed"
+    | Wavy => "wavy"
+    };
+  Property("textDecorationStyle", value);
+};
+
+let textDecorationColor = stringProp("textDecorationColor");
+
 type textTransform =
   | None
   | Uppercase
@@ -627,6 +910,36 @@ let textTransform = v =>
     | FullWidth => "full-width"
     }
   );
+
+type textOverflow =
+  | Clip
+  | Ellipsis;
+
+let textOverflow = value => {
+  let value =
+    switch value {
+    | Clip => "clip"
+    | Ellipsis => "ellipsis"
+    };
+  Property("textOverflow", value);
+};
+
+type overflowWrap =
+  | Normal
+  | BreakWord;
+
+let _overflowWrap = (prop, value) => {
+  let value =
+    switch value {
+    | Normal => "normal"
+    | BreakWord => "break-word"
+    };
+  Property(prop, value);
+};
+
+let overflowWrap = _overflowWrap("overflowWrap");
+
+let wordWrap = _overflowWrap("wordWrap");
 
 let lineHeight = stringProp("lineHeight");
 
@@ -733,6 +1046,13 @@ let bottom = stringProp("bottom");
 
 let margin = stringProp("margin");
 
+let margin2 = (~v, ~h) => Property("margin", {j|$v $h|j});
+
+let margin3 = (~top, ~h, ~bottom) => Property("margin", {j|$top $h $bottom|j});
+
+let margin4 = (~top, ~right, ~bottom, ~left) =>
+  Property("margin", {j|$top $right $bottom $left|j});
+
 let marginLeft = stringProp("marginLeft");
 
 let marginRight = stringProp("marginRight");
@@ -742,6 +1062,14 @@ let marginTop = stringProp("marginTop");
 let marginBottom = stringProp("marginBottom");
 
 let padding = stringProp("padding");
+
+let padding2 = (~v, ~h) => Property("padding", {j|$v $h|j});
+
+let padding3 = (~top, ~h, ~bottom) =>
+  Property("padding", {j|$top $h $bottom|j});
+
+let padding4 = (~top, ~right, ~bottom, ~left) =>
+  Property("padding", {j|$top $right $bottom $left|j});
 
 let paddingLeft = stringProp("paddingLeft");
 
@@ -1168,10 +1496,33 @@ let skewY = a => {j|skewY($a|j};
 
 let perspective = stringProp("perspective");
 
+type whiteSpace =
+  | Normal
+  | Nowrap
+  | Pre
+  | PreWrap
+  | PreLine;
+
+let whiteSpace = value => {
+  let value =
+    switch value {
+    | Normal => "normal"
+    | Nowrap => "nowrap"
+    | Pre => "pre"
+    | PreWrap => "pre-wrap"
+    | PreLine => "pre-line"
+    };
+  Property("whiteSpace", value);
+};
+
 /* PSEUDO CLASSES */
 let selector = (name, rules) => Selector(name, rules);
 
 let hover = selector(":hover");
+
+let before = selector("::before");
+
+let after = selector("::after");
 
 let disabled = selector(":disabled");
 
@@ -1203,7 +1554,41 @@ let media = (query, rules) => Selector("@media " ++ query, rules);
 /* MISC */
 type cursor =
   | Auto
+  | Default
+  | None
+  | ContextMenu
+  | Help
   | Pointer
+  | Progress
+  | Wait
+  | Cell
+  | Crosshair
+  | Text
+  | VerticalText
+  | Alias
+  | Copy
+  | Move
+  | NoDrop
+  | NotAllowed
+  | AllScroll
+  | ColResize
+  | RowResize
+  | NResize
+  | EResize
+  | SResize
+  | WResize
+  | NEResize
+  | NWResize
+  | SEResize
+  | SWResize
+  | EWResize
+  | NSResize
+  | NESWResize
+  | NWSEResize
+  | ZoomIn
+  | ZoomOut
+  | Grab
+  | Grabbing
   | Custom(string);
 
 let cursor = v =>
@@ -1211,7 +1596,41 @@ let cursor = v =>
     "cursor",
     switch v {
     | Auto => "auto"
+    | Default => "default"
+    | None => "none"
+    | ContextMenu => "content-menu"
+    | Help => "help"
     | Pointer => "pointer"
+    | Progress => "progress"
+    | Wait => "wait"
+    | Cell => "cell"
+    | Crosshair => "crosshair"
+    | Text => "text"
+    | VerticalText => "vertical-text"
+    | Alias => "alias"
+    | Copy => "copy"
+    | Move => "move"
+    | NoDrop => "no-drop"
+    | NotAllowed => "not-allowed"
+    | AllScroll => "all-scroill"
+    | ColResize => "col-resize"
+    | RowResize => "row-resize"
+    | NResize => "n-resize"
+    | EResize => "e-resize"
+    | SResize => "s-resize"
+    | WResize => "w-resize"
+    | NEResize => "ne-resize"
+    | NWResize => "nw-resize"
+    | SEResize => "se-resize"
+    | SWResize => "sw-resize"
+    | EWResize => "ew-resize"
+    | NSResize => "ns-resize"
+    | NESWResize => "nesw-resize"
+    | NWSEResize => "nwse-resize"
+    | ZoomIn => "zoom-in"
+    | ZoomOut => "zoom-out"
+    | Grab => "grab"
+    | Grabbing => "grabbing"
     | Custom(cur) => cur
     }
   );
@@ -1228,3 +1647,11 @@ let outlineOffset = stringProp("outlineOffset");
 let outlineWidth = stringProp("outlineWidth");
 
 let outlineColor = stringProp("outlineColor");
+
+module SVG = {
+  let fill = stringProp("fill");
+  let fillOpacity = v => Property("fillOpacity", {j|$v|j});
+  let stroke = stringProp("stroke");
+  let strokeWidth = stringProp("strokeWidth");
+  let strokeOpacity = v => Property("strokeOpacity", {j|$v|j});
+};
