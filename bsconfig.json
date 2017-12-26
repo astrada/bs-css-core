@@ -1,5 +1,6 @@
 {
   "name": "bs-css-core",
+  "namespace": true,
   "refmt": 3,
   "bs-dev-dependencies": ["bs-jest"],
   "sources": [
