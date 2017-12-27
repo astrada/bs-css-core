@@ -58,7 +58,7 @@ type angle;
  }
  * https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes
  */
-type keyframes;
+type keyframeObject;
 
 
 /***
@@ -95,7 +95,7 @@ let style: list(rule) => styleObject('style);
 
 
 /*** Builds a keyframe rule from a list of keyframe blocks. */
-let keyframes: list((string, list(rule))) => keyframes;
+let keyframes: list((string, list(rule))) => keyframeObject;
 
 
 /*** Builds a rule from a property/value string pair. */
@@ -1832,7 +1832,7 @@ let animationIterationCount: animationIterationCount => rule;
  * The animation-name CSS property specifies one or more animations that should be applied to an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/animation-name
  */
-let animationName: keyframes => rule;
+let animationName: keyframeObject => rule;
 
 type animationPlayState =
   | Paused

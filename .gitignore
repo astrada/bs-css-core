@@ -1,9 +1,7 @@
 .*.swp
 .DS_Store
 /node_modules*
-/lib/bs
-/lib/ocaml
-/lib/js/__tests__
+/lib/
 npm-debug.log
 .merlin
 .bsb.lock

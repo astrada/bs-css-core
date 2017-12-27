@@ -1,12 +1,12 @@
 /* Based on https://github.com/SentiaAnalytics/bs-css/blob/master/src/Css.re */
 type styleObject('style) = Js.t({..} as 'style);
 
-type keyframes = Js.Dict.t(Js.Json.t);
+type keyframeObject = Js.Dict.t(Js.Json.t);
 
 type rule =
   | Property(string, string)
   | Selector(string, list(rule))
-  | Keyframes(string, keyframes);
+  | Keyframes(string, keyframeObject);
 
 type angle = string;
 

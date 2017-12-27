@@ -1,6 +1,6 @@
 {
   "name": "bs-css-core",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "BuckleScript statically typed DSL for CSS",
   "main": "src/Css.re",
   "scripts": {
