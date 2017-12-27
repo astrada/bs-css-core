@@ -99,7 +99,7 @@ let keyframes: list((string, list(rule))) => keyframes;
 
 
 /*** Builds a rule from a property/value string pair. */
-let unsafe: (string, string) => rule;
+let unsafe: (string, 'a) => rule;
 
 
 /*** Builds a rule from a descriptor and a list of rules. */
