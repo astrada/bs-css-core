@@ -1520,33 +1520,33 @@ let whiteSpace = value => {
 /* PSEUDO CLASSES */
 let selector = (name, rules) => Selector(name, rules);
 
-let hover = selector(":hover");
+let hover = selector("&:hover");
 
-let before = selector("::before");
+let before = selector("&::before");
 
-let after = selector("::after");
+let after = selector("&::after");
 
-let disabled = selector(":disabled");
+let disabled = selector("&:disabled");
 
-let required = selector(":required");
+let required = selector("&:required");
 
-let readOnly = selector(":readOnly");
+let readOnly = selector("&:readOnly");
 
-let focus = selector(":focus");
+let focus = selector("&:focus");
 
-let active = selector(":active");
+let active = selector("&:active");
 
-let visited = selector(":visited");
+let visited = selector("&:visited");
 
-let link = selector(":link");
+let link = selector("&:link");
 
-let firstChild = selector(":firstChild");
+let firstChild = selector("&:firstChild");
 
-let firstOfType = selector(":firstOfType");
+let firstOfType = selector("&:firstOfType");
 
-let lastChild = selector(":lastChild");
+let lastChild = selector("&:lastChild");
 
-let lastOfType = selector(":lastOfType");
+let lastOfType = selector("&:lastOfType");
 
 let children = selector(" > *");
 
