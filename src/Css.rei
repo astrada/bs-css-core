@@ -1934,6 +1934,8 @@ let transform: transform => rule;
  */
 let transforms: list(transform) => rule;
 
+let transformOrigin: (cssunit, cssunit) => rule;
+
 
 /***
  * The translate() CSS function repositions an element in the horizontal and/or vertical directions.

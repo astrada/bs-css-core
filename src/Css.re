@@ -1472,6 +1472,8 @@ let transform = stringProp("transform");
 
 let transforms = transforms => Property("transform", join(" ", transforms));
 
+let transformOrigin = (x, y) => Property("transform-origin", x ++ " " ++ y);
+
 let translate = (x, y) => {j|translate($x, $y)|j};
 
 let translateX = x => {j|translateX($x)|j};
