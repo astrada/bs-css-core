@@ -1316,7 +1316,10 @@ let gridColumnGap = stringProp("gridColumnGap");
 /* SHADOW */
 type shadow = string;
 
-let shadow = (~x=0, ~y=0, ~blur=0, ~spread=0, color) => {j|$(x)px $(y)px $(blur)px $(spread)px $color|j};
+let shadow = (~x=0, ~y=0, ~blur=0, ~spread=0, ~inset=false, color) => {
+  let insetPrefix = inset ? "inset " : "";
+  {j|$(insetPrefix)$(x)px $(y)px $(blur)px $(spread)px $color|j};
+};
 
 let boxShadow = stringProp("boxShadow");
 

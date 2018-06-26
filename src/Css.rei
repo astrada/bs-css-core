@@ -1758,7 +1758,15 @@ type shadow;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow
  */
 let shadow:
-  (~x: int=?, ~y: int=?, ~blur: int=?, ~spread: int=?, color) => shadow;
+  (
+    ~x: int=?,
+    ~y: int=?,
+    ~blur: int=?,
+    ~spread: int=?,
+    ~inset: bool=?,
+    color
+  ) =>
+  shadow;
 
 
 /***
