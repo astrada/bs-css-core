@@ -1650,6 +1650,8 @@ let outlineWidth = stringProp("outlineWidth");
 
 let outlineColor = stringProp("outlineColor");
 
+let content = s => Property("content", "'" ++ s ++ "'");
+
 module SVG = {
   let fill = stringProp("fill");
   let fillOpacity = v => Property("fillOpacity", {j|$v|j});
