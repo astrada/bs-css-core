@@ -2278,6 +2278,13 @@ let outlineColor: color => rule;
 
 let content: string => rule;
 
+type backgroundOrigin =
+  | BorderBox
+  | ContentBox
+  | PaddingBox;
+
+let backgroundOrigin: backgroundOrigin => rule;
+
 
 /***
  * Scalable Vector Graphics (SVG) is an XML-based markup language for describing two dimensional based vector graphics.

@@ -1652,6 +1652,21 @@ let outlineColor = stringProp("outlineColor");
 
 let content = s => Property("content", "'" ++ s ++ "'");
 
+type backgroundOrigin =
+  | BorderBox
+  | ContentBox
+  | PaddingBox;
+
+let backgroundOrigin = v =>
+  Property(
+    "background-origin",
+    switch (v) {
+    | BorderBox => "border-box"
+    | ContentBox => "content-box"
+    | PaddingBox => "padding-box"
+    },
+  );
+
 module SVG = {
   let fill = stringProp("fill");
   let fillOpacity = v => Property("fillOpacity", {j|$v|j});
