@@ -2302,6 +2302,15 @@ type clear =
 
 let clear: clear => rule;
 
+type userSelect =
+  | Auto
+  | Text
+  | None
+  | Contain
+  | All;
+
+let userSelect: userSelect => rule;
+
 
 /***
  * Scalable Vector Graphics (SVG) is an XML-based markup language for describing two dimensional based vector graphics.

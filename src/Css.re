@@ -1703,6 +1703,25 @@ let clear = v =>
     },
   );
 
+type userSelect =
+  | Auto
+  | Text
+  | None
+  | Contain
+  | All;
+
+let userSelect = v =>
+  Property(
+    "user-select",
+    switch (v) {
+    | Auto => "auto"
+    | Text => "text"
+    | None => "none"
+    | Contain => "contain"
+    | All => "all"
+    },
+  );
+
 module SVG = {
   let fill = stringProp("fill");
   let fillOpacity = v => Property("fillOpacity", {j|$v|j});
