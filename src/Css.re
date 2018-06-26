@@ -14,7 +14,7 @@ external toStyleObject : Js.Json.t => styleObject('style) = "%identity";
 
 let rec makeDict = ruleset => {
   let toJs = rule =>
-    switch rule {
+    switch (rule) {
     | Property(name, value) => (name, Js.Json.string(value))
     | Selector(name, ruleset) => (name, makeDict(ruleset))
     | Keyframes(name, dict) => (name, dict |> Js.Json.object_)
@@ -45,7 +45,7 @@ let keyframes = keyframes =>
 let empty = () => style([]);
 
 let important = v =>
-  switch v {
+  switch (v) {
   | Property(name, value) => Property(name, value ++ " !important")
   | _ => v
   };
@@ -506,7 +506,9 @@ let _encodeExtent =
 type colorStop = (color, cssunit);
 
 let _encodeColorStops = stops =>
-  stops |> List.map(((color, pos)) => {j|$color $pos|j}) |> String.concat(", ");
+  stops
+  |> List.map(((color, pos)) => {j|$color $pos|j})
+  |> String.concat(", ");
 
 type gradient = string;
 
@@ -567,11 +569,11 @@ type visibility =
 let visibility = v =>
   Property(
     "visibility",
-    switch v {
+    switch (v) {
     | Hidden => "hidden"
     | Visible => "visible"
     | Collapse => "collapse"
-    }
+    },
   );
 
 let opacity = v => Property("opacity", {j|$v|j});
@@ -595,7 +597,7 @@ type listStyleType =
 
 let listStyleType = value => {
   let value =
-    switch value {
+    switch (value) {
     | Disc => "disc"
     | Circle => "circle"
     | Square => "square"
@@ -621,7 +623,7 @@ type listStyleImage =
 
 let listStyleImage = value => {
   let value =
-    switch value {
+    switch (value) {
     | None => "none"
     | Url(url) => {j|url($url)|j}
     };
@@ -634,7 +636,7 @@ type listStylePosition =
 
 let listStylePopsition = value => {
   let value =
-    switch value {
+    switch (value) {
     | Inside => "inside"
     | Outside => "outside"
     };
@@ -656,12 +658,12 @@ type backgroundAttachment =
 let backgroundAttachment = v =>
   Property(
     "backgroundAttachment",
-    switch v {
+    switch (v) {
     | Scroll => "scroll"
     | Fixed => "fixed"
     | Local => "local"
     | Initial => "initial"
-    }
+    },
   );
 
 let backgroundColor = stringProp("backgroundColor");
@@ -676,13 +678,13 @@ type backgroundSize =
 let backgroundSize = v =>
   Property(
     "backgroundSize",
-    switch v {
+    switch (v) {
     | Cover => "cover"
     | Contain => "contain"
     | Width(v) => v
     | Height(v) => "auto " ++ v
     | Custom(v, h) => v ++ " " ++ h
-    }
+    },
   );
 
 type backgroundPosition =
@@ -717,14 +719,14 @@ type backgroundRepeat =
 let backgroundRepeat = v =>
   Property(
     "backgroundRepeat",
-    switch v {
+    switch (v) {
     | RepeatX => "repeat-x"
     | RepeatY => "repeat-y"
     | Repeat => "repeat"
     | Space => "space"
     | Round => "round"
     | NoRepeat => "no-repeat"
-    }
+    },
   );
 
 type background =
@@ -735,11 +737,11 @@ type background =
 let background = v =>
   Property(
     "background",
-    switch v {
+    switch (v) {
     | None => "none"
     | Color(color) => color
     | Image(url) => _encodeImage(Url(url))
-    }
+    },
   );
 
 /* TEXT */
@@ -757,11 +759,11 @@ type fontStyle =
 let fontStyle = v =>
   Property(
     "fontStyle",
-    switch v {
+    switch (v) {
     | Normal => "normal"
     | Italic => "italic"
     | Oblique => "oblique"
-    }
+    },
   );
 
 type fontWeight =
@@ -780,7 +782,7 @@ type fontWeight =
 let fontWeight = v =>
   Property(
     "fontWeight",
-    switch v {
+    switch (v) {
     | Normal => "normal"
     | Bold => "bold"
     | W100 => "100"
@@ -792,7 +794,7 @@ let fontWeight = v =>
     | W700 => "700"
     | W800 => "800"
     | W900 => "900"
-    }
+    },
   );
 
 type fontVariant =
@@ -801,7 +803,7 @@ type fontVariant =
 
 let fontVariant = value => {
   let value =
-    switch value {
+    switch (value) {
     | Normal => "normal"
     | SmallCaps => "small-caps"
     };
@@ -823,13 +825,13 @@ type textAlign =
 let textAlign = v =>
   Property(
     "textAlign",
-    switch v {
+    switch (v) {
     | Auto => "auto"
     | Left => "left"
     | Right => "right"
     | Center => "center"
     | Justify => "justify"
-    }
+    },
   );
 
 type textDecoration =
@@ -840,11 +842,11 @@ type textDecoration =
 let textDecoration = v =>
   Property(
     "textDecoration",
-    switch v {
+    switch (v) {
     | None => "none"
     | Underline(color) => "underline " ++ color
     | UnderlineWavy(color) => "underline wavy " ++ color
-    }
+    },
   );
 
 type textDecorationLineValue =
@@ -858,7 +860,7 @@ type textDecorationLine =
 
 let textDecorationLine = value => {
   let value =
-    switch value {
+    switch (value) {
     | None => "none"
     | Values(values) =>
       values
@@ -866,7 +868,7 @@ let textDecorationLine = value => {
            fun
            | Underline => "underline"
            | Overline => "overline"
-           | LineThrough => "line-through"
+           | LineThrough => "line-through",
          )
       |> String.concat(" ")
     };
@@ -882,7 +884,7 @@ type textDecorationStyle =
 
 let textDecorationStyle = value => {
   let value =
-    switch value {
+    switch (value) {
     | Solid => "solid"
     | Double => "double"
     | Dotted => "dotted"
@@ -904,13 +906,13 @@ type textTransform =
 let textTransform = v =>
   Property(
     "textTransform",
-    switch v {
+    switch (v) {
     | None => "none"
     | Uppercase => "uppercase"
     | Lowercase => "lowercase"
     | Capitalize => "capitalize"
     | FullWidth => "full-width"
-    }
+    },
   );
 
 type textOverflow =
@@ -919,7 +921,7 @@ type textOverflow =
 
 let textOverflow = value => {
   let value =
-    switch value {
+    switch (value) {
     | Clip => "clip"
     | Ellipsis => "ellipsis"
     };
@@ -932,7 +934,7 @@ type overflowWrap =
 
 let _overflowWrap = (prop, value) => {
   let value =
-    switch value {
+    switch (value) {
     | Normal => "normal"
     | BreakWord => "break-word"
     };
@@ -957,7 +959,7 @@ type borderStyle =
   | Double;
 
 let borderStyleToString = s =>
-  switch s {
+  switch (s) {
   | None => "none"
   | Hidden => "hidden"
   | Solid => "solid"
@@ -991,7 +993,8 @@ let borderLeftWidth = stringProp("borderLeftWidth");
 
 let borderRightWidth = stringProp("borderRightWidth");
 
-let borderStyle = style => Property("borderStyle", borderStyleToString(style));
+let borderStyle = style =>
+  Property("borderStyle", borderStyleToString(style));
 
 let borderTopStyle = style =>
   Property("borderTopStyle", borderStyleToString(style));
@@ -1050,7 +1053,8 @@ let margin = stringProp("margin");
 
 let margin2 = (~v, ~h) => Property("margin", {j|$v $h|j});
 
-let margin3 = (~top, ~h, ~bottom) => Property("margin", {j|$top $h $bottom|j});
+let margin3 = (~top, ~h, ~bottom) =>
+  Property("margin", {j|$top $h $bottom|j});
 
 let margin4 = (~top, ~right, ~bottom, ~left) =>
   Property("margin", {j|$top $right $bottom $left|j});
@@ -1101,7 +1105,7 @@ type display =
 let display = v =>
   Property(
     "display",
-    switch v {
+    switch (v) {
     | Block => "block"
     | None => "none"
     | Inline => "inline"
@@ -1117,7 +1121,7 @@ let display = v =>
     | InlineTable => "inline-table"
     | InlineFlex => "inline-flex"
     | InlineGrid => "inline-grid"
-    }
+    },
   );
 
 type position =
@@ -1130,13 +1134,13 @@ type position =
 let position = v =>
   Property(
     "position",
-    switch v {
+    switch (v) {
     | Static => "static"
     | Relative => "relative"
     | Absolute => "absolute"
     | Fixed => "fixed"
     | Sticky => "sticky"
-    }
+    },
   );
 
 type boxSizing =
@@ -1146,10 +1150,10 @@ type boxSizing =
 let boxSizing = v =>
   Property(
     "boxSizing",
-    switch v {
+    switch (v) {
     | BorderBox => "border-box"
     | ContentBox => "content-box"
-    }
+    },
   );
 
 type overflow =
@@ -1161,34 +1165,34 @@ type overflow =
 let overflow = o =>
   Property(
     "overflow",
-    switch o {
+    switch (o) {
     | Visible => "visible"
     | Hidden => "hidden"
     | Auto => "auto"
     | Scroll => "scroll"
-    }
+    },
   );
 
 let overflowX = o =>
   Property(
     "overflowX",
-    switch o {
+    switch (o) {
     | Visible => "visible"
     | Hidden => "hidden"
     | Auto => "auto"
     | Scroll => "scroll"
-    }
+    },
   );
 
 let overflowY = o =>
   Property(
     "overflowY",
-    switch o {
+    switch (o) {
     | Visible => "visible"
     | Hidden => "hidden"
     | Auto => "auto"
     | Scroll => "scroll"
-    }
+    },
   );
 
 let zIndex = intProp("zIndex");
@@ -1215,12 +1219,12 @@ type flexDirection =
 let flexDirection = v =>
   Property(
     "flexDirection",
-    switch v {
+    switch (v) {
     | Row => "row"
     | RowReverse => "row-reverse"
     | Column => "column"
     | ColumnReverse => "column-reverse"
-    }
+    },
   );
 
 type flexWrap =
@@ -1230,10 +1234,10 @@ type flexWrap =
 let flexWrap = v =>
   Property(
     "flexWrap",
-    switch v {
+    switch (v) {
     | Wrap => "wrap"
     | NoWrap => "no-wrap"
-    }
+    },
   );
 
 type justify =
@@ -1245,7 +1249,7 @@ type justify =
   | SpaceBetween;
 
 let justifyToString = v =>
-  switch v {
+  switch (v) {
   | FlexStart => "flex-start"
   | FlexEnd => "flex-end"
   | Center => "center"
@@ -1264,7 +1268,7 @@ type alignment =
   | Baseline;
 
 let alignmentToString = v =>
-  switch v {
+  switch (v) {
   | FlexStart => "flex-start"
   | FlexEnd => "flex-end"
   | Center => "center"
@@ -1334,12 +1338,12 @@ type animationDirection =
 let animationDirection = v =>
   Property(
     "animationDirection",
-    switch v {
+    switch (v) {
     | Normal => "normal"
     | Reverse => "reverse"
     | Alternate => "alternate"
     | AlternateReverse => "alternate-reverse"
-    }
+    },
   );
 
 type animationFillMode =
@@ -1351,12 +1355,12 @@ type animationFillMode =
 let animationFillMode = v =>
   Property(
     "animationFillMode",
-    switch v {
+    switch (v) {
     | None => "none"
     | Forwards => "forwards"
     | Backwards => "backwards"
     | Both => "both"
-    }
+    },
   );
 
 type animationIterationCount =
@@ -1366,10 +1370,10 @@ type animationIterationCount =
 let animationIterationCount = v =>
   Property(
     "animationIterationCount",
-    switch v {
+    switch (v) {
     | Infinite => "infinite"
     | Iterate(v) => string_of_int(v)
-    }
+    },
   );
 
 type animationPlayState =
@@ -1379,10 +1383,10 @@ type animationPlayState =
 let animationPlayState = v =>
   Property(
     "animationPlayState",
-    switch v {
+    switch (v) {
     | Paused => "paused"
     | Running => "running"
-    }
+    },
   );
 
 type animationSteps =
@@ -1390,7 +1394,7 @@ type animationSteps =
   | End;
 
 let animationStepsToString = s =>
-  switch s {
+  switch (s) {
   | Start => "start"
   | End => "end"
   };
@@ -1408,7 +1412,7 @@ type timingFunction =
   | Frames(int);
 
 let timingFunctionToString = v =>
-  switch v {
+  switch (v) {
   | Ease => "ease"
   | EaseIn => "ease-in"
   | EaseOut => "ease-out"
@@ -1435,7 +1439,7 @@ let transitionProperty = stringProp("transitionProperty");
 let transitionTimingFunction = v =>
   Property(
     "transitionTimingFunction",
-    switch v {
+    switch (v) {
     | Ease => "ease"
     | EaseIn => "ease-in"
     | EaseOut => "ease-out"
@@ -1445,9 +1449,13 @@ let transitionTimingFunction = v =>
     | StepEnd => "step-end"
     | CubicBezier(x1, y1, x2, y2) => {j|cubic-bezier($x1, $y1, $x2, $y2)|j}
     | Steps(i, s) =>
-      "steps(" ++ string_of_int(i) ++ ", " ++ animationStepsToString(s) ++ ")"
+      "steps("
+      ++ string_of_int(i)
+      ++ ", "
+      ++ animationStepsToString(s)
+      ++ ")"
     | Frames(i) => {j|frames($i)|j}
-    }
+    },
   );
 
 let transition = (~delay=0, ~duration=0, ~timingFunction=Ease, name) => {
@@ -1507,7 +1515,7 @@ type whiteSpace =
 
 let whiteSpace = value => {
   let value =
-    switch value {
+    switch (value) {
     | Normal => "normal"
     | Nowrap => "nowrap"
     | Pre => "pre"
@@ -1598,7 +1606,7 @@ type cursor =
 let cursor = v =>
   Property(
     "cursor",
-    switch v {
+    switch (v) {
     | Auto => "auto"
     | Default => "default"
     | None => "none"
@@ -1636,7 +1644,7 @@ let cursor = v =>
     | Grab => "grab"
     | Grabbing => "grabbing"
     | Custom(cur) => cur
-    }
+    },
   );
 
 let outline = (width, style, color) => {
