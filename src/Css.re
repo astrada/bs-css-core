@@ -690,18 +690,20 @@ type backgroundPosition =
   | Bottom
   | Left
   | Right
-  | Center;
+  | Center
+  | Custom(cssunit, cssunit);
 
 let backgroundPosition = v =>
   Property(
     "backgroundPosition",
-    switch v {
+    switch (v) {
     | Top => "top"
     | Bottom => "bottom"
     | Left => "left"
     | Right => "right"
     | Center => "center"
-    }
+    | Custom(x, y) => x ++ " " ++ y
+    },
   );
 
 type backgroundRepeat =

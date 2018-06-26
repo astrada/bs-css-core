@@ -820,7 +820,8 @@ type backgroundPosition =
   | Bottom
   | Left
   | Right
-  | Center;
+  | Center
+  | Custom(cssunit, cssunit);
 
 
 /***
