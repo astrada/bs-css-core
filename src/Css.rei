@@ -850,7 +850,8 @@ let backgroundRepeat: backgroundRepeat => rule;
 type background =
   | None
   | Color(color)
-  | Image(string);
+  | Image(string)
+  | Gradient(gradient);
 
 
 /***

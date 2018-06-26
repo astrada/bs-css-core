@@ -732,7 +732,8 @@ let backgroundRepeat = v =>
 type background =
   | None
   | Color(color)
-  | Image(string);
+  | Image(string)
+  | Gradient(gradient);
 
 let background = v =>
   Property(
@@ -741,6 +742,7 @@ let background = v =>
     | None => "none"
     | Color(color) => color
     | Image(url) => _encodeImage(Url(url))
+    | Gradient(gradient) => gradient
     },
   );
 
