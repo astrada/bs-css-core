@@ -2285,6 +2285,23 @@ type backgroundOrigin =
 
 let backgroundOrigin: backgroundOrigin => rule;
 
+type float =
+  | Left
+  | Right
+  | Start
+  | InlineStart
+  | InlineEnd;
+
+let float: float => rule;
+
+type clear =
+  | None
+  | Left
+  | Right
+  | Both;
+
+let clear: clear => rule;
+
 
 /***
  * Scalable Vector Graphics (SVG) is an XML-based markup language for describing two dimensional based vector graphics.

@@ -1667,6 +1667,42 @@ let backgroundOrigin = v =>
     },
   );
 
+type float =
+  | Left
+  | Right
+  | Start
+  | InlineStart
+  | InlineEnd;
+
+let float = v =>
+  Property(
+    "float",
+    switch (v) {
+    | Left => "left"
+    | Right => "right"
+    | Start => "start"
+    | InlineStart => "inline-start"
+    | InlineEnd => "inline-end"
+    },
+  );
+
+type clear =
+  | None
+  | Left
+  | Right
+  | Both;
+
+let clear = v =>
+  Property(
+    "clear",
+    switch (v) {
+    | None => "none"
+    | Left => "left"
+    | Right => "right"
+    | Both => "both"
+    },
+  );
+
 module SVG = {
   let fill = stringProp("fill");
   let fillOpacity = v => Property("fillOpacity", {j|$v|j});
