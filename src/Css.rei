@@ -2311,6 +2311,8 @@ type userSelect =
 
 let userSelect: userSelect => rule;
 
+let animation: string => rule;
+
 
 /***
  * Scalable Vector Graphics (SVG) is an XML-based markup language for describing two dimensional based vector graphics.

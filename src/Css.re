@@ -1722,6 +1722,8 @@ let userSelect = v =>
     },
   );
 
+let animation = name => Property("animation-name", name);
+
 module SVG = {
   let fill = stringProp("fill");
   let fillOpacity = v => Property("fillOpacity", {j|$v|j});
