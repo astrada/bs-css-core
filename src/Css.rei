@@ -2149,6 +2149,8 @@ let before: list(rule) => rule;
  */
 let after: list(rule) => rule;
 
+let placeholder: list(rule) => rule;
+
 
 /***
  * The :first-child CSS pseudo-class represents the first element among a group of sibling elements.

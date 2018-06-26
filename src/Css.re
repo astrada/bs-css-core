@@ -1526,6 +1526,8 @@ let before = selector("&::before");
 
 let after = selector("&::after");
 
+let placeholder = selector("&::placeholder");
+
 let disabled = selector("&:disabled");
 
 let required = selector("&:required");
