@@ -1734,6 +1734,19 @@ let userSelect = v =>
     },
   );
 
+type pointerEvents =
+  | Auto
+  | None;
+
+let pointerEvents = v =>
+  Property(
+    "pointer-events",
+    switch (v) {
+    | Auto => "auto"
+    | None => "none"
+    },
+  );
+
 let animation = name => Property("animation-name", name);
 
 module SVG = {

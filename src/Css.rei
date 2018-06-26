@@ -2314,6 +2314,12 @@ type userSelect =
 
 let userSelect: userSelect => rule;
 
+type pointerEvents =
+  | Auto
+  | None;
+
+let pointerEvents: pointerEvents => rule;
+
 let animation: string => rule;
 
 
