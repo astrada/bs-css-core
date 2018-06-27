@@ -1928,6 +1928,19 @@ let transition:
   ) =>
   rule;
 
+type singleTransition = string;
+
+let singleTransition:
+  (
+    ~delay: int=?,
+    ~duration: int=?,
+    ~timingFunction: timingFunction=?,
+    string
+  ) =>
+  singleTransition;
+
+let transitions: list(singleTransition) => rule;
+
 /* TRANSFORM */
 
 /***

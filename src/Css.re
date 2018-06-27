@@ -1463,10 +1463,21 @@ let transitionTimingFunction = v =>
     },
   );
 
-let transition = (~delay=0, ~duration=0, ~timingFunction=Ease, name) => {
+type singleTransition = string;
+
+let singleTransition = (~delay=0, ~duration=0, ~timingFunction=Ease, name) => {
   let func = timingFunctionToString(timingFunction);
-  Property("transition", {j|$name $(duration)ms $func $(delay)ms|j});
+  {j|$name $(duration)ms $func $(delay)ms|j};
 };
+
+let transition = (~delay=0, ~duration=0, ~timingFunction=Ease, name) =>
+  Property(
+    "transition",
+    singleTransition(~delay, ~duration, ~timingFunction, name),
+  );
+
+let transitions = singleTransitions =>
+  Property("transition", join(", ", singleTransitions));
 
 /* TRANSFORM */
 type transform = string;
