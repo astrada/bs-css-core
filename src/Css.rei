@@ -820,7 +820,8 @@ type backgroundPosition =
   | Bottom
   | Left
   | Right
-  | Center;
+  | Center
+  | Custom(cssunit, cssunit);
 
 
 /***
@@ -849,7 +850,8 @@ let backgroundRepeat: backgroundRepeat => rule;
 type background =
   | None
   | Color(color)
-  | Image(string);
+  | Image(string)
+  | Gradient(gradient);
 
 
 /***
@@ -1756,7 +1758,15 @@ type shadow;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow
  */
 let shadow:
-  (~x: int=?, ~y: int=?, ~blur: int=?, ~spread: int=?, color) => shadow;
+  (
+    ~x: int=?,
+    ~y: int=?,
+    ~blur: int=?,
+    ~spread: int=?,
+    ~inset: bool=?,
+    color
+  ) =>
+  shadow;
 
 
 /***
@@ -1918,6 +1928,19 @@ let transition:
   ) =>
   rule;
 
+type singleTransition = string;
+
+let singleTransition:
+  (
+    ~delay: int=?,
+    ~duration: int=?,
+    ~timingFunction: timingFunction=?,
+    string
+  ) =>
+  singleTransition;
+
+let transitions: list(singleTransition) => rule;
+
 /* TRANSFORM */
 
 /***
@@ -1931,6 +1954,8 @@ let transform: transform => rule;
  * Builds multiple transforms.
  */
 let transforms: list(transform) => rule;
+
+let transformOrigin: (cssunit, cssunit) => rule;
 
 
 /***
@@ -2148,6 +2173,8 @@ let before: list(rule) => rule;
  */
 let after: list(rule) => rule;
 
+let placeholder: list(rule) => rule;
+
 
 /***
  * The :first-child CSS pseudo-class represents the first element among a group of sibling elements.
@@ -2274,6 +2301,49 @@ let outlineWidth: cssunit => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/outline-color
  */
 let outlineColor: color => rule;
+
+let content: string => rule;
+
+type backgroundOrigin =
+  | BorderBox
+  | ContentBox
+  | PaddingBox;
+
+let backgroundOrigin: backgroundOrigin => rule;
+
+type float =
+  | Left
+  | Right
+  | Start
+  | InlineStart
+  | InlineEnd;
+
+let float: float => rule;
+
+type clear =
+  | None
+  | Left
+  | Right
+  | Both;
+
+let clear: clear => rule;
+
+type userSelect =
+  | Auto
+  | Text
+  | None
+  | Contain
+  | All;
+
+let userSelect: userSelect => rule;
+
+type pointerEvents =
+  | Auto
+  | None;
+
+let pointerEvents: pointerEvents => rule;
+
+let animation: string => rule;
 
 
 /***
