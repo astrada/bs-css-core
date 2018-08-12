@@ -12,28 +12,29 @@ for practical examples of usage.
 ## Installation
 
 ```sh
-yarn add --dev bs-css-core
+yarn add @astrada/bs-css-core
 ```
 
-In your `bsconfig.json`, include `"bs-css-core"` in the `bs-dependencies`.
+In your `bsconfig.json`, include `"@astrada/bs-css-core"` in the
+`bs-dependencies`.
 
 ## Usage
 
 ```reason
 type theme = {
   textColor: Css.color,
-  basePadding: Css.cssunit
+  basePadding: Css.length
 };
 
 let makeStyle = (theme) =>
   Css.(
     style([
       backgroundColor(white),
-      boxShadow(shadow(~y=3, ~blur=5, rgba(0, 0, 0, 0.3))),
+      boxShadows([boxShadow(~y=px(3), ~blur=px(5), rgba(0, 0, 0, 0.3))]),
       padding(theme.basePadding),
       fontSize(rem(1.5)),
       color(theme.textColor),
-      marginBottom(theme.basePadding)
+      marginBottom(px(10))
     ])
   );
 ```
@@ -72,7 +73,7 @@ yarn start
 
 ## Where is the documentation?
 
-Check out [css.rei](./src/Css.rei).
+Check out [Css.rei](./src/Css.rei).
 
 ## Thanks
 

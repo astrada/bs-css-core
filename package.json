@@ -1,31 +1,27 @@
 {
-  "name": "bs-css-core",
-  "version": "0.2.2",
+  "name": "@astrada/bs-css-core",
+  "version": "0.3.0",
   "description": "BuckleScript statically typed DSL for CSS",
   "main": "src/Css.re",
   "scripts": {
     "build": "bsb -make-world",
-    "webpack": "webpack -w",
     "start": "bsb -make-world -w",
     "test": "yarn build && jest"
   },
-  "keywords": [
-    "bucklescript",
-    "reason",
-    "css"
-  ],
-  "author": "Jan Poeschko <jan@poeschko.com>",
-  "contributors": [
-    "Sentia (http://www.sentia.io)",
-    "Alessandro Strada <alessandro.strada@gmail.com>"
-  ],
+  "keywords": ["bucklescript", "reason", "css"],
+  "author": "Andreas Møller <andreas@sentia.ai>",
+  "contributors": ["Alessandro Strada <alessandro.strada@gmail.com>"],
   "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/astrada/bs-css-core.git"
   },
   "devDependencies": {
-    "bs-jest": "^0.2.0",
-    "bs-platform": "^2.1.0"
+    "@glennsl/bs-jest": "^0.4.2",
+    "bs-platform": "^4.0.3",
+    "reason-react": "^0.5.0"
+  },
+  "jest": {
+    "testURL": "http://localhost/"
   }
 }

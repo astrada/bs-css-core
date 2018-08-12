@@ -1,0 +1,359 @@
+
+    
+<!doctype html>
+<meta charset=utf8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel=stylesheet href='./styles.css'>
+<script defer src='./script.js'></script>
+<title>Home</title>
+<body>
+<script>window.relativeToRoot="./"</script>
+<script defer src="./block-script.js"></script>
+<div id='error-message'>
+  ⚠️ Oops! This page doesn't appear to define a <span>type</span> called <code>_</code>.
+</div>
+
+    
+    <div class='container'>
+    
+    <div class='sidebar-wrapper'>
+    <div class='sidebar-expander'>Show navigation</div>
+    <div class='sidebar'>
+      <a href="./search.html" style="display: block; padding: 0 8px;">Search</a>
+      
+      <div class='docs-listing'><a href="./index.html">Home</a></div>
+      <div class='toc-header'>Page Contents</div>
+      <div class='table-of-contents'>
+      <a href="#bs-css-core" class='level-1 header'>bs-css-core</a>
+<a href="#installation" class='level-2 header'>Installation</a>
+<a href="#usage" class='level-2 header'>Usage</a>
+<a href="#development" class='level-2 header'>Development</a>
+<a href="#where-is-the-documentation-" class='level-2 header'>Where is the documentation?</a>
+<a href="#thanks" class='level-2 header'>Thanks</a>
+      </div>
+      <div class='project-title'>Package modules</div><div class='project-listing'><a href="./api/Css.html">Css</a></div>
+    </div>
+    </div>
+  
+    <div class='main'>
+    <a href="https://github.com/astrada/bs-css-core/blob/master/README.md" class="edit-link">Edit</a>
+    <a href="#bs-css-core" id="bs-css-core"><h1>bs-css-core</h1></a>
+
+<p>Statically typed DSL for writing CSS in ReasonML.</p>
+<p>This is a fork of <a href="https://github.com/SentiaAnalytics/bs-css" target="_blank" rel="noopener nofollow" title="" class="external-link">bs-css</a> that
+extracts the Css module, so that it can be used by various CSS-in-JS bindings.
+See <a href="https://github.com/astrada/bs-react-fela-examples" target="_blank" rel="noopener nofollow" title="" class="external-link">bs-react-fela-examples</a>
+and
+<a href="https://github.com/astrada/bs-styletron-react-examples" target="_blank" rel="noopener nofollow" title="" class="external-link">bs-styletron-react-examples</a>
+for practical examples of usage.</p>
+<a href="#installation" id="installation"><h2>Installation</h2></a>
+
+<pre class='code-txt sh'><code class='sh'>yarn add --dev bs-css-core</code></pre>
+
+<p>In your <code>bsconfig.json</code>, include <code>&quot;bs-css-core&quot;</code> in the <code>bs-dependencies</code>.</p>
+<a href="#usage" id="usage"><h2>Usage</h2></a>
+
+<div class='code-block' data-block-syntax="re">
+  
+  <pre class='code' data-block-id='1' id='block-1'><code>type theme = {
+  textColor: <span class='type-constructor'>Css.color</span>,
+  basePadding: <span class='type-constructor'>Css.length</span>
+};
+
+let <span class='pattern-ident' data-type="theme => Css.styleObject(&lt; .. &gt;)">makeStyle</span> = (<span class='pattern-ident' data-type="theme">theme</span>) =&gt;
+  Css.(
+    <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>([
+      <span data-type="list(Css.rule)"><span class='ident' data-type="Css.color => Css.rule">backgroundColor</span>(<span class='ident' data-type="Css.color">white</span>),
+      <span data-type="list(Css.rule)"><span class='ident' data-type="list([ `shadow of string ]) => Css.rule">boxShadows</span>([<span data-type="list([ `shadow of string ])"><span class='ident' data-type="(
+  ~?x: option(Css.length),
+  ~?y: option(Css.length),
+  ~?blur: option(Css.length),
+  ~?spread: option(Css.length),
+  ~?inset: option(bool),
+  Css.color
+) => [ `shadow of string ]">boxShadow</span>(~y=<span class='ident' data-type="int => Css.length">px</span>(<span class='int' data-type="int">3</span>), ~blur=<span class='ident' data-type="int => Css.length">px</span>(<span class='int' data-type="int">5</span>), <span class='ident' data-type="(int, int, int, float) => Css.color">rgba</span>(<span class='int' data-type="int">0</span>, <span class='int' data-type="int">0</span>, <span class='int' data-type="int">0</span>, <span class='float' data-type="float">0.3</span>))</span>]),
+      <span data-type="list(Css.rule)"><span class='ident' data-type="Css.length => Css.rule">padding</span>(<span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.length">basePadding</span>),
+      <span data-type="list(Css.rule)"><span class='ident' data-type="Css.length => Css.rule">fontSize</span>(<span class='ident' data-type="float => Css.length">rem</span>(<span class='float' data-type="float">1.5</span>)),
+      <span data-type="list(Css.rule)"><span class='ident' data-type="Css.color => Css.rule">color</span>(<span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.color">textColor</span>),
+      <span data-type="list(Css.rule)"><span class='ident' data-type="[ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ] => Css.rule">marginBottom</span>(<span class='ident' data-type="int => [ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ]">px</span>(<span class='int' data-type="int">10</span>))</span></span></span></span></span></span>
+    ])
+  );</code></pre>
+  
+  
+  
+</div><div class='code-block' data-block-syntax="ml">
+  
+  <pre class='code' data-block-id='1-alt' id='block-1-alt'><code>[@@@ocaml.ppx.context { cookies = [] }]
+type theme = {
+  textColor: <span class='type-constructor'>Css.color</span>;
+  basePadding: <span class='type-constructor'>Css.length</span>;}
+let <span class='pattern-ident' data-type="theme => Css.styleObject(&lt; .. &gt;)">makeStyle</span> <span class='pattern-ident' data-type="theme">theme</span> =
+  let open Css in
+    <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>
+      [<span class='ident' data-type="Css.color => Css.rule">backgroundColor</span> <span class='ident' data-type="Css.color">white</span>;
+      <span class='ident' data-type="list([ `shadow of string ]) => Css.rule">boxShadows</span> [<span class='ident' data-type="(
+  ~?x: option(Css.length),
+  ~?y: option(Css.length),
+  ~?blur: option(Css.length),
+  ~?spread: option(Css.length),
+  ~?inset: option(bool),
+  Css.color
+) => [ `shadow of string ]">boxShadow</span> ~y:(<span class='ident' data-type="int => Css.length">px</span> <span class='int' data-type="int">3</span>) ~blur:(<span class='ident' data-type="int => Css.length">px</span> <span class='int' data-type="int">5</span>) (<span class='ident' data-type="(int, int, int, float) => Css.color">rgba</span> <span class='int' data-type="int">0</span> <span class='int' data-type="int">0</span> <span class='int' data-type="int">0</span> <span class='float' data-type="float">0.3</span>)];
+      <span class='ident' data-type="Css.length => Css.rule">padding</span> <span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.length">basePadding</span>;
+      <span class='ident' data-type="Css.length => Css.rule">fontSize</span> (<span class='ident' data-type="float => Css.length">rem</span> <span class='float' data-type="float">1.5</span>);
+      <span class='ident' data-type="Css.color => Css.rule">color</span> <span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.color">textColor</span>;
+      <span class='ident' data-type="[ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ] => Css.rule">marginBottom</span> (<span class='ident' data-type="int => [ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ]">px</span> <span class='int' data-type="int">10</span>)]</code></pre>
+  
+  
+  
+</div>
+
+<p><strong>Keyframes</strong></p>
+<p>Define animation keyframes;</p>
+<div class='code-block' data-block-syntax="re">
+  
+  <pre class='code' data-block-id='0' id='block-0'><code>let <span class='pattern-ident' data-type="Css.animation">bounce</span> =
+  Css.(
+    <span class='ident' data-type="list((string, list(Css.rule))) => Css.animation">keyframes</span>([
+      <span data-type="list((string, list(Css.rule)))">(<span class='string' data-type="string">&quot;0%&quot;</span>, [<span data-type="list(Css.rule)"><span class='ident' data-type="Css.transform => Css.rule">transform</span>(<span class='ident' data-type="(float, float) => Css.transform">scale</span>(<span class='float' data-type="float">0.1</span>, <span class='float' data-type="float">0.1</span>)), <span data-type="list(Css.rule)"><span class='ident' data-type="float => Css.rule">opacity</span>(<span class='float' data-type="float">0.0</span>)</span></span>]),
+      <span data-type="list((string, list(Css.rule)))">(<span class='string' data-type="string">&quot;60%&quot;</span>, [<span data-type="list(Css.rule)"><span class='ident' data-type="Css.transform => Css.rule">transform</span>(<span class='ident' data-type="(float, float) => Css.transform">scale</span>(<span class='float' data-type="float">1.2</span>, <span class='float' data-type="float">1.2</span>)), <span data-type="list(Css.rule)"><span class='ident' data-type="float => Css.rule">opacity</span>(<span class='float' data-type="float">1.0</span>)</span></span>]),
+      <span data-type="list((string, list(Css.rule)))">(<span class='string' data-type="string">&quot;100%&quot;</span>, [<span data-type="list(Css.rule)"><span class='ident' data-type="Css.transform => Css.rule">transform</span>(<span class='ident' data-type="(float, float) => Css.transform">scale</span>(<span class='float' data-type="float">1.0</span>, <span class='float' data-type="float">1.0</span>)), <span data-type="list(Css.rule)"><span class='ident' data-type="float => Css.rule">opacity</span>(<span class='float' data-type="float">1.0</span>)</span></span>])</span></span></span>
+    ])
+  );
+
+let <span class='pattern-ident' data-type="'a => Css.styleObject(&lt; .. &gt;)">makeStyle</span> = (<span class='pattern-ident' data-type="'a">_theme</span>) =&gt;
+  Css.(
+    <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>([
+      <span data-type="list(Css.rule)"><span class='ident' data-type="Css.animation => Css.rule">animationName</span>(<span class='ident' data-type="Css.animation">bounce</span>),
+      <span data-type="list(Css.rule)"><span class='ident' data-type="int => Css.rule">animationDuration</span>(<span class='int' data-type="int">2000</span>),
+      <span data-type="list(Css.rule)"><span class='ident' data-type="[ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ] => Css.rule">width</span>(<span class='ident' data-type="int => [ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ]">px</span>(<span class='int' data-type="int">50</span>)),
+      <span data-type="list(Css.rule)"><span class='ident' data-type="[ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ] => Css.rule">height</span>(<span class='ident' data-type="int => [ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ]">px</span>(<span class='int' data-type="int">50</span>)),
+      <span data-type="list(Css.rule)"><span class='ident' data-type="Css.color => Css.rule">backgroundColor</span>(<span class='ident' data-type="(int, int, int) => Css.color">rgb</span>(<span class='int' data-type="int">255</span>, <span class='int' data-type="int">0</span>, <span class='int' data-type="int">0</span>))</span></span></span></span></span>
+    ])
+  );</code></pre>
+  
+  
+  
+</div><div class='code-block' data-block-syntax="ml">
+  
+  <pre class='code' data-block-id='0-alt' id='block-0-alt'><code>[@@@ocaml.ppx.context { cookies = [] }]
+let <span class='pattern-ident' data-type="Css.animation">bounce</span> =
+  let open Css in
+    <span class='ident' data-type="list((string, list(Css.rule))) => Css.animation">keyframes</span>
+      [(((&quot;0%&quot;)[@reason.raw_literal &quot;0%&quot;]),
+         [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">0.1</span> <span class='float' data-type="float">0.1</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">0.0</span>]);
+      (((&quot;60%&quot;)[@reason.raw_literal &quot;60%&quot;]),
+        [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">1.2</span> <span class='float' data-type="float">1.2</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">1.0</span>]);
+      (((&quot;100%&quot;)[@reason.raw_literal &quot;100%&quot;]),
+        [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">1.0</span> <span class='float' data-type="float">1.0</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">1.0</span>])]
+let <span class='pattern-ident' data-type="'a => Css.styleObject(&lt; .. &gt;)">makeStyle</span> <span class='pattern-ident' data-type="'a">_theme</span> =
+  let open Css in
+    <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>
+      [<span class='ident' data-type="Css.animation => Css.rule">animationName</span> <span class='ident' data-type="Css.animation">bounce</span>;
+      <span class='ident' data-type="int => Css.rule">animationDuration</span> <span class='int' data-type="int">2000</span>;
+      <span class='ident' data-type="[ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ] => Css.rule">width</span> (<span class='ident' data-type="int => [ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ]">px</span> <span class='int' data-type="int">50</span>);
+      <span class='ident' data-type="[ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ] => Css.rule">height</span> (<span class='ident' data-type="int => [ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `auto
+| `percent of float
+| `vmin of float
+| `vmax of float
+| `calc of [ `sub | `add ] * Css.length * Css.length
+| `em of float ]">px</span> <span class='int' data-type="int">50</span>);
+      <span class='ident' data-type="Css.color => Css.rule">backgroundColor</span> (<span class='ident' data-type="(int, int, int) => Css.color">rgb</span> <span class='int' data-type="int">255</span> <span class='int' data-type="int">0</span> <span class='int' data-type="int">0</span>)]</code></pre>
+  
+  
+  
+</div>
+
+<a href="#development" id="development"><h2>Development</h2></a>
+
+<pre class='code-txt sh'><code class='sh'>yarn start</code></pre>
+
+<a href="#where-is-the-documentation-" id="where-is-the-documentation-"><h2>Where is the documentation?</h2></a>
+
+<p>Check out <a href="/home/alex/src/bs-css-core/docs/src/Css.rei" title="">css.rei</a>.</p>
+<a href="#thanks" id="thanks"><h2>Thanks</h2></a>
+
+<p>Thanks to <a href="https://github.com/SentiaAnalytics/bs-css" target="_blank" rel="noopener nofollow" title="" class="external-link">bs-css</a> that introduced
+the DSL. Thanks to <a href="https://github.com/poeschko/bs-glamor" target="_blank" rel="noopener nofollow" title="" class="external-link">bs-glamor</a> which
+bs-css was forked from. Thanks to
+<a href="https://github.com/rtfeldman/elm-css" target="_blank" rel="noopener nofollow" title="" class="external-link">elm-css</a> for DSL design inspiration.</p>
+
+    </div>
+    <div class='right-blank'></div>
+    </div>
+  
