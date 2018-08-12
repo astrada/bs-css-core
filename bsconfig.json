@@ -1,5 +1,5 @@
 {
-  "name": "bs-css-core",
+  "name": "@astrada/bs-css-core",
   "refmt": 3,
   "bs-dev-dependencies": ["@glennsl/bs-jest"],
   "sources": [
