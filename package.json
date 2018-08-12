@@ -1,6 +1,6 @@
 {
   "name": "@astrada/bs-css-core",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "BuckleScript statically typed DSL for CSS",
   "main": "src/Css.re",
   "scripts": {
