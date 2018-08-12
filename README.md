@@ -73,7 +73,8 @@ yarn start
 
 ## Where is the documentation?
 
-Check out [Css.rei](./src/Css.rei).
+Documentation generated with [redoc](https://github.com/jaredly/redoc) is
+published [here](https://astrada.github.io/bs-css-core/).
 
 ## Thanks
 
@@ -81,3 +82,4 @@ Thanks to [bs-css](https://github.com/SentiaAnalytics/bs-css) that introduced
 the DSL. Thanks to [bs-glamor](https://github.com/poeschko/bs-glamor) which
 bs-css was forked from. Thanks to
 [elm-css](https://github.com/rtfeldman/elm-css) for DSL design inspiration.
+Thanks to @jaredly for [redoc](https://github.com/jaredly/redoc).
