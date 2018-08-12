@@ -48,9 +48,10 @@ and
 for practical examples of usage.</p>
 <a href="#installation" id="installation"><h2>Installation</h2></a>
 
-<pre class='code-txt sh'><code class='sh'>yarn add --dev bs-css-core</code></pre>
+<pre class='code-txt sh'><code class='sh'>yarn add @astrada/bs-css-core</code></pre>
 
-<p>In your <code>bsconfig.json</code>, include <code>&quot;bs-css-core&quot;</code> in the <code>bs-dependencies</code>.</p>
+<p>In your <code>bsconfig.json</code>, include <code>&quot;@astrada/bs-css-core&quot;</code> in the
+<code>bs-dependencies</code>.</p>
 <a href="#usage" id="usage"><h2>Usage</h2></a>
 
 <div class='code-block' data-block-syntax="re">
@@ -174,10 +175,10 @@ let <span class='pattern-ident' data-type="theme => Css.styleObject(&lt; .. &gt;
   
   <pre class='code' data-block-id='0' id='block-0'><code>let <span class='pattern-ident' data-type="Css.animation">bounce</span> =
   Css.(
-    <span class='ident' data-type="list((string, list(Css.rule))) => Css.animation">keyframes</span>([
-      <span data-type="list((string, list(Css.rule)))">(<span class='string' data-type="string">&quot;0%&quot;</span>, [<span data-type="list(Css.rule)"><span class='ident' data-type="Css.transform => Css.rule">transform</span>(<span class='ident' data-type="(float, float) => Css.transform">scale</span>(<span class='float' data-type="float">0.1</span>, <span class='float' data-type="float">0.1</span>)), <span data-type="list(Css.rule)"><span class='ident' data-type="float => Css.rule">opacity</span>(<span class='float' data-type="float">0.0</span>)</span></span>]),
-      <span data-type="list((string, list(Css.rule)))">(<span class='string' data-type="string">&quot;60%&quot;</span>, [<span data-type="list(Css.rule)"><span class='ident' data-type="Css.transform => Css.rule">transform</span>(<span class='ident' data-type="(float, float) => Css.transform">scale</span>(<span class='float' data-type="float">1.2</span>, <span class='float' data-type="float">1.2</span>)), <span data-type="list(Css.rule)"><span class='ident' data-type="float => Css.rule">opacity</span>(<span class='float' data-type="float">1.0</span>)</span></span>]),
-      <span data-type="list((string, list(Css.rule)))">(<span class='string' data-type="string">&quot;100%&quot;</span>, [<span data-type="list(Css.rule)"><span class='ident' data-type="Css.transform => Css.rule">transform</span>(<span class='ident' data-type="(float, float) => Css.transform">scale</span>(<span class='float' data-type="float">1.0</span>, <span class='float' data-type="float">1.0</span>)), <span data-type="list(Css.rule)"><span class='ident' data-type="float => Css.rule">opacity</span>(<span class='float' data-type="float">1.0</span>)</span></span>])</span></span></span>
+    <span class='ident' data-type="list((int, list(Css.rule))) => Css.animation">keyframes</span>([
+      <span data-type="list((int, list(Css.rule)))">(<span class='int' data-type="int">0</span>, [<span data-type="list(Css.rule)"><span class='ident' data-type="Css.transform => Css.rule">transform</span>(<span class='ident' data-type="(float, float) => Css.transform">scale</span>(<span class='float' data-type="float">0.1</span>, <span class='float' data-type="float">0.1</span>)), <span data-type="list(Css.rule)"><span class='ident' data-type="float => Css.rule">opacity</span>(<span class='float' data-type="float">0.0</span>)</span></span>]),
+      <span data-type="list((int, list(Css.rule)))">(<span class='int' data-type="int">60</span>, [<span data-type="list(Css.rule)"><span class='ident' data-type="Css.transform => Css.rule">transform</span>(<span class='ident' data-type="(float, float) => Css.transform">scale</span>(<span class='float' data-type="float">1.2</span>, <span class='float' data-type="float">1.2</span>)), <span data-type="list(Css.rule)"><span class='ident' data-type="float => Css.rule">opacity</span>(<span class='float' data-type="float">1.0</span>)</span></span>]),
+      <span data-type="list((int, list(Css.rule)))">(<span class='int' data-type="int">100</span>, [<span data-type="list(Css.rule)"><span class='ident' data-type="Css.transform => Css.rule">transform</span>(<span class='ident' data-type="(float, float) => Css.transform">scale</span>(<span class='float' data-type="float">1.0</span>, <span class='float' data-type="float">1.0</span>)), <span data-type="list(Css.rule)"><span class='ident' data-type="float => Css.rule">opacity</span>(<span class='float' data-type="float">1.0</span>)</span></span>])</span></span></span>
     ])
   );
 
@@ -259,13 +260,10 @@ let <span class='pattern-ident' data-type="'a => Css.styleObject(&lt; .. &gt;)">
   <pre class='code' data-block-id='0-alt' id='block-0-alt'><code>[@@@ocaml.ppx.context { cookies = [] }]
 let <span class='pattern-ident' data-type="Css.animation">bounce</span> =
   let open Css in
-    <span class='ident' data-type="list((string, list(Css.rule))) => Css.animation">keyframes</span>
-      [(((&quot;0%&quot;)[@reason.raw_literal &quot;0%&quot;]),
-         [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">0.1</span> <span class='float' data-type="float">0.1</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">0.0</span>]);
-      (((&quot;60%&quot;)[@reason.raw_literal &quot;60%&quot;]),
-        [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">1.2</span> <span class='float' data-type="float">1.2</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">1.0</span>]);
-      (((&quot;100%&quot;)[@reason.raw_literal &quot;100%&quot;]),
-        [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">1.0</span> <span class='float' data-type="float">1.0</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">1.0</span>])]
+    <span class='ident' data-type="list((int, list(Css.rule))) => Css.animation">keyframes</span>
+      [(<span class='int' data-type="int">0</span>, [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">0.1</span> <span class='float' data-type="float">0.1</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">0.0</span>]);
+      (<span class='int' data-type="int">60</span>, [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">1.2</span> <span class='float' data-type="float">1.2</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">1.0</span>]);
+      (<span class='int' data-type="int">100</span>, [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">1.0</span> <span class='float' data-type="float">1.0</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">1.0</span>])]
 let <span class='pattern-ident' data-type="'a => Css.styleObject(&lt; .. &gt;)">makeStyle</span> <span class='pattern-ident' data-type="'a">_theme</span> =
   let open Css in
     <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>
@@ -345,13 +343,15 @@ let <span class='pattern-ident' data-type="'a => Css.styleObject(&lt; .. &gt;)">
 
 <a href="#where-is-the-documentation-" id="where-is-the-documentation-"><h2>Where is the documentation?</h2></a>
 
-<p>Check out <a href="/home/alex/src/bs-css-core/docs/src/Css.rei" title="">css.rei</a>.</p>
+<p>Documentation generated with <a href="https://github.com/jaredly/redoc" target="_blank" rel="noopener nofollow" title="" class="external-link">redoc</a> is
+published <a href="https://astrada.github.io/bs-css-core/" target="_blank" rel="noopener nofollow" title="" class="external-link">here</a>.</p>
 <a href="#thanks" id="thanks"><h2>Thanks</h2></a>
 
 <p>Thanks to <a href="https://github.com/SentiaAnalytics/bs-css" target="_blank" rel="noopener nofollow" title="" class="external-link">bs-css</a> that introduced
 the DSL. Thanks to <a href="https://github.com/poeschko/bs-glamor" target="_blank" rel="noopener nofollow" title="" class="external-link">bs-glamor</a> which
 bs-css was forked from. Thanks to
-<a href="https://github.com/rtfeldman/elm-css" target="_blank" rel="noopener nofollow" title="" class="external-link">elm-css</a> for DSL design inspiration.</p>
+<a href="https://github.com/rtfeldman/elm-css" target="_blank" rel="noopener nofollow" title="" class="external-link">elm-css</a> for DSL design inspiration.
+Thanks to @jaredly for <a href="https://github.com/jaredly/redoc" target="_blank" rel="noopener nofollow" title="" class="external-link">redoc</a>.</p>
 
     </div>
     <div class='right-blank'></div>
