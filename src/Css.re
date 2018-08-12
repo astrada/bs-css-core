@@ -43,7 +43,8 @@ let rec makeDict = ruleset => {
 
 let keyframes = keyframes => {
   let ruleset = keyframes
-    |> List.map(x => `selector(x));
+    |> List.map(((perc, ruleset)) =>
+      `selector(string_of_int(perc) ++ "%", ruleset));
   `selector("animationName", ruleset)
 };
 
