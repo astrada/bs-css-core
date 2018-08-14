@@ -26,7 +26,6 @@
       <div class='table-of-contents'>
       <a href="#bs-css-core" class='level-1 header'>bs-css-core</a>
 <a href="#Usage" class='level-2 header'>Usage</a>
-<a href="#type-styleObject" class='level-3 type'>styleObject</a>
 <a href="#type-rule" class='level-3 type'>rule</a>
 <a href="#value-empty" class='level-3 value'>empty</a>
 <a href="#value-merge" class='level-3 value'>merge</a>
@@ -566,14 +565,14 @@
 
 <div class='code-block' data-block-syntax="re">
   
-  <pre class='code' data-block-id='5' id='block-5'><code>type theme = {
+  <pre class='code' data-block-id='3' id='block-3'><code>type theme = {
   textColor: <span class='type-constructor'>Css.color</span>,
   basePadding: <span class='type-constructor'>Css.length</span>
 };
 
-let <span class='pattern-ident' data-type="theme => Css.styleObject(&lt; .. &gt;)">makeStyle</span> = (<span class='pattern-ident' data-type="theme">theme</span>) =&gt;
+let <span class='pattern-ident' data-type="theme => 'a">makeStyle</span> = (<span class='pattern-ident' data-type="theme">theme</span>) =&gt;
   Css.(
-    <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>([
+    <span class='ident' data-type="list(Css.rule) => 'a">style</span>([
       <span data-type="list(Css.rule)"><span class='ident' data-type="Css.color => Css.rule">backgroundColor</span>(<span class='ident' data-type="Css.color">white</span>),
       <span data-type="list(Css.rule)"><span class='ident' data-type="list([ `shadow of string ]) => Css.rule">boxShadows</span>([<span data-type="list([ `shadow of string ])"><span class='ident' data-type="(
   ~?x: option(Css.length),
@@ -593,14 +592,14 @@ let <span class='pattern-ident' data-type="theme => Css.styleObject(&lt; .. &gt;
   
 </div><div class='code-block' data-block-syntax="ml">
   
-  <pre class='code' data-block-id='5-alt' id='block-5-alt'><code>[@@@ocaml.ppx.context { cookies = [] }]
+  <pre class='code' data-block-id='3-alt' id='block-3-alt'><code>[@@@ocaml.ppx.context { cookies = [] }]
 open Css
 type theme = {
   textColor: <span class='type-constructor'>Css.color</span>;
   basePadding: <span class='type-constructor'>Css.length</span>;}
-let <span class='pattern-ident' data-type="theme => Css.styleObject(&lt; .. &gt;)">makeStyle</span> <span class='pattern-ident' data-type="theme">theme</span> =
+let <span class='pattern-ident' data-type="theme => 'a">makeStyle</span> <span class='pattern-ident' data-type="theme">theme</span> =
   let open Css in
-    <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>
+    <span class='ident' data-type="list(Css.rule) => 'a">style</span>
       [<span class='ident' data-type="Css.color => Css.rule">backgroundColor</span> <span class='ident' data-type="Css.color">white</span>;
       <span class='ident' data-type="list([ `shadow of string ]) => Css.rule">boxShadows</span> [<span class='ident' data-type="(
   ~?x: option(Css.length),
@@ -616,39 +615,7 @@ let <span class='pattern-ident' data-type="theme => Css.styleObject(&lt; .. &gt;
   
   
   
-</div><p style='font-style:italic'>other items defined</p><div class='doc-item'><h4 class='item'>type <a href="#type-styleObject" id="type-styleObject">styleObject</a>(&lt; .. &gt;) = Js.t(&lt; .. &gt;)</h4>
-
-<div class='body '><p>A generic JS object that collects CSS declarations/rules.
-For example:</p>
-<div class='code-block' data-block-syntax="re">
-  
-  <pre class='code' data-block-id='2' id='block-2'><code><span class='type-vbl'><span class='type-vbl'><span class='type-constructor'><span class='type-vbl'><span class='type-vbl'><span class='ident' data-type="(~backgroundColor: string, ~padding: string) => Js.t(
-  &lt; backgroundColor : string; padding : string &gt;
-)">{
-  &quot;backgroundColor&quot;: <span class='string' data-type="string">&quot;white&quot;</span>,
-  &quot;padding&quot;: <span class='string' data-type="string">&quot;15px&quot;</span>
- }</span></span></span></span></span></span></code></pre>
-  
-  
-  
-</div><div class='code-block' data-block-syntax="ml">
-  
-  <pre class='code' data-block-id='2-alt' id='block-2-alt'><code>[@@@ocaml.ppx.context { cookies = [] }]
-open Css
-let _ =
-  [%bs.obj
-    <span class='type-vbl'><span class='type-vbl'><span class='type-constructor'><span class='type-vbl'><span class='type-vbl'><span class='ident' data-type="(~backgroundColor: string, ~padding: string) => Js.t(
-  &lt; backgroundColor : string; padding : string &gt;
-)">{
-      backgroundColor = ((&quot;white&quot;)[@reason.raw_literal &quot;white&quot;]);
-      padding = ((&quot;15px&quot;)[@reason.raw_literal &quot;15px&quot;])
-    }</span></span></span></span></span></span>]</code></pre>
-  
-  
-  
-</div></div></div>
-
-<div class='doc-item'><h4 class='item'>type <a href="#type-rule" id="type-rule">rule</a></h4>
+</div><p style='font-style:italic'>other items defined</p><div class='doc-item'><h4 class='item'>type <a href="#type-rule" id="type-rule">rule</a></h4>
 
 <div class='body '><p>A CSS rule. It can be a simple property/value pair (e.g.: <code>{ color: white }</code>),
 or a CSS ruleset (e.g.:</p>
@@ -666,13 +633,13 @@ or a CSS ruleset (e.g.:</p>
 <div class='body '><p> Flattens a list of CSS rulesets</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-style" id="value-style">style</a>: list(<a href="#type-rule">rule</a>) => <a href="#type-styleObject">styleObject</a>(&lt; .. &gt;)</h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-style" id="value-style">style</a>: list(<a href="#type-rule">rule</a>) => 'style</h4>
 
 <div class='body '><p>Builds a style object from a list of rules.
 E.g.:</p>
 <div class='code-block' data-block-syntax="re">
   
-  <pre class='code' data-block-id='4' id='block-4'><code>Css.(<span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>([
+  <pre class='code' data-block-id='2' id='block-2'><code>Css.(<span class='ident' data-type="list(Css.rule) => 'a">style</span>([
   <span data-type="list(Css.rule)"><span class='ident' data-type="Css.color => Css.rule">backgroundColor</span>(<span class='ident' data-type="Css.color">white</span>),
   <span data-type="list(Css.rule)"><span class='ident' data-type="Css.length => Css.rule">padding</span>(<span class='ident' data-type="int => Css.length">px</span>(<span class='int' data-type="int">15</span>))</span></span>
 ]))</code></pre>
@@ -681,40 +648,18 @@ E.g.:</p>
   
 </div><div class='code-block' data-block-syntax="ml">
   
-  <pre class='code' data-block-id='4-alt' id='block-4-alt'><code>[@@@ocaml.ppx.context { cookies = [] }]
+  <pre class='code' data-block-id='2-alt' id='block-2-alt'><code>[@@@ocaml.ppx.context { cookies = [] }]
 open Css
-let _ = let open Css in <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span> [<span class='ident' data-type="Css.color => Css.rule">backgroundColor</span> <span class='ident' data-type="Css.color">white</span>; <span class='ident' data-type="Css.length => Css.rule">padding</span> (<span class='ident' data-type="int => Css.length">px</span> <span class='int' data-type="int">15</span>)]</code></pre>
+let _ = let open Css in <span class='ident' data-type="list(Css.rule) => 'a">style</span> [<span class='ident' data-type="Css.color => Css.rule">backgroundColor</span> <span class='ident' data-type="Css.color">white</span>; <span class='ident' data-type="Css.length => Css.rule">padding</span> (<span class='ident' data-type="int => Css.length">px</span> <span class='int' data-type="int">15</span>)]</code></pre>
   
   
   
-</div><p>returns:</p>
-<div class='code-block' data-block-syntax="re">
-  
-  <pre class='code' data-block-id='3' id='block-3'><code><span class='type-vbl'><span class='type-vbl'><span class='type-constructor'><span class='type-vbl'><span class='type-vbl'><span class='ident' data-type="(~backgroundColor: string, ~padding: string) => Js.t(
-  &lt; backgroundColor : string; padding : string &gt;
-)">{
-  &quot;backgroundColor&quot;: <span class='string' data-type="string">&quot;white&quot;</span>,
-  &quot;padding&quot;: <span class='string' data-type="string">&quot;15px&quot;</span>
-}</span></span></span></span></span></span></code></pre>
-  
-  
-  
-</div><div class='code-block' data-block-syntax="ml">
-  
-  <pre class='code' data-block-id='3-alt' id='block-3-alt'><code>[@@@ocaml.ppx.context { cookies = [] }]
-open Css
-let _ =
-  [%bs.obj
-    <span class='type-vbl'><span class='type-vbl'><span class='type-constructor'><span class='type-vbl'><span class='type-vbl'><span class='ident' data-type="(~backgroundColor: string, ~padding: string) => Js.t(
-  &lt; backgroundColor : string; padding : string &gt;
-)">{
-      backgroundColor = ((&quot;white&quot;)[@reason.raw_literal &quot;white&quot;]);
-      padding = ((&quot;15px&quot;)[@reason.raw_literal &quot;15px&quot;])
-    }</span></span></span></span></span></span>]</code></pre>
-  
-  
-  
-</div></div></div>
+</div><p>returns a generic JS object (whose Reason type is abstract) that collects
+CSS declarations/rules:</p>
+<pre class='code-txt js'><code class='js'>{
+  backgroundColor: &quot;white&quot;,
+  padding: &quot;15px&quot;
+}</code></pre></div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-important" id="value-important">important</a>: <a href="#type-rule">rule</a> => <a href="#type-rule">rule</a></h4>
 
@@ -3330,7 +3275,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/font-family</p>
   ~?fontStyle: option(<a href="#type-fontStyle">fontStyle</a>),
   ~?fontWeight: option(int),
   unit
-) => <a href="#type-styleObject">styleObject</a>(&lt; .. &gt;)</h4>
+) => 'style</h4>
 
 <div class='body body-empty'></div></div>
 
@@ -3644,7 +3589,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property</p>
 <div class='body '><p> Builds a <code>@keyframe</code> at-rule from a list of keyframe blocks.</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-animationBody" id="value-animationBody">animationBody</a>: <a href="#type-animation">animation</a> => <a href="#type-styleObject">styleObject</a>(&lt; .. &gt;)</h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-animationBody" id="value-animationBody">animationBody</a>: <a href="#type-animation">animation</a> => 'style</h4>
 
 <div class='body '><p>Returns a keyframe at-rule body. E.g.:</p>
 <pre class='code-txt css'><code class='css'>{

@@ -1,5 +1,4 @@
 /* Based on https://github.com/SentiaAnalytics/bs-css/blob/master/src/Css.re */
-type styleObject('style) = Js.t({..} as 'style);
 
 let join = (separator, strings) => {
   let rec run = (acc, strings) =>
@@ -29,7 +28,7 @@ let merge = List.concat;
 
 type animation = selector;
 
-external toStyleObject: Js.Json.t => styleObject('style) = "%identity";
+external toStyleObject: Js.Json.t => 'style = "%identity";
 
 let rec makeDict = ruleset => {
   let toJs = rule =>

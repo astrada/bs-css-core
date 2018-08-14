@@ -31,18 +31,6 @@
  */;
 
 /**
- * A generic JS object that collects CSS declarations/rules.
- * For example:
- * ```re
- * {
- *   "backgroundColor": "white",
- *   "padding": "15px"
- *  }
- * ```
- */
-type styleObject('style) = Js.t({..} as 'style);
-
-/**
  * A CSS rule. It can be a simple property/value pair (e.g.: `{ color: white }`),
  * or a CSS ruleset (e.g.:
  * ```css
@@ -66,15 +54,16 @@ let merge: list(list(rule)) => list(rule);
  *   padding(px(15))
  * ]))
  * ```
- * returns:
- * ```re
+ * returns a generic JS object (whose Reason type is abstract) that collects
+ * CSS declarations/rules:
+ * ```js
  * {
- *   "backgroundColor": "white",
- *   "padding": "15px"
+ *   backgroundColor: "white",
+ *   padding: "15px"
  * }
  * ```
  */
-let style: list(rule) => styleObject('style);
+let style: list(rule) => 'style;
 
 /**
  * Marks a rule as important. E.g.:
@@ -1414,7 +1403,7 @@ let fontFace:
     ~fontWeight: int=?,
     unit
   ) =>
-  styleObject('style);
+  'style;
 /**
  * The `font-size` CSS property specifies the size of the font.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/font-size
@@ -1643,7 +1632,7 @@ let keyframes: list((int, list(rule))) => animation;
  * }
  * ```
  */
-let animationBody: animation => styleObject('style);
+let animationBody: animation => 'style;
 
 type animationDirection = [
   | `normal

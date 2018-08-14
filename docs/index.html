@@ -61,9 +61,9 @@ for practical examples of usage.</p>
   basePadding: <span class='type-constructor'>Css.length</span>
 };
 
-let <span class='pattern-ident' data-type="theme => Css.styleObject(&lt; .. &gt;)">makeStyle</span> = (<span class='pattern-ident' data-type="theme">theme</span>) =&gt;
+let <span class='pattern-ident' data-type="theme => 'a">makeStyle</span> = (<span class='pattern-ident' data-type="theme">theme</span>) =&gt;
   Css.(
-    <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>([
+    <span class='ident' data-type="list(Css.rule) => 'a">style</span>([
       <span data-type="list(Css.rule)"><span class='ident' data-type="Css.color => Css.rule">backgroundColor</span>(<span class='ident' data-type="Css.color">white</span>),
       <span data-type="list(Css.rule)"><span class='ident' data-type="list([ `shadow of string ]) => Css.rule">boxShadows</span>([<span data-type="list([ `shadow of string ])"><span class='ident' data-type="(
   ~?x: option(Css.length),
@@ -118,9 +118,9 @@ let <span class='pattern-ident' data-type="theme => Css.styleObject(&lt; .. &gt;
 type theme = {
   textColor: <span class='type-constructor'>Css.color</span>;
   basePadding: <span class='type-constructor'>Css.length</span>;}
-let <span class='pattern-ident' data-type="theme => Css.styleObject(&lt; .. &gt;)">makeStyle</span> <span class='pattern-ident' data-type="theme">theme</span> =
+let <span class='pattern-ident' data-type="theme => 'a">makeStyle</span> <span class='pattern-ident' data-type="theme">theme</span> =
   let open Css in
-    <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>
+    <span class='ident' data-type="list(Css.rule) => 'a">style</span>
       [<span class='ident' data-type="Css.color => Css.rule">backgroundColor</span> <span class='ident' data-type="Css.color">white</span>;
       <span class='ident' data-type="list([ `shadow of string ]) => Css.rule">boxShadows</span> [<span class='ident' data-type="(
   ~?x: option(Css.length),
@@ -182,9 +182,9 @@ let <span class='pattern-ident' data-type="theme => Css.styleObject(&lt; .. &gt;
     ])
   );
 
-let <span class='pattern-ident' data-type="'a => Css.styleObject(&lt; .. &gt;)">makeStyle</span> = (<span class='pattern-ident' data-type="'a">_theme</span>) =&gt;
+let <span class='pattern-ident' data-type="'a => 'a">makeStyle</span> = (<span class='pattern-ident' data-type="'a">_theme</span>) =&gt;
   Css.(
-    <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>([
+    <span class='ident' data-type="list(Css.rule) => 'a">style</span>([
       <span data-type="list(Css.rule)"><span class='ident' data-type="Css.animation => Css.rule">animationName</span>(<span class='ident' data-type="Css.animation">bounce</span>),
       <span data-type="list(Css.rule)"><span class='ident' data-type="int => Css.rule">animationDuration</span>(<span class='int' data-type="int">2000</span>),
       <span data-type="list(Css.rule)"><span class='ident' data-type="[ `mm of float
@@ -264,9 +264,9 @@ let <span class='pattern-ident' data-type="Css.animation">bounce</span> =
       [(<span class='int' data-type="int">0</span>, [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">0.1</span> <span class='float' data-type="float">0.1</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">0.0</span>]);
       (<span class='int' data-type="int">60</span>, [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">1.2</span> <span class='float' data-type="float">1.2</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">1.0</span>]);
       (<span class='int' data-type="int">100</span>, [<span class='ident' data-type="Css.transform => Css.rule">transform</span> (<span class='ident' data-type="(float, float) => Css.transform">scale</span> <span class='float' data-type="float">1.0</span> <span class='float' data-type="float">1.0</span>); <span class='ident' data-type="float => Css.rule">opacity</span> <span class='float' data-type="float">1.0</span>])]
-let <span class='pattern-ident' data-type="'a => Css.styleObject(&lt; .. &gt;)">makeStyle</span> <span class='pattern-ident' data-type="'a">_theme</span> =
+let <span class='pattern-ident' data-type="'a => 'a">makeStyle</span> <span class='pattern-ident' data-type="'a">_theme</span> =
   let open Css in
-    <span class='ident' data-type="list(Css.rule) => Css.styleObject(&lt; .. &gt;)">style</span>
+    <span class='ident' data-type="list(Css.rule) => 'a">style</span>
       [<span class='ident' data-type="Css.animation => Css.rule">animationName</span> <span class='ident' data-type="Css.animation">bounce</span>;
       <span class='ident' data-type="int => Css.rule">animationDuration</span> <span class='int' data-type="int">2000</span>;
       <span class='ident' data-type="[ `mm of float
