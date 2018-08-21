@@ -28,7 +28,9 @@ let merge = List.concat;
 
 type animation = selector;
 
-external toStyleObject: Js.Json.t => 'style = "%identity";
+type style;
+
+external toStyleObject: Js.Json.t => style = "%identity";
 
 let rec makeDict = ruleset => {
   let toJs = rule =>
@@ -665,15 +667,27 @@ let string_of_margin =
   | `auto => "auto";
 
 let margin = x => d("margin", string_of_margin(x));
-let margin2 = (~v, ~h) =>
-  d("margin", [v, h] |> List.map(string_of_margin) |> join(" "));
-let margin3 = (~top, ~h, ~bottom) =>
-  d("margin", [top, h, bottom] |> List.map(string_of_margin) |> join(" "));
-let margin4 = (~top, ~right, ~bottom, ~left) =>
+let margin2 = (~v, ~h) => {
+  let vString = string_of_margin(v);
+  let hString = string_of_margin(h);
+  d("margin", [vString, hString] |> join(" "));
+};
+let margin3 = (~top, ~h, ~bottom) => {
+  let topString = string_of_margin(top);
+  let hString = string_of_margin(h);
+  let bottomString = string_of_margin(bottom);
+  d("margin", [topString, hString, bottomString] |> join(" "));
+};
+let margin4 = (~top, ~right, ~bottom, ~left) => {
+  let topString = string_of_margin(top);
+  let leftString = string_of_margin(left);
+  let rightString = string_of_margin(right);
+  let bottomString = string_of_margin(bottom);
   d(
     "margin",
-    [top, right, bottom, left] |> List.map(string_of_margin) |> join(" "),
+    [topString, rightString, bottomString, leftString] |> join(" "),
   );
+};
 let marginLeft = x => d("marginLeft", string_of_margin(x));
 let marginRight = x => d("marginRight", string_of_margin(x));
 let marginTop = x => d("marginTop", string_of_margin(x));

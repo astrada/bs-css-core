@@ -45,6 +45,19 @@ type rule;
 let empty: list(rule);
 /** Flattens a list of CSS rulesets */
 let merge: list(list(rule)) => list(rule);
+
+/**
+ * The abstract type that represents A generic JS object collecting CSS
+ * declarations/rules. For example:
+ * ```js
+ * {
+ *   backgroundColor: "white",
+ *   padding: "15px"
+ * }
+ * ```
+ */
+type style;
+
 /**
  * Builds a style object from a list of rules.
  * E.g.:
@@ -54,16 +67,8 @@ let merge: list(list(rule)) => list(rule);
  *   padding(px(15))
  * ]))
  * ```
- * returns a generic JS object (whose Reason type is abstract) that collects
- * CSS declarations/rules:
- * ```js
- * {
- *   backgroundColor: "white",
- *   padding: "15px"
- * }
- * ```
  */
-let style: list(rule) => 'style;
+let style: list(rule) => style;
 
 /**
  * Marks a rule as important. E.g.:
@@ -388,7 +393,7 @@ let ex: float => [> | length ];
  * Returns a length in `flex` units (a flexible length within a grid container).
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#ex
  */
-let fr: float => gridLength;
+let fr: float => [> | gridLength ];
 /**
  * Returns a length in millimeters.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#mm
@@ -708,7 +713,7 @@ let unsafe: (string, string) => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/display
  */
 let display:
-  [
+  [<
     | `flex
     | `block
     | `inline
@@ -719,32 +724,32 @@ let display:
     | `inlineGrid
   ] =>
   rule;
-let position: [ | `absolute | `relative | `static | `fixed | `sticky] => rule;
+let position: [< | `absolute | `relative | `static | `fixed | `sticky] => rule;
 
 /**
  * The `top` CSS property participates in specifying the vertical position of
  * a positioned element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/top
  */
-let top: [ length] => rule;
+let top: length => rule;
 /**
  * The `bottom` CSS property participates in specifying the vertical position of
  * a positioned element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/bottom
  */
-let bottom: [ length] => rule;
+let bottom: length => rule;
 /**
  * The `left` CSS property participates in specifying the horizontal position
  * of a positioned element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/left
  */
-let left: [ length] => rule;
+let left: length => rule;
 /**
  * The `right` CSS property participates in specifying the horizontal position
  * of a positioned element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/right
  */
-let right: [ length] => rule;
+let right: length => rule;
 
 /**
  * The `flex` CSS property specifies how a flex item will grow or shrink so as to fit the space available
@@ -767,7 +772,7 @@ let flexShrink: int => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis
  */
 let flexBasis:
-  [
+  [<
     length
     | `auto
     | `fill
@@ -783,13 +788,13 @@ let flexBasis:
  * container defining the main axis and the direction (normal or reversed).
  * https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction
  */
-let flexDirection: [ | `row | `column | `rowReverse | `columnReverse] => rule;
+let flexDirection: [< | `row | `column | `rowReverse | `columnReverse] => rule;
 /**
  * The CSS `flex-wrap` property specifies whether flex items are forced into a single
  * line or can be wrapped onto multiple lines.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap
  */
-let flexWrap: [ | `wrap | `nowrap | `wrapReverse] => rule;
+let flexWrap: [< | `wrap | `nowrap | `wrapReverse] => rule;
 /**
  * The `order` CSS property specifies the order used to lay out a flex item in its flex container.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/order
@@ -810,7 +815,7 @@ let gridTemplateRows: list([ gridLength | `auto]) => rule;
  * The `grid-auto-rows` CSS property specifies the size of an implicitly-created grid row track.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
  */
-let gridAutoRows: [ length | `auto] => rule;
+let gridAutoRows: [< | length | `auto] => rule;
 /**
  * The `grid-column` CSS property is a shorthand property for `grid-column-start` and `grid-column-end`.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column
@@ -862,50 +867,50 @@ let gridGap: length => rule;
  * the width of the content area.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/width
  */
-let width: [ length | `auto] => rule;
+let width: [< | length | `auto] => rule;
 /**
  * The `min-width` CSS property sets the minimum width of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/min-width
  */
-let minWidth: [ length | `auto] => rule;
+let minWidth: [< | length | `auto] => rule;
 /**
  * The `max-width` CSS property sets the maximum width of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/max-width
  */
-let maxWidth: [ length | `auto] => rule;
+let maxWidth: [< | length | `auto] => rule;
 /**
  * The `height` CSS property specifies the height of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/height
  */
-let height: [ length | `auto] => rule;
+let height: [< | length | `auto] => rule;
 /**
  * The `min-height` CSS property sets the minimum height of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/min-height
  */
-let minHeight: [ length | `auto] => rule;
+let minHeight: [< | length | `auto] => rule;
 /**
  * The `max-height` CSS property sets the maximum height of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/max-height
  */
-let maxHeight: [ length | `auto] => rule;
+let maxHeight: [< | length | `auto] => rule;
 
 /**
  * The `margin` CSS property sets the margin area on all four sides of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/margin
  */
-let margin: [ length | `auto] => rule;
+let margin: [< | length | `auto] => rule;
 /**
  * Returns a margin from its vertical and horizontal components.
  */
-let margin2: (~v: [ length | `auto], ~h: [ length | `auto]) => rule;
+let margin2: (~v: [< | length | `auto], ~h: [< | length | `auto]) => rule;
 /**
  * Returns a margin from its top, horizontal, and bottom components.
  */
 let margin3:
   (
-    ~top: [ length | `auto],
-    ~h: [ length | `auto],
-    ~bottom: [ length | `auto]
+    ~top: [< | length | `auto],
+    ~h: [< | length | `auto],
+    ~bottom: [< | length | `auto]
   ) =>
   rule;
 /**
@@ -913,32 +918,32 @@ let margin3:
  */
 let margin4:
   (
-    ~top: [ length | `auto],
-    ~right: [ length | `auto],
-    ~bottom: [ length | `auto],
-    ~left: [ length | `auto]
+    ~top: [< | length | `auto],
+    ~right: [< | length | `auto],
+    ~bottom: [< | length | `auto],
+    ~left: [< | length | `auto]
   ) =>
   rule;
 /**
  * The `margin-left` CSS property sets the margin area on the left side of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/margin-left
  */
-let marginLeft: [ length | `auto] => rule;
+let marginLeft: [< | length | `auto] => rule;
 /**
  * The `margin-right` CSS property sets the margin area on the right side of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/margin-right
  */
-let marginRight: [ length | `auto] => rule;
+let marginRight: [< | length | `auto] => rule;
 /**
  * The `margin-top` CSS property sets the margin area on the top side of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/margin-top
  */
-let marginTop: [ length | `auto] => rule;
+let marginTop: [< | length | `auto] => rule;
 /**
  * The `margin-bottom` CSS property sets the margin area on the bottom side of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/margin-bottom
  */
-let marginBottom: [ length | `auto] => rule;
+let marginBottom: [< | length | `auto] => rule;
 
 /**
  * The `padding` CSS property sets the padding area on all four sides of an element.
@@ -1000,51 +1005,51 @@ let alignContent:
  * https://developer.mozilla.org/en-US/docs/Web/CSS/align-items
  */
 let alignItems:
-  [ | `stretch | `flexStart | `center | `flexEnd | `baseline] => rule;
+  [< | `stretch | `flexStart | `center | `flexEnd | `baseline] => rule;
 /**
  * The `align-self` CSS property aligns flex items of the current flex line overriding
  * the `align-items` value.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/align-self
  */
 let alignSelf:
-  [ | `stretch | `flexStart | `center | `flexEnd | `baseline | `auto] => rule;
+  [< | `stretch | `flexStart | `center | `flexEnd | `baseline | `auto] => rule;
 /**
  * The CSS `justify-content` property defines how the browser distributes space between
  * and around content items along the main axis of their container.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content
  */
 let justifyContent:
-  [ | `flexStart | `center | `flexEnd | `spaceBetween | `spaceAround] => rule;
+  [< | `flexStart | `center | `flexEnd | `spaceBetween | `spaceAround] => rule;
 
 /**
  * The CSS `box-sizing` property is used to alter the default CSS box model used to calculate
  * width and height of the elements.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing
  */
-let boxSizing: [ | `borderBox | `contentBox] => rule;
+let boxSizing: [< | `borderBox | `contentBox] => rule;
 
-let float: [ | `left | `right | `none] => rule;
-let clear: [ | `left | `right | `both] => rule;
+let float: [< | `left | `right | `none] => rule;
+let clear: [< | `left | `right | `both] => rule;
 
 /**
  * The `overflow` CSS property is shorthand for the overflow-x and overflow-y properties.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/overflow
  */
-let overflow: [ | `hidden | `visible | `scroll | `auto] => rule;
+let overflow: [< | `hidden | `visible | `scroll | `auto] => rule;
 /**
  * The `overflow-x` property specifies whether to clip content, render a scroll bar, or
  * display overflow content of a block-level element, when it overflows at the left and
  * right edges.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x
  */
-let overflowX: [ | `hidden | `visible | `scroll | `auto] => rule;
+let overflowX: [< | `hidden | `visible | `scroll | `auto] => rule;
 /**
  * The `overflow-y` property specifies whether to clip content, render a scroll bar, or
  * display overflow content of a block-level element, when it overflows at the top and
  * bottom edges.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-y
  */
-let overflowY: [ | `hidden | `visible | `scroll | `auto] => rule;
+let overflowY: [< | `hidden | `visible | `scroll | `auto] => rule;
 
 /**
  * The `z-index` CSS property specifies the z-order of a positioned element and its descendants.
@@ -1055,12 +1060,12 @@ let zIndex: int => rule;
 /**
  * Style
  */
-let backfaceVisibility: [ | `visible | `hidden] => rule;
+let backfaceVisibility: [< | `visible | `hidden] => rule;
 /**
  * The `visibility` CSS property can show or hide an element without affecting the layout of a document.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/visibility
  */
-let visibility: [ | `visible | `hidden] => rule;
+let visibility: [< | `visible | `hidden] => rule;
 
 /**
  * The `border` CSS property is a shorthand property for setting all individual
@@ -1068,7 +1073,7 @@ let visibility: [ | `visible | `hidden] => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border
  */
 let border:
-  (length, [ | `solid | `dashed | `dotted | `none], [ color]) => rule;
+  (length, [< | `solid | `dashed | `dotted | `none], [ color]) => rule;
 /**
  * The `border-width` property is a shorthand property for setting the widths on all four
  * sides of an element's border.
@@ -1080,7 +1085,7 @@ let borderWidth: length => rule;
  * four sides of an element's border.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-style
  */
-let borderStyle: [ | `solid | `dashed | `dotted | `none] => rule;
+let borderStyle: [< | `solid | `dashed | `dotted | `none] => rule;
 /**
  * The `border-color` CSS property is a shorthand property for setting the color of the four
  * sides of an element's border.
@@ -1093,7 +1098,7 @@ let borderColor: color => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-top
  */
 let borderTop:
-  (length, [ | `solid | `dashed | `dotted | `none], [ color]) => rule;
+  (length, [< | `solid | `dashed | `dotted | `none], [ color]) => rule;
 /**
  * The `border-top-width` CSS property sets the width of the top border of a box.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-width
@@ -1103,7 +1108,7 @@ let borderTopWidth: length => rule;
  * The `border-top-style` CSS property sets the line style of an element's top border.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-style
  */
-let borderTopStyle: [ | `solid | `dashed | `dotted | `none] => rule;
+let borderTopStyle: [< | `solid | `dashed | `dotted | `none] => rule;
 /**
  * The `border-top-color` CSS property sets the color of an element's top border.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-color
@@ -1114,7 +1119,7 @@ let borderTopColor: color => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom
  */
 let borderBottom:
-  (length, [ | `solid | `dashed | `dotted | `none], [ color]) => rule;
+  (length, [< | `solid | `dashed | `dotted | `none], [ color]) => rule;
 /**
  * The `border-bottom-width` CSS property sets the width of the bottom border of a box.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-width
@@ -1124,7 +1129,7 @@ let borderBottomWidth: length => rule;
  * The `border-bottom-style` CSS property sets the line style of an element's bottom border.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-style
  */
-let borderBottomStyle: [ | `solid | `dashed | `dotted | `none] => rule;
+let borderBottomStyle: [< | `solid | `dashed | `dotted | `none] => rule;
 /**
  * The `border-bottom-color` CSS property sets the color of an element's bottom border.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-color
@@ -1135,7 +1140,7 @@ let borderBottomColor: color => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-left
  */
 let borderLeft:
-  (length, [ | `solid | `dashed | `dotted | `none], [ color]) => rule;
+  (length, [< | `solid | `dashed | `dotted | `none], [ color]) => rule;
 /**
  * The `border-left-width` CSS property sets the width of the left border of a box.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-width
@@ -1145,7 +1150,7 @@ let borderLeftWidth: length => rule;
  * The `border-left-style` CSS property sets the line style of an element's left border.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-style
  */
-let borderLeftStyle: [ | `solid | `dashed | `dotted | `none] => rule;
+let borderLeftStyle: [< | `solid | `dashed | `dotted | `none] => rule;
 /**
  * The `border-left-color` CSS property sets the color of an element's left border.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-color
@@ -1155,7 +1160,7 @@ let borderLeftColor: color => rule;
  * The `border-right` CSS property is a shorthand that sets the values of the right border.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-right
  */
-let borderRight: (length, [ | `solid | `dashed | `dotted], [ color]) => rule;
+let borderRight: (length, [< | `solid | `dashed | `dotted], [ color]) => rule;
 /**
  * The `border-right-width` CSS property sets the width of the right border of a box.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-width
@@ -1165,7 +1170,7 @@ let borderRightWidth: length => rule;
  * The `border-right-style` CSS property sets the line style of an element's right border.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-style
  */
-let borderRightStyle: [ | `solid | `dashed | `dotted | `none] => rule;
+let borderRightStyle: [< | `solid | `dashed | `dotted | `none] => rule;
 /**
  * The `border-right-color` CSS property sets the color of an element's right border.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-color
@@ -1198,8 +1203,8 @@ let borderBottomLeftRadius: length => rule;
  */
 let borderBottomRightRadius: length => rule;
 
-let tableLayout: [ | `auto | `fixed] => rule;
-let borderCollapse: [ | `separate | `collapse] => rule;
+let tableLayout: [< | `auto | `fixed] => rule;
+let borderCollapse: [< | `separate | `collapse] => rule;
 let borderSpacing: length => rule;
 
 /**
@@ -1219,7 +1224,7 @@ let boxShadow:
 /**
  * Builds multiple box shadows.
  */
-let boxShadows: list([ | `shadow(string)]) => rule;
+let boxShadows: list([< | `shadow(string)]) => rule;
 
 /**
  * The CSS `background` shorthand property lets you adjust all of the available background
@@ -1237,34 +1242,34 @@ let backgroundColor: [ color] => rule;
  * The `background-image` CSS property sets one or more background images on an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/background-image
  */
-let backgroundImage: [ | `url(string) | gradient | `none] => rule;
+let backgroundImage: [< | `url(string) | gradient | `none] => rule;
 /**
  * If a `background-image` is specified, the `background-attachment` CSS property
  * determines whether that image's position is fixed within the viewport,
  * or scrolls along with its containing block.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/background-attachment
  */
-let backgroundAttachment: [ | `scroll | `fixed | `local] => rule;
-let backgroundClip: [ | `borderBox | `contentBox | `paddingBox] => rule;
-let backgroundOrigin: [ | `borderBox | `contentBox | `paddingBox] => rule;
+let backgroundAttachment: [< | `scroll | `fixed | `local] => rule;
+let backgroundClip: [< | `borderBox | `contentBox | `paddingBox] => rule;
+let backgroundOrigin: [< | `borderBox | `contentBox | `paddingBox] => rule;
 /**
  * The `background-position` CSS property sets the initial position for each defined
  * background image, relative to the background position layer defined by
  * `background-origin`.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/background-position
  */
-let backgroundPosition: ([ length], [ length]) => rule;
+let backgroundPosition: (length, length) => rule;
 /**
  * The `background-repeat` CSS property defines how background images are repeated.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat
  */
-let backgroundRepeat: [ | `repeat | `noRepeat | `repeatX | `repeatY] => rule;
+let backgroundRepeat: [< | `repeat | `noRepeat | `repeatX | `repeatY] => rule;
 /**
  * The `background-size` CSS property specifies the size of an element's background image.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/background-size
  */
 let backgroundSize:
-  [ | `size(length, length) | `auto | `cover | `contain] => rule;
+  [< | `size(length, length) | `auto | `cover | `contain] => rule;
 
 /**
  * The `cursor` CSS property specifies which mouse cursor to display when the mouse pointer is over an element.
@@ -1295,7 +1300,7 @@ let cursor:
   ] =>
   rule;
 
-let clipPath: [ | `url(string)] => rule;
+let clipPath: [< | `url(string)] => rule;
 
 type listStyleType = [
   | `disc
@@ -1312,7 +1317,7 @@ type listStyleType = [
   | `none
 ];
 let listStyle:
-  (listStyleType, [ | `inside | `outside], [ | `none | `url(string)]) => rule;
+  (listStyleType, [< | `inside | `outside], [< | `none | `url(string)]) => rule;
 /**
  * The `list-style-type` CSS property specifies the appearance of a list item element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type
@@ -1322,12 +1327,12 @@ let listStyleType: listStyleType => rule;
  * The `list-style-position` property specifies the position of the marker box in the principal block box.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position
  */
-let listStylePosition: [ | `inside | `outside] => rule;
+let listStylePosition: [< | `inside | `outside] => rule;
 /**
  * The `list-style-image` property specifies an image to be used as the list item marker.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-image
  */
-let listStyleImage: [ | `none | `url(string)] => rule;
+let listStyleImage: [< | `none | `url(string)] => rule;
 
 /**
  * The `opacity` CSS property specifies the level of transparency of an element.
@@ -1375,7 +1380,7 @@ let outlineColor: color => rule;
  */
 let outlineOffset: length => rule;
 
-let pointerEvents: [ | `auto | `none] => rule;
+let pointerEvents: [< | `auto | `none] => rule;
 
 /*
  * Text
@@ -1403,7 +1408,7 @@ let fontFace:
     ~fontWeight: int=?,
     unit
   ) =>
-  'style;
+  style;
 /**
  * The `font-size` CSS property specifies the size of the font.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/font-size
@@ -1415,7 +1420,7 @@ let fontSize: length => rule;
  * and `font-variant-east-asian`.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant
  */
-let fontVariant: [ | `normal | `smallCaps] => rule;
+let fontVariant: [< | `normal | `smallCaps] => rule;
 /**
  * The `font-style` CSS property specifies whether a font should be styled with a normal,
  *  italic, or oblique face from its font-family.
@@ -1431,7 +1436,7 @@ let fontWeight: int => rule;
  * The `letter-spacing` CSS property specifies the spacing behavior between text characters.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing
  */
-let letterSpacing: [ | `normal | length] => rule;
+let letterSpacing: [< | `normal | length] => rule;
 /**
  * The `line-height` CSS property sets the amount of space used for lines, such as in text.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
@@ -1441,12 +1446,12 @@ let lineHeight: float => rule;
  * The `text-align` CSS property describes how inline content like text is aligned in its parent block element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-align
  */
-let textAlign: [ | `left | `center | `right | `justify] => rule;
+let textAlign: [< | `left | `center | `right | `justify] => rule;
 /**
  * The `text-decoration` CSS property specifies the appearance of decorative lines used on text.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration
  */
-let textDecoration: [ | `none | `underline | `overline | `lineThrough] => rule;
+let textDecoration: [< | `none | `underline | `overline | `lineThrough] => rule;
 /**
  * The `text-decoration-color` CSS property sets the color of the decorative additions to text that are specified by text-decoration-line.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-color
@@ -1457,7 +1462,7 @@ let textDecorationColor: color => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-style
  */
 let textDecorationStyle:
-  [ | `wavy | `solid | `dotted | `dashed | `double] => rule;
+  [< | `wavy | `solid | `dotted | `dashed | `double] => rule;
 /**
  * The `text-indent` CSS property specifies the amount of indentation (empty space) that is put before lines of text in a block.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-indent
@@ -1467,7 +1472,7 @@ let textIndent: length => rule;
  * The `text-overflow` CSS property determines how overflowed content that is not displayed is signaled to users.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow
  */
-let textOverflow: [ | `clip | `ellipsis | `string(string)] => rule;
+let textOverflow: [< | `clip | `ellipsis | `string(string)] => rule;
 /**
  * The `text-shadow` CSS property adds shadows to text.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow
@@ -1477,8 +1482,8 @@ let textShadow: (~x: length=?, ~y: length=?, ~blur: length=?, color) => rule;
  * The `text-transform` CSS property specifies how to capitalize an element's text.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform
  */
-let textTransform: [ | `uppercase | `lowercase | `capitalize | `none] => rule;
-let userSelect: [ | `auto | `all | `text | `none] => rule;
+let textTransform: [< | `uppercase | `lowercase | `capitalize | `none] => rule;
+let userSelect: [< | `auto | `all | `text | `none] => rule;
 let verticalAlign:
   [
     | `baseline
@@ -1496,15 +1501,15 @@ let verticalAlign:
  * The `white-space` CSS property determines how whitespace inside an element is handled.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
  */
-let whiteSpace: [ | `normal | `nowrap | `pre | `preLine | `preWrap] => rule;
-let wordBreak: [ | `breakAll | `keepAll | `normal] => rule;
-let wordSpacing: [ | `normal | length] => rule;
+let whiteSpace: [< | `normal | `nowrap | `pre | `preLine | `preWrap] => rule;
+let wordBreak: [< | `breakAll | `keepAll | `normal] => rule;
+let wordSpacing: [< | `normal | length] => rule;
 /**
  * The `overflow-wrap` CSS property specifies whether or not the browser should insert line breaks within words
  * to prevent text from overflowing its content box.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap
  */
-let wordWrap: [ | `normal | `breakWord] => rule;
+let wordWrap: [< | `normal | `breakWord] => rule;
 
 /*
  * Transform
@@ -1543,12 +1548,12 @@ let transform: transform => rule;
 let transforms: list(transform) => rule;
 let transformOrigin: (length, length) => rule;
 let transformOrigin3d: (length, length, length) => rule;
-let transformStyle: [ | `preserve3d | `flat] => rule;
+let transformStyle: [< | `preserve3d | `flat] => rule;
 /**
  * The `perspective()` CSS function defines a transformation that sets the distance between the user and the z=0 plane.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/perspective
  */
-let perspective: [ | `none | length] => rule;
+let perspective: [< | `none | length] => rule;
 let perspectiveOrigin: (length, length) => rule;
 
 /**
@@ -1632,7 +1637,7 @@ let keyframes: list((int, list(rule))) => animation;
  * }
  * ```
  */
-let animationBody: animation => 'style;
+let animationBody: animation => style;
 
 type animationDirection = [
   | `normal
@@ -1673,7 +1678,7 @@ let animationFillMode: animationFillMode => rule;
  * cycle should be played before stopping.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/animation-iteration-count
  */
-let animationIterationCount: [ | `infinite | `count(int)] => rule;
+let animationIterationCount: [< | `infinite | `count(int)] => rule;
 /**
  * The `animation-name` CSS property specifies one or more animations that should be applied to an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/animation-name
@@ -1683,7 +1688,7 @@ let animationName: animation => rule;
  * The `animation-play-state` CSS property specifies whether an animation is running or paused.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/animation-play-state
  */
-let animationPlayState: [ | `paused | `running] => rule;
+let animationPlayState: [< | `paused | `running] => rule;
 /**
  * The `animation-timing-function` CSS property specifies how a CSS animation should
  * progress over the duration of each cycle.
@@ -1812,7 +1817,7 @@ module SVG: {
    * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill
    */
   let fill: color => rule;
-  let fillRule: [ | `nonzero | `evenodd] => rule;
+  let fillRule: [< | `nonzero | `evenodd] => rule;
   /**
    * This attribute specifies the opacity of the color or the content the current object is filled with.
    * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-opacity
@@ -1823,8 +1828,8 @@ module SVG: {
    * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke
    */
   let stroke: color => rule;
-  let strokeLinecap: [ | `butt | `round | `square] => rule;
-  let strokeLinejoin: [ | `miter | `round | `bevel] => rule;
+  let strokeLinecap: [< | `butt | `round | `square] => rule;
+  let strokeLinejoin: [< | `miter | `round | `bevel] => rule;
   let strokeMiterlimit: float => rule;
   /**
    * the `stroke-width` attribute specifies the width of the outline on the current object.

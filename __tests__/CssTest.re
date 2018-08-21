@@ -1,5 +1,17 @@
 open Jest;
 
+external toStyleObject: Js.t({..}) => Css.style = "%identity";
+
+type theme = {
+  textColor: Css.color,
+  basePadding: Css.length
+};
+
+type styles = {
+  card: Css.style,
+  title: Css.style
+};
+
 describe("style", () => {
   let styles = theme => {
     let card = () =>
@@ -9,37 +21,42 @@ describe("style", () => {
           boxShadows([
             boxShadow(~y=px(3), ~blur=px(5), rgba(0, 0, 0, 0.3)),
           ]),
-          padding(theme##basePadding),
+          padding(theme.basePadding),
           transform(rotate(deg(90))),
         ])
       );
-    let mb = (theme##basePadding :> [ Css.length | `auto]);
     let title = () =>
       Css.(
         style([
           fontSize(rem(1.5)),
-          color(theme##textColor),
-          marginBottom(mb),
+          color(theme.textColor),
+          marginBottom(theme.basePadding),
         ])
       );
-    {"card": card(), "title": title()};
+    {
+      card: card(),
+      title: title()
+    };
   };
-  let theme = {"textColor": Css.hex("333"), "basePadding": Css.px(15)};
+  let theme = {
+    textColor: Css.hex("333"),
+    basePadding: Css.px(15)
+  };
   Expect.(
     test("stylesWithTheme", () =>
       expect(styles(theme))
       |> toEqual({
-           "card": {
+           card: ({
              "backgroundColor": "#FFFFFF",
              "boxShadow": "0 3px 5px 0 rgba(0, 0, 0, 0.3)",
              "padding": "15px",
              "transform": "rotate(90deg)",
-           },
-           "title": {
+           } |> toStyleObject),
+           title: ({
              "color": "#333",
              "fontSize": "1.5rem",
              "marginBottom": "15px",
-           },
+           } |> toStyleObject),
          })
     )
   );
@@ -86,7 +103,7 @@ describe("keyframes", () => {
            "backgroundColor": "rgb(255, 0, 0)",
            "height": "50px",
            "width": "50px"
-         })
+         } |> toStyleObject)
     )
   );
 });
@@ -119,7 +136,7 @@ describe("keyframes body", () => {
                "transform": "scale(1.2, 1.2)"
              }
            }
-         })
+         } |> toStyleObject)
     )
   );
 });

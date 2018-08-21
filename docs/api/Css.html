@@ -29,6 +29,7 @@
 <a href="#type-rule" class='level-3 type'>rule</a>
 <a href="#value-empty" class='level-3 value'>empty</a>
 <a href="#value-merge" class='level-3 value'>merge</a>
+<a href="#type-style" class='level-3 type'>style</a>
 <a href="#value-style" class='level-3 value'>style</a>
 <a href="#value-important" class='level-3 value'>important</a>
 <a href="#value-label" class='level-3 value'>label</a>
@@ -570,9 +571,9 @@
   basePadding: <span class='type-constructor'>Css.length</span>
 };
 
-let <span class='pattern-ident' data-type="theme => 'a">makeStyle</span> = (<span class='pattern-ident' data-type="theme">theme</span>) =&gt;
+let <span class='pattern-ident' data-type="theme => Css.style">makeStyle</span> = (<span class='pattern-ident' data-type="theme">theme</span>) =&gt;
   Css.(
-    <span class='ident' data-type="list(Css.rule) => 'a">style</span>([
+    <span class='ident' data-type="list(Css.rule) => Css.style">style</span>([
       <span data-type="list(Css.rule)"><span class='ident' data-type="Css.color => Css.rule">backgroundColor</span>(<span class='ident' data-type="Css.color">white</span>),
       <span data-type="list(Css.rule)"><span class='ident' data-type="list([ `shadow of string ]) => Css.rule">boxShadows</span>([<span data-type="list([ `shadow of string ])"><span class='ident' data-type="(
   ~?x: option(Css.length),
@@ -597,9 +598,9 @@ open Css
 type theme = {
   textColor: <span class='type-constructor'>Css.color</span>;
   basePadding: <span class='type-constructor'>Css.length</span>;}
-let <span class='pattern-ident' data-type="theme => 'a">makeStyle</span> <span class='pattern-ident' data-type="theme">theme</span> =
+let <span class='pattern-ident' data-type="theme => Css.style">makeStyle</span> <span class='pattern-ident' data-type="theme">theme</span> =
   let open Css in
-    <span class='ident' data-type="list(Css.rule) => 'a">style</span>
+    <span class='ident' data-type="list(Css.rule) => Css.style">style</span>
       [<span class='ident' data-type="Css.color => Css.rule">backgroundColor</span> <span class='ident' data-type="Css.color">white</span>;
       <span class='ident' data-type="list([ `shadow of string ]) => Css.rule">boxShadows</span> [<span class='ident' data-type="(
   ~?x: option(Css.length),
@@ -633,13 +634,22 @@ or a CSS ruleset (e.g.:</p>
 <div class='body '><p> Flattens a list of CSS rulesets</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-style" id="value-style">style</a>: list(<a href="#type-rule">rule</a>) => 'style</h4>
+<div class='doc-item'><h4 class='item'>type <a href="#type-style" id="type-style">style</a></h4>
+
+<div class='body '><p>The abstract type that represents A generic JS object collecting CSS
+declarations/rules. For example:</p>
+<pre class='code-txt js'><code class='js'>{
+  backgroundColor: &quot;white&quot;,
+  padding: &quot;15px&quot;
+}</code></pre></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-style" id="value-style">style</a>: list(<a href="#type-rule">rule</a>) => <a href="#type-style">style</a></h4>
 
 <div class='body '><p>Builds a style object from a list of rules.
 E.g.:</p>
 <div class='code-block' data-block-syntax="re">
   
-  <pre class='code' data-block-id='2' id='block-2'><code>Css.(<span class='ident' data-type="list(Css.rule) => 'a">style</span>([
+  <pre class='code' data-block-id='2' id='block-2'><code>Css.(<span class='ident' data-type="list(Css.rule) => Css.style">style</span>([
   <span data-type="list(Css.rule)"><span class='ident' data-type="Css.color => Css.rule">backgroundColor</span>(<span class='ident' data-type="Css.color">white</span>),
   <span data-type="list(Css.rule)"><span class='ident' data-type="Css.length => Css.rule">padding</span>(<span class='ident' data-type="int => Css.length">px</span>(<span class='int' data-type="int">15</span>))</span></span>
 ]))</code></pre>
@@ -650,16 +660,11 @@ E.g.:</p>
   
   <pre class='code' data-block-id='2-alt' id='block-2-alt'><code>[@@@ocaml.ppx.context { cookies = [] }]
 open Css
-let _ = let open Css in <span class='ident' data-type="list(Css.rule) => 'a">style</span> [<span class='ident' data-type="Css.color => Css.rule">backgroundColor</span> <span class='ident' data-type="Css.color">white</span>; <span class='ident' data-type="Css.length => Css.rule">padding</span> (<span class='ident' data-type="int => Css.length">px</span> <span class='int' data-type="int">15</span>)]</code></pre>
+let _ = let open Css in <span class='ident' data-type="list(Css.rule) => Css.style">style</span> [<span class='ident' data-type="Css.color => Css.rule">backgroundColor</span> <span class='ident' data-type="Css.color">white</span>; <span class='ident' data-type="Css.length => Css.rule">padding</span> (<span class='ident' data-type="int => Css.length">px</span> <span class='int' data-type="int">15</span>)]</code></pre>
   
   
   
-</div><p>returns a generic JS object (whose Reason type is abstract) that collects
-CSS declarations/rules:</p>
-<pre class='code-txt js'><code class='js'>{
-  backgroundColor: &quot;white&quot;,
-  padding: &quot;15px&quot;
-}</code></pre></div></div>
+</div></div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-important" id="value-important">important</a>: <a href="#type-rule">rule</a> => <a href="#type-rule">rule</a></h4>
 
@@ -1455,7 +1460,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/length#em</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/length#ex</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-fr" id="value-fr">fr</a>: float => <a href="#type-gridLength">gridLength</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-fr" id="value-fr">fr</a>: float => [&gt; gridLength ]</h4>
 
 <div class='body '><p>Returns a length in <code>flex</code> units (a flexible length within a grid container).
 https://developer.mozilla.org/en-US/docs/Web/CSS/length#ex</p>
@@ -2086,45 +2091,45 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skewY</p>
 <div class='body '><p> Builds a rule from a property/value string pair.</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-display" id="value-display">display</a>: [ `flex
-| `none
-| `grid
-| `inlineFlex
-| `inlineBlock
-| `block
-| `inline
-| `inlineGrid ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-display" id="value-display">display</a>: [&lt; `flex
+ | `none
+ | `grid
+ | `inlineFlex
+ | `inlineBlock
+ | `block
+ | `inline
+ | `inlineGrid ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The display CSS property specifies the type of rendering box used for an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/display</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-position" id="value-position">position</a>: [ `relative | `static | `sticky | `fixed | `absolute ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-position" id="value-position">position</a>: [&lt; `relative | `static | `sticky | `fixed | `absolute ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-top" id="value-top">top</a>: length => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-top" id="value-top">top</a>: <a href="#type-length">length</a> => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>top</code> CSS property participates in specifying the vertical position of
 a positioned element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/top</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-bottom" id="value-bottom">bottom</a>: length => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-bottom" id="value-bottom">bottom</a>: <a href="#type-length">length</a> => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>bottom</code> CSS property participates in specifying the vertical position of
 a positioned element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/bottom</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-left" id="value-left">left</a>: length => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-left" id="value-left">left</a>: <a href="#type-length">length</a> => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>left</code> CSS property participates in specifying the horizontal position
 of a positioned element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/left</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-right" id="value-right">right</a>: length => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-right" id="value-right">right</a>: <a href="#type-length">length</a> => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>right</code> CSS property participates in specifying the horizontal position
 of a positioned element.
@@ -2150,40 +2155,40 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-flexBasis" id="value-flexBasis">flexBasis</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `minContent
-| `content
-| `zero
-| `rem of float
-| `fitContent
-| `fill
-| `pt of int
-| `maxContent
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-flexBasis" id="value-flexBasis">flexBasis</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `minContent
+ | `content
+ | `zero
+ | `rem of float
+ | `fitContent
+ | `fill
+ | `pt of int
+ | `maxContent
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>flex-basis</code> CSS property specifies the initial main size of a flex item.
 https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-flexDirection" id="value-flexDirection">flexDirection</a>: [ `columnReverse | `row | `column | `rowReverse ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-flexDirection" id="value-flexDirection">flexDirection</a>: [&lt; `columnReverse | `row | `column | `rowReverse ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>flex-direction</code> CSS property specifies how flex items are placed in the flex
 container defining the main axis and the direction (normal or reversed).
 https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-flexWrap" id="value-flexWrap">flexWrap</a>: [ `nowrap | `wrapReverse | `wrap ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-flexWrap" id="value-flexWrap">flexWrap</a>: [&lt; `nowrap | `wrapReverse | `wrap ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The CSS <code>flex-wrap</code> property specifies whether flex items are forced into a single
 line or can be wrapped onto multiple lines.
@@ -2244,22 +2249,22 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-gridAutoRows" id="value-gridAutoRows">gridAutoRows</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-gridAutoRows" id="value-gridAutoRows">gridAutoRows</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>grid-auto-rows</code> CSS property specifies the size of an implicitly-created grid row track.
 https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows</p>
@@ -2319,395 +2324,395 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-gap</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/gap</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-width" id="value-width">width</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-width" id="value-width">width</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>width</code> property specifies the width of an element. By default, the property defines
 the width of the content area.
 https://developer.mozilla.org/en-US/docs/Web/CSS/width</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-minWidth" id="value-minWidth">minWidth</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-minWidth" id="value-minWidth">minWidth</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>min-width</code> CSS property sets the minimum width of an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/min-width</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-maxWidth" id="value-maxWidth">maxWidth</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-maxWidth" id="value-maxWidth">maxWidth</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>max-width</code> CSS property sets the maximum width of an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/max-width</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-height" id="value-height">height</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-height" id="value-height">height</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>height</code> CSS property specifies the height of an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/height</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-minHeight" id="value-minHeight">minHeight</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-minHeight" id="value-minHeight">minHeight</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>min-height</code> CSS property sets the minimum height of an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/min-height</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-maxHeight" id="value-maxHeight">maxHeight</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-maxHeight" id="value-maxHeight">maxHeight</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>max-height</code> CSS property sets the maximum height of an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/max-height</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-margin" id="value-margin">margin</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-margin" id="value-margin">margin</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>margin</code> CSS property sets the margin area on all four sides of an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/margin</p>
 </div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-margin2" id="value-margin2">margin2</a>: (
-  ~v: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ],
-  ~h: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ]
+  ~v: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ],
+  ~h: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ]
 ) => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>Returns a margin from its vertical and horizontal components.</p>
 </div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-margin3" id="value-margin3">margin3</a>: (
-  ~top: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ],
-  ~h: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ],
-  ~bottom: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ]
+  ~top: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ],
+  ~h: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ],
+  ~bottom: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ]
 ) => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>Returns a margin from its top, horizontal, and bottom components.</p>
 </div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-margin4" id="value-margin4">margin4</a>: (
-  ~top: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ],
-  ~right: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ],
-  ~bottom: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ],
-  ~left: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ]
+  ~top: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ],
+  ~right: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ],
+  ~bottom: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ],
+  ~left: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ]
 ) => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>Returns a margin from its top, right, bottom, and left components.</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-marginLeft" id="value-marginLeft">marginLeft</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-marginLeft" id="value-marginLeft">marginLeft</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>margin-left</code> CSS property sets the margin area on the left side of an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/margin-left</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-marginRight" id="value-marginRight">marginRight</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-marginRight" id="value-marginRight">marginRight</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>margin-right</code> CSS property sets the margin area on the right side of an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/margin-right</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-marginTop" id="value-marginTop">marginTop</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-marginTop" id="value-marginTop">marginTop</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>margin-top</code> CSS property sets the margin area on the top side of an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/margin-top</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-marginBottom" id="value-marginBottom">marginBottom</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `auto
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-marginBottom" id="value-marginBottom">marginBottom</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>margin-bottom</code> CSS property sets the margin area on the bottom side of an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/margin-bottom</p>
@@ -2774,49 +2779,49 @@ and around content items along the cross-axis of their container.
 https://developer.mozilla.org/en-US/docs/Web/CSS/align-content</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-alignItems" id="value-alignItems">alignItems</a>: [ `flexStart | `baseline | `stretch | `flexEnd | `center ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-alignItems" id="value-alignItems">alignItems</a>: [&lt; `flexStart | `baseline | `stretch | `flexEnd | `center ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The CSS <code>align-items</code> property defines how the browser distributes space between
 and around flex items along the cross-axis of their container.
 https://developer.mozilla.org/en-US/docs/Web/CSS/align-items</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-alignSelf" id="value-alignSelf">alignSelf</a>: [ `flexStart | `baseline | `stretch | `flexEnd | `auto | `center ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-alignSelf" id="value-alignSelf">alignSelf</a>: [&lt; `flexStart | `baseline | `stretch | `flexEnd | `auto | `center ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>align-self</code> CSS property aligns flex items of the current flex line overriding
 the <code>align-items</code> value.
 https://developer.mozilla.org/en-US/docs/Web/CSS/align-self</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-justifyContent" id="value-justifyContent">justifyContent</a>: [ `flexStart | `flexEnd | `spaceAround | `center | `spaceBetween ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-justifyContent" id="value-justifyContent">justifyContent</a>: [&lt; `flexStart | `flexEnd | `spaceAround | `center | `spaceBetween ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The CSS <code>justify-content</code> property defines how the browser distributes space between
 and around content items along the main axis of their container.
 https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-boxSizing" id="value-boxSizing">boxSizing</a>: [ `contentBox | `borderBox ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-boxSizing" id="value-boxSizing">boxSizing</a>: [&lt; `contentBox | `borderBox ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The CSS <code>box-sizing</code> property is used to alter the default CSS box model used to calculate
 width and height of the elements.
 https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-float" id="value-float">float</a>: [ `left | `none | `right ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-float" id="value-float">float</a>: [&lt; `left | `none | `right ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-clear" id="value-clear">clear</a>: [ `left | `right | `both ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-clear" id="value-clear">clear</a>: [&lt; `left | `right | `both ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-overflow" id="value-overflow">overflow</a>: [ `scroll | `hidden | `visible | `auto ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-overflow" id="value-overflow">overflow</a>: [&lt; `scroll | `hidden | `visible | `auto ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>overflow</code> CSS property is shorthand for the overflow-x and overflow-y properties.
 https://developer.mozilla.org/en-US/docs/Web/CSS/overflow</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-overflowX" id="value-overflowX">overflowX</a>: [ `scroll | `hidden | `visible | `auto ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-overflowX" id="value-overflowX">overflowX</a>: [&lt; `scroll | `hidden | `visible | `auto ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>overflow-x</code> property specifies whether to clip content, render a scroll bar, or
 display overflow content of a block-level element, when it overflows at the left and
@@ -2824,7 +2829,7 @@ right edges.
 https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-overflowY" id="value-overflowY">overflowY</a>: [ `scroll | `hidden | `visible | `auto ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-overflowY" id="value-overflowY">overflowY</a>: [&lt; `scroll | `hidden | `visible | `auto ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>overflow-y</code> property specifies whether to clip content, render a scroll bar, or
 display overflow content of a block-level element, when it overflows at the top and
@@ -2838,12 +2843,12 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-y</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/z-index</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-backfaceVisibility" id="value-backfaceVisibility">backfaceVisibility</a>: [ `hidden | `visible ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-backfaceVisibility" id="value-backfaceVisibility">backfaceVisibility</a>: [&lt; `hidden | `visible ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>Style</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-visibility" id="value-visibility">visibility</a>: [ `hidden | `visible ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-visibility" id="value-visibility">visibility</a>: [&lt; `hidden | `visible ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>visibility</code> CSS property can show or hide an element without affecting the layout of a document.
 https://developer.mozilla.org/en-US/docs/Web/CSS/visibility</p>
@@ -2851,7 +2856,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/visibility</p>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-border" id="value-border">border</a>: (
   <a href="#type-length">length</a>,
-  [ `dashed | `dotted | `none | `solid ],
+  [&lt; `dashed | `dotted | `none | `solid ],
   color
 ) => <a href="#type-rule">rule</a></h4>
 
@@ -2867,7 +2872,7 @@ sides of an element&#39;s border.
 https://developer.mozilla.org/en-US/docs/Web/CSS/border-width</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-borderStyle" id="value-borderStyle">borderStyle</a>: [ `dashed | `dotted | `none | `solid ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-borderStyle" id="value-borderStyle">borderStyle</a>: [&lt; `dashed | `dotted | `none | `solid ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>border-style</code> CSS property is a shorthand property that sets the line style for all
 four sides of an element&#39;s border.
@@ -2883,7 +2888,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/border-color</p>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-borderTop" id="value-borderTop">borderTop</a>: (
   <a href="#type-length">length</a>,
-  [ `dashed | `dotted | `none | `solid ],
+  [&lt; `dashed | `dotted | `none | `solid ],
   color
 ) => <a href="#type-rule">rule</a></h4>
 
@@ -2897,7 +2902,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/border-top</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-width</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-borderTopStyle" id="value-borderTopStyle">borderTopStyle</a>: [ `dashed | `dotted | `none | `solid ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-borderTopStyle" id="value-borderTopStyle">borderTopStyle</a>: [&lt; `dashed | `dotted | `none | `solid ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>border-top-style</code> CSS property sets the line style of an element&#39;s top border.
 https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-style</p>
@@ -2911,7 +2916,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-color</p>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-borderBottom" id="value-borderBottom">borderBottom</a>: (
   <a href="#type-length">length</a>,
-  [ `dashed | `dotted | `none | `solid ],
+  [&lt; `dashed | `dotted | `none | `solid ],
   color
 ) => <a href="#type-rule">rule</a></h4>
 
@@ -2925,7 +2930,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-width</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-borderBottomStyle" id="value-borderBottomStyle">borderBottomStyle</a>: [ `dashed | `dotted | `none | `solid ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-borderBottomStyle" id="value-borderBottomStyle">borderBottomStyle</a>: [&lt; `dashed | `dotted | `none | `solid ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>border-bottom-style</code> CSS property sets the line style of an element&#39;s bottom border.
 https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-style</p>
@@ -2939,7 +2944,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-color</p>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-borderLeft" id="value-borderLeft">borderLeft</a>: (
   <a href="#type-length">length</a>,
-  [ `dashed | `dotted | `none | `solid ],
+  [&lt; `dashed | `dotted | `none | `solid ],
   color
 ) => <a href="#type-rule">rule</a></h4>
 
@@ -2953,7 +2958,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/border-left</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-width</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-borderLeftStyle" id="value-borderLeftStyle">borderLeftStyle</a>: [ `dashed | `dotted | `none | `solid ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-borderLeftStyle" id="value-borderLeftStyle">borderLeftStyle</a>: [&lt; `dashed | `dotted | `none | `solid ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>border-left-style</code> CSS property sets the line style of an element&#39;s left border.
 https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-style</p>
@@ -2967,7 +2972,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-color</p>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-borderRight" id="value-borderRight">borderRight</a>: (
   <a href="#type-length">length</a>,
-  [ `dashed | `dotted | `solid ],
+  [&lt; `dashed | `dotted | `solid ],
   color
 ) => <a href="#type-rule">rule</a></h4>
 
@@ -2981,7 +2986,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/border-right</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-width</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-borderRightStyle" id="value-borderRightStyle">borderRightStyle</a>: [ `dashed | `dotted | `none | `solid ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-borderRightStyle" id="value-borderRightStyle">borderRightStyle</a>: [&lt; `dashed | `dotted | `none | `solid ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>border-right-style</code> CSS property sets the line style of an element&#39;s right border.
 https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-style</p>
@@ -3023,11 +3028,11 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-left-radius</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-right-radius</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-tableLayout" id="value-tableLayout">tableLayout</a>: [ `fixed | `auto ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-tableLayout" id="value-tableLayout">tableLayout</a>: [&lt; `fixed | `auto ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-borderCollapse" id="value-borderCollapse">borderCollapse</a>: [ `separate | `collapse ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-borderCollapse" id="value-borderCollapse">borderCollapse</a>: [&lt; `separate | `collapse ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
@@ -3048,7 +3053,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-right-radius</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-boxShadows" id="value-boxShadows">boxShadows</a>: list([ `shadow of string ]) => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-boxShadows" id="value-boxShadows">boxShadows</a>: list([&lt; `shadow of string ]) => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>Builds multiple box shadows.</p>
 </div></div>
@@ -3079,18 +3084,18 @@ using a color value.
 https://developer.mozilla.org/en-US/docs/Web/CSS/background-color</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundImage" id="value-backgroundImage">backgroundImage</a>: [ `none
-| `linearGradient of angle * (int * color) list
-| `radialGradient of (int * color) list
-| `repeatingRadialGradient of (int * color) list
-| `url of string
-| `repeatingLinearGradient of angle * (int * color) list ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundImage" id="value-backgroundImage">backgroundImage</a>: [&lt; `none
+ | `linearGradient of angle * (int * color) list
+ | `radialGradient of (int * color) list
+ | `repeatingRadialGradient of (int * color) list
+ | `url of string
+ | `repeatingLinearGradient of angle * (int * color) list ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>background-image</code> CSS property sets one or more background images on an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/background-image</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundAttachment" id="value-backgroundAttachment">backgroundAttachment</a>: [ `scroll | `local | `fixed ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundAttachment" id="value-backgroundAttachment">backgroundAttachment</a>: [&lt; `scroll | `local | `fixed ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>If a <code>background-image</code> is specified, the <code>background-attachment</code> CSS property
 determines whether that image&#39;s position is fixed within the viewport,
@@ -3098,15 +3103,15 @@ or scrolls along with its containing block.
 https://developer.mozilla.org/en-US/docs/Web/CSS/background-attachment</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundClip" id="value-backgroundClip">backgroundClip</a>: [ `paddingBox | `contentBox | `borderBox ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundClip" id="value-backgroundClip">backgroundClip</a>: [&lt; `paddingBox | `contentBox | `borderBox ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundOrigin" id="value-backgroundOrigin">backgroundOrigin</a>: [ `paddingBox | `contentBox | `borderBox ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundOrigin" id="value-backgroundOrigin">backgroundOrigin</a>: [&lt; `paddingBox | `contentBox | `borderBox ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundPosition" id="value-backgroundPosition">backgroundPosition</a>: (length, length) => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundPosition" id="value-backgroundPosition">backgroundPosition</a>: (<a href="#type-length">length</a>, <a href="#type-length">length</a>) => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>background-position</code> CSS property sets the initial position for each defined
 background image, relative to the background position layer defined by
@@ -3114,13 +3119,13 @@ background image, relative to the background position layer defined by
 https://developer.mozilla.org/en-US/docs/Web/CSS/background-position</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundRepeat" id="value-backgroundRepeat">backgroundRepeat</a>: [ `noRepeat | `repeat | `repeatY | `repeatX ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundRepeat" id="value-backgroundRepeat">backgroundRepeat</a>: [&lt; `noRepeat | `repeat | `repeatY | `repeatX ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>background-repeat</code> CSS property defines how background images are repeated.
 https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundSize" id="value-backgroundSize">backgroundSize</a>: [ `cover | `contain | `auto | `size of length * length ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-backgroundSize" id="value-backgroundSize">backgroundSize</a>: [&lt; `cover | `contain | `auto | `size of length * length ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>background-size</code> CSS property specifies the size of an element&#39;s background image.
 https://developer.mozilla.org/en-US/docs/Web/CSS/background-size</p>
@@ -3151,7 +3156,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/background-size</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/cursor</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-clipPath" id="value-clipPath">clipPath</a>: [ `url of string ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-clipPath" id="value-clipPath">clipPath</a>: [&lt; `url of string ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
@@ -3172,8 +3177,8 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/cursor</p>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-listStyle" id="value-listStyle">listStyle</a>: (
   <a href="#type-listStyleType">listStyleType</a>,
-  [ `outside | `inside ],
-  [ `none | `url of string ]
+  [&lt; `outside | `inside ],
+  [&lt; `none | `url of string ]
 ) => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
@@ -3184,13 +3189,13 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/cursor</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-listStylePosition" id="value-listStylePosition">listStylePosition</a>: [ `outside | `inside ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-listStylePosition" id="value-listStylePosition">listStylePosition</a>: [&lt; `outside | `inside ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>list-style-position</code> property specifies the position of the marker box in the principal block box.
 https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-listStyleImage" id="value-listStyleImage">listStyleImage</a>: [ `none | `url of string ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-listStyleImage" id="value-listStyleImage">listStyleImage</a>: [&lt; `none | `url of string ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>list-style-image</code> property specifies an image to be used as the list item marker.
 https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-image</p>
@@ -3247,7 +3252,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/outline-color</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-pointerEvents" id="value-pointerEvents">pointerEvents</a>: [ `none | `auto ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-pointerEvents" id="value-pointerEvents">pointerEvents</a>: [&lt; `none | `auto ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
@@ -3275,7 +3280,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/font-family</p>
   ~?fontStyle: option(<a href="#type-fontStyle">fontStyle</a>),
   ~?fontWeight: option(int),
   unit
-) => 'style</h4>
+) => <a href="#type-style">style</a></h4>
 
 <div class='body body-empty'></div></div>
 
@@ -3285,7 +3290,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/font-family</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/font-size</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-fontVariant" id="value-fontVariant">fontVariant</a>: [ `normal | `smallCaps ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-fontVariant" id="value-fontVariant">fontVariant</a>: [&lt; `normal | `smallCaps ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>font-variant</code> CSS property is a shorthand for the longhand properties
 <code>font-variant-caps</code>, <code>font-variant-numeric</code>, <code>font-variant-alternates</code>, <code>font-variant-ligatures</code>,
@@ -3306,22 +3311,22 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/font-style</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-letterSpacing" id="value-letterSpacing">letterSpacing</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `normal
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-letterSpacing" id="value-letterSpacing">letterSpacing</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `normal
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>letter-spacing</code> CSS property specifies the spacing behavior between text characters.
 https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing</p>
@@ -3333,13 +3338,13 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/line-height</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-textAlign" id="value-textAlign">textAlign</a>: [ `justify | `left | `right | `center ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-textAlign" id="value-textAlign">textAlign</a>: [&lt; `justify | `left | `right | `center ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>text-align</code> CSS property describes how inline content like text is aligned in its parent block element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/text-align</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-textDecoration" id="value-textDecoration">textDecoration</a>: [ `lineThrough | `underline | `none | `overline ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-textDecoration" id="value-textDecoration">textDecoration</a>: [&lt; `lineThrough | `underline | `none | `overline ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>text-decoration</code> CSS property specifies the appearance of decorative lines used on text.
 https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration</p>
@@ -3351,7 +3356,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-color</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-textDecorationStyle" id="value-textDecorationStyle">textDecorationStyle</a>: [ `dashed | `wavy | `dotted | `double | `solid ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-textDecorationStyle" id="value-textDecorationStyle">textDecorationStyle</a>: [&lt; `dashed | `wavy | `dotted | `double | `solid ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>text-decoration-style</code> CSS property sets the style of the lines specified by text-decoration-line.
 https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-style</p>
@@ -3363,7 +3368,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-style</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/text-indent</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-textOverflow" id="value-textOverflow">textOverflow</a>: [ `clip | `string of string | `ellipsis ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-textOverflow" id="value-textOverflow">textOverflow</a>: [&lt; `clip | `string of string | `ellipsis ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>text-overflow</code> CSS property determines how overflowed content that is not displayed is signaled to users.
 https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow</p>
@@ -3380,13 +3385,13 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-textTransform" id="value-textTransform">textTransform</a>: [ `none | `capitalize | `lowercase | `uppercase ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-textTransform" id="value-textTransform">textTransform</a>: [&lt; `none | `capitalize | `lowercase | `uppercase ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>text-transform</code> CSS property specifies how to capitalize an element&#39;s text.
 https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-userSelect" id="value-userSelect">userSelect</a>: [ `none | `text | `all | `auto ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-userSelect" id="value-userSelect">userSelect</a>: [&lt; `none | `text | `all | `auto ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
@@ -3416,36 +3421,36 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform</p>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-whiteSpace" id="value-whiteSpace">whiteSpace</a>: [ `preWrap | `preLine | `nowrap | `normal | `pre ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-whiteSpace" id="value-whiteSpace">whiteSpace</a>: [&lt; `preWrap | `preLine | `nowrap | `normal | `pre ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>white-space</code> CSS property determines how whitespace inside an element is handled.
 https://developer.mozilla.org/en-US/docs/Web/CSS/white-space</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-wordBreak" id="value-wordBreak">wordBreak</a>: [ `keepAll | `breakAll | `normal ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-wordBreak" id="value-wordBreak">wordBreak</a>: [&lt; `keepAll | `breakAll | `normal ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-wordSpacing" id="value-wordSpacing">wordSpacing</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `normal
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-wordSpacing" id="value-wordSpacing">wordSpacing</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `normal
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-wordWrap" id="value-wordWrap">wordWrap</a>: [ `breakWord | `normal ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-wordWrap" id="value-wordWrap">wordWrap</a>: [&lt; `breakWord | `normal ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>overflow-wrap</code> CSS property specifies whether or not the browser should insert line breaks within words
 to prevent text from overflowing its content box.
@@ -3493,26 +3498,26 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/transform</p>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-transformStyle" id="value-transformStyle">transformStyle</a>: [ `flat | `preserve3d ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-transformStyle" id="value-transformStyle">transformStyle</a>: [&lt; `flat | `preserve3d ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-perspective" id="value-perspective">perspective</a>: [ `mm of float
-| `vh of float
-| `ex of float
-| `cm of float
-| `none
-| `ch of float
-| `px of int
-| `vw of float
-| `zero
-| `rem of float
-| `pt of int
-| `percent of float
-| `vmin of float
-| `vmax of float
-| `calc of [ `sub | `add ] * length * length
-| `em of float ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-perspective" id="value-perspective">perspective</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `none
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>perspective()</code> CSS function defines a transformation that sets the distance between the user and the z=0 plane.
 https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/perspective</p>
@@ -3589,7 +3594,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property</p>
 <div class='body '><p> Builds a <code>@keyframe</code> at-rule from a list of keyframe blocks.</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-animationBody" id="value-animationBody">animationBody</a>: <a href="#type-animation">animation</a> => 'style</h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-animationBody" id="value-animationBody">animationBody</a>: <a href="#type-animation">animation</a> => <a href="#type-style">style</a></h4>
 
 <div class='body '><p>Returns a keyframe at-rule body. E.g.:</p>
 <pre class='code-txt css'><code class='css'>{
@@ -3659,7 +3664,7 @@ to its target before and after its execution.
 https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-animationIterationCount" id="value-animationIterationCount">animationIterationCount</a>: [ `infinite | `count of int ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-animationIterationCount" id="value-animationIterationCount">animationIterationCount</a>: [&lt; `infinite | `count of int ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>animation-iteration-count</code> CSS property specifies the number of times an animation
 cycle should be played before stopping.
@@ -3672,7 +3677,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/animation-iteration-count</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/animation-name</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-animationPlayState" id="value-animationPlayState">animationPlayState</a>: [ `running | `paused ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-animationPlayState" id="value-animationPlayState">animationPlayState</a>: [&lt; `running | `paused ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>animation-play-state</code> CSS property specifies whether an animation is running or paused.
 https://developer.mozilla.org/en-US/docs/Web/CSS/animation-play-state</p>
@@ -3856,7 +3861,7 @@ https://developer.mozilla.org/en-US/docs/Web/SVG</p>
 https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-SVG.fillRule" id="value-SVG.fillRule">fillRule</a>: [ `evenodd | `nonzero ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-SVG.fillRule" id="value-SVG.fillRule">fillRule</a>: [&lt; `evenodd | `nonzero ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
@@ -3872,11 +3877,11 @@ https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-opacity</p>
 https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-SVG.strokeLinecap" id="value-SVG.strokeLinecap">strokeLinecap</a>: [ `square | `round | `butt ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-SVG.strokeLinecap" id="value-SVG.strokeLinecap">strokeLinecap</a>: [&lt; `square | `round | `butt ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-SVG.strokeLinejoin" id="value-SVG.strokeLinejoin">strokeLinejoin</a>: [ `bevel | `miter | `round ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-SVG.strokeLinejoin" id="value-SVG.strokeLinejoin">strokeLinejoin</a>: [&lt; `bevel | `miter | `round ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
