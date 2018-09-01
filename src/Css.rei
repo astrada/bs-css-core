@@ -1022,13 +1022,25 @@ let justifyContent:
   [< | `flexStart | `center | `flexEnd | `spaceBetween | `spaceAround] => rule;
 
 /**
- * The CSS `box-sizing` property is used to alter the default CSS box model used to calculate
- * width and height of the elements.
+ * The CSS `box-sizing` property is used to alter the default CSS box model
+ * used to calculate width and height of the elements.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing
  */
 let boxSizing: [< | `borderBox | `contentBox] => rule;
 
+/**
+ * The `float` CSS property specifies that an element should be placed along
+ * the left or right side of its container, allowing text and inline elements
+ * to wrap around it.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/float
+ */
 let float: [< | `left | `right | `none] => rule;
+/**
+ * The `clear` CSS property specifies whether an element can be next to
+ * floating elements that precede it or must be moved down (cleared) below
+ * them.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/clear
+ */
 let clear: [< | `left | `right | `both] => rule;
 
 /**
@@ -1110,7 +1122,8 @@ let borderTopWidth: length => rule;
  */
 let borderTopStyle: [< | `solid | `dashed | `dotted | `none] => rule;
 /**
- * The `border-top-color` CSS property sets the color of an element's top border.
+ * The `border-top-color` CSS property sets the color of an element's top
+ * border.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-color
  */
 let borderTopColor: color => rule;
@@ -1203,8 +1216,23 @@ let borderBottomLeftRadius: length => rule;
  */
 let borderBottomRightRadius: length => rule;
 
+/**
+ * The `table-layout` CSS property specifies the algorithm used to lay out
+ * `<table>` cells, rows, and columns.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout
+ */
 let tableLayout: [< | `auto | `fixed] => rule;
+/**
+ * The `border-collapse` CSS property specifies whether cells inside a
+ * `<table>` have shared or separate borders.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/border-collapse
+ */
 let borderCollapse: [< | `separate | `collapse] => rule;
+/**
+ * The `border-spacing` CSS property specifies the distance between the
+ * borders of adjacent `<table>` cells.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/border-spacing
+ */
 let borderSpacing: length => rule;
 
 /**
@@ -1250,7 +1278,18 @@ let backgroundImage: [< | `url(string) | gradient | `none] => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/background-attachment
  */
 let backgroundAttachment: [< | `scroll | `fixed | `local] => rule;
+/**
+ * The `background-clip` CSS property specifies if an element's background,
+ * whether a `<color>` or an `<image>`, extends underneath its border.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip
+ */
 let backgroundClip: [< | `borderBox | `contentBox | `paddingBox] => rule;
+/**
+ * The `background-origin` CSS property sets the background positioning area,
+ * i.e., the origin position of an image specified using the
+ * `background-image` property.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/background-origin
+ */
 let backgroundOrigin: [< | `borderBox | `contentBox | `paddingBox] => rule;
 /**
  * The `background-position` CSS property sets the initial position for each defined
@@ -1300,6 +1339,10 @@ let cursor:
   ] =>
   rule;
 
+/**
+ * The `clip-path` CSS property creates a clipping region that defines what part of an element should be displayed.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path
+ */
 let clipPath: [< | `url(string)] => rule;
 
 type listStyleType = [
@@ -1316,6 +1359,12 @@ type listStyleType = [
   | `upperRoman
   | `none
 ];
+/**
+ * The list-style CSS property is a shorthand for setting the individual
+ * values that define how a list is displayed: `list-style-type`,
+ * `list-style-image`, and `list-style-position`.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/list-style
+ */
 let listStyle:
   (listStyleType, [< | `inside | `outside], [< | `none | `url(string)]) =>
   rule;
@@ -1381,6 +1430,11 @@ let outlineColor: color => rule;
  */
 let outlineOffset: length => rule;
 
+/**
+ * The `pointer-events` CSS property specifies under what circumstances (if
+ * any) a particular graphic element can become the target of mouse events.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
+ */
 let pointerEvents: [< | `auto | `none] => rule;
 
 /*
@@ -1401,6 +1455,10 @@ let color: color => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/font-family
  */
 let fontFamily: string => rule;
+/**
+ * The `@font-face` CSS at-rule specifies a custom font with which to display text.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face
+ */
 let fontFace:
   (
     ~fontFamily: string,
@@ -1486,6 +1544,10 @@ let textShadow: (~x: length=?, ~y: length=?, ~blur: length=?, color) => rule;
  */
 let textTransform: [< | `uppercase | `lowercase | `capitalize | `none] => rule;
 let userSelect: [< | `auto | `all | `text | `none] => rule;
+/**
+ * The `vertical-align` CSS property specifies the vertical alignment of an inline or table-cell box.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/vertical-align
+ */
 let verticalAlign:
   [
     | `baseline
@@ -1504,7 +1566,17 @@ let verticalAlign:
  * https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
  */
 let whiteSpace: [< | `normal | `nowrap | `pre | `preLine | `preWrap] => rule;
+/**
+ * The `word-break` CSS property specifies whether or not the browser should
+ * insert line breaks wherever the text would otherwise overflow its content
+ * box.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/word-break
+ */
 let wordBreak: [< | `breakAll | `keepAll | `normal] => rule;
+/**
+ * The `word-spacing` CSS property specifies the spacing behavior between tags and words.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing
+ */
 let wordSpacing: [< | `normal | length] => rule;
 /**
  * The `overflow-wrap` CSS property specifies whether or not the browser should insert line breaks within words
@@ -1548,14 +1620,34 @@ let transform: transform => rule;
  * Builds multiple transforms.
  */
 let transforms: list(transform) => rule;
+/**
+ * The `transform-origin` CSS property sets the origin for an element's transformations.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin
+ */
 let transformOrigin: (length, length) => rule;
+/**
+ * The `transform-origin` CSS property sets the origin for an element's transformations.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin
+ */
 let transformOrigin3d: (length, length, length) => rule;
+/**
+ * The `transform-style` CSS property determines if the children of an element
+ * are positioned in the 3D-space or are flattened in the plane of the
+ * element.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style
+ */
 let transformStyle: [< | `preserve3d | `flat] => rule;
 /**
- * The `perspective()` CSS function defines a transformation that sets the distance between the user and the z=0 plane.
- * https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/perspective
+ * The `perspective` CSS property determines the distance between the z=0
+ * plane and the user in order to give a 3D-positioned element some
+ * perspective.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/perspective
  */
 let perspective: [< | `none | length] => rule;
+/**
+ * The `perspective-origin` CSS property determines the position at which the viewer is looking.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/perspective-origin
+ */
 let perspectiveOrigin: (length, length) => rule;
 
 /**
@@ -1652,6 +1744,10 @@ type animationFillMode = [ | `none | `forwards | `backwards | `both];
 type animationIterationCount = [ | `infinite | `count(int)];
 type animationPlayState = [ | `paused | `running];
 
+/**
+ * The `animation` CSS property is a shorthand property for the various animation properties.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/animation
+ */
 let animation:
   (
     ~duration: int=?,
@@ -1666,8 +1762,22 @@ let animation:
   [> | `animation(string)];
 let animations: list([ | `animation(string)]) => rule;
 
+/**
+ * The `animation-delay` CSS property specifies when an animation should start.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/animation-delay
+ */
 let animationDelay: int => rule;
+/**
+ * The `animation-direction` CSS property specifies whether an animation
+ * should play forwards, backwards, or alternating back and forth.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction
+ */
 let animationDirection: animationDirection => rule;
+/**
+ * The `animation-duration` CSS property specifies the length of time that an
+ * animation should take to complete one cycle.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/animation-duration
+ */
 let animationDuration: int => rule;
 /**
  * The `animation-fill-mode` CSS property specifies how a CSS animation should apply styles
@@ -1798,20 +1908,76 @@ let required: list(rule) => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/:visited
  */
 let visited: list(rule) => rule;
+/**
+ * The `:enabled` CSS pseudo-class represents any enabled element.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/:enabled
+ */
 let enabled: list(rule) => rule;
 let noContent: list(rule) => rule;
+/**
+ * The `:default` CSS pseudo-class represents any form element that is the default among a group of related elements.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/:default 
+ */
 let default: list(rule) => rule;
+/**
+ * The `:any-link` CSS pseudo-class selector represents an element that acts
+ * as the source anchor of a hyperlink, independent of whether it has been
+ * visited.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/:any-link
+ */
 let anyLink: list(rule) => rule;
+/**
+ * The `:only-child` CSS pseudo-class represents an element without any siblings.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/:only-child
+ */
 let onlyChild: list(rule) => rule;
+/**
+ * The `:only-of-type` CSS pseudo-class represents an element that has no siblings of the same type.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/:only-of-type
+ */
 let onlyOfType: list(rule) => rule;
+/**
+ * The `:optional` CSS pseudo-class represents any `<input>`, `<select>`, or
+ * `<textarea>` element that does not have the required attribute set on it.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/:optional
+ */
 let optional: list(rule) => rule;
 let invalid: list(rule) => rule;
+/**
+ * The `:out-of-range` CSS pseudo-class represents an `<input>` element whose
+ * current value is outside the range limits specified by the `min` and `max` attributes.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/:out-of-range
+ */
 let outOfRange: list(rule) => rule;
 let siblings: list(rule) => rule;
+/**
+ * The `:target` CSS pseudo-class represents a unique element (the target
+ * element) with an `id` matching the URL's fragment.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/:target
+ */
 let target: list(rule) => rule;
+/**
+ * The `::first-line` CSS pseudo-element applies styles to the first line of a block-level element.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/::first-line
+ */
 let firstLine: list(rule) => rule;
+/**
+ * The `::first-letter` CSS pseudo-element applies styles to the first letter
+ * of the first line of a block-level element, but only when not preceded by
+ * other content (such as images or inline tables).
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/::first-letter
+ */
 let firstLetter: list(rule) => rule;
+/**
+ * The `::selection` CSS pseudo-element applies styles to the portion of a
+ * document that has been highlighted by the user (such as with the mouse).
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/::selection
+ */
 let selection: list(rule) => rule;
+/**
+ * The `::placeholder` CSS pseudo-element represents the placeholder text of a form element.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/::placeholder
+ */
 let placeholder: list(rule) => rule;
 
 /**
@@ -1835,6 +2001,11 @@ module SVG: {
    * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill
    */
   let fill: color => rule;
+  /**
+   * The `fill-rule` attribute is a presentation attribute defining the
+   * algorithm to use to determine the _inside_ part of a shape.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule
+   */
   let fillRule: [< | `nonzero | `evenodd] => rule;
   /**
    * This attribute specifies the opacity of the color or the content the current object is filled with.
@@ -1846,8 +2017,23 @@ module SVG: {
    * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke
    */
   let stroke: color => rule;
+  /**
+   * The `stroke-linecap` attribute is a presentation attribute defining the
+   * shape to be used at the end of open subpaths when they are stroked.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap
+   */
   let strokeLinecap: [< | `butt | `round | `square] => rule;
+  /**
+   * The `stroke-linejoin` attribute is a presentation attribute defining the
+   * shape to be used at the corners of paths when they are stroked.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linejoin
+   */
   let strokeLinejoin: [< | `miter | `round | `bevel] => rule;
+  /**
+   * The `stroke-miterlimit` attribute is a presentation attribute defining a
+   * limit on the ratio of the miter length to the `stroke-width` used to draw a miter join.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-miterlimit
+   */
   let strokeMiterlimit: float => rule;
   /**
    * the `stroke-width` attribute specifies the width of the outline on the current object.
@@ -1859,6 +2045,14 @@ module SVG: {
    * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-opacity
    */
   let strokeOpacity: float => rule;
+  /**
+   * The `stop-color` attribute indicates what color to use at that gradient stop.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stop-color
+   */
   let stopColor: color => rule;
+  /**
+   * The `stop-opacity` attribute defines the opacity of a given gradient stop.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stop-opacity
+   */
   let stopOpacity: float => rule;
 };
