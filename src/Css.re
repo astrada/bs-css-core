@@ -43,10 +43,12 @@ let rec makeDict = ruleset => {
 };
 
 let keyframes = keyframes => {
-  let ruleset = keyframes
+  let ruleset =
+    keyframes
     |> List.map(((perc, ruleset)) =>
-      `selector(string_of_int(perc) ++ "%", ruleset));
-  `selector("animationName", ruleset)
+         `selector((string_of_int(perc) ++ "%", ruleset))
+       );
+  `selector(("animationName", ruleset));
 };
 
 let style = rules => makeDict(rules) |> toStyleObject;
@@ -54,7 +56,7 @@ let style = rules => makeDict(rules) |> toStyleObject;
 let animationBody = animation => {
   let ruleset =
     switch (animation) {
-      | `selector(_name, ruleset) => ruleset
+    | `selector(_name, ruleset) => ruleset
     };
   style(ruleset);
 };
@@ -321,25 +323,25 @@ let string_of_stops = stops =>
   |> join(", ");
 
 /* Not used
-let string_of_gradient =
-  fun
-  | `linearGradient(angle, stops) =>
-    "linear-gradient("
-    ++ string_of_angle(angle)
-    ++ ", "
-    ++ string_of_stops(stops)
-    ++ ")"
-  | `repeatingLinearGradient(angle, stops) =>
-    "repeating-linear-gradient("
-    ++ string_of_angle(angle)
-    ++ ", "
-    ++ string_of_stops(stops)
-    ++ ")"
-  | `radialGradient(stops) =>
-    "radial-gradient(" ++ string_of_stops(stops) ++ ")"
-  | `repeatingRadialGradient(stops) =>
-    "repeating-radial-gradient(" ++ string_of_stops(stops) ++ ")";
-*/
+   let string_of_gradient =
+     fun
+     | `linearGradient(angle, stops) =>
+       "linear-gradient("
+       ++ string_of_angle(angle)
+       ++ ", "
+       ++ string_of_stops(stops)
+       ++ ")"
+     | `repeatingLinearGradient(angle, stops) =>
+       "repeating-linear-gradient("
+       ++ string_of_angle(angle)
+       ++ ", "
+       ++ string_of_stops(stops)
+       ++ ")"
+     | `radialGradient(stops) =>
+       "radial-gradient(" ++ string_of_stops(stops) ++ ")"
+     | `repeatingRadialGradient(stops) =>
+       "repeating-radial-gradient(" ++ string_of_stops(stops) ++ ")";
+   */
 
 let linearGradient = (angle, stops) => `linearGradient((angle, stops));
 
@@ -1816,9 +1818,10 @@ let animation =
       ~iterationCount=`count(1),
       animation,
     ) => {
-  let name = switch (animation) {
+  let name =
+    switch (animation) {
     | `selector(name, _ruleset) => name
-  };
+    };
   `animation(
     join(
       " ",

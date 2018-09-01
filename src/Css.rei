@@ -129,37 +129,37 @@ type color = [
  * Returns a color from its red, green, and blue components.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#rgb()
  */
-let rgb: (int, int, int) => [> | color ];
+let rgb: (int, int, int) => [> color];
 /**
  * Returns a color from its red, green, blue, and alpha (transparency) components.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#rgba()
  */
-let rgba: (int, int, int, float) => [> | color ];
+let rgba: (int, int, int, float) => [> color];
 /**
  * Returns a color from its hue, saturation, and lightness components.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#hsl()
  */
-let hsl: (int, int, int) => [> | color ];
+let hsl: (int, int, int) => [> color];
 /**
  * Returns a color from its hue, saturation, lightness, and alpha components.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#hsla()
  */
-let hsla: (int, int, int, float) => [> | color ];
+let hsla: (int, int, int, float) => [> color];
 /**
  * Returns a color from its hexadecimal notation.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#Syntax
  */
-let hex: string => [> | color ];
+let hex: string => [> color];
 /**
  * The `transparent` keyword represents a fully transparent color.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#transparent
  */
-let transparent: [> | color ];
+let transparent: [> color];
 /**
  * The `currentColor` keyword represents the value of an element's color property.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentColor
  */
-let currentColor: [> | color ];
+let currentColor: [> color];
 
 /**
  * The `<gradient>` CSS data type is a special type of `<image>` that consists of a progressive
@@ -178,172 +178,172 @@ type gradient = [
  * transition between two or more colors along a straight line.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient
  */
-let linearGradient: (angle, list((int, color))) => [> | gradient ];
+let linearGradient: (angle, list((int, color))) => [> gradient];
 /**
  * The `repeating-linear-gradient()` CSS function creates an image consisting of repeating linear gradients.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/repeating-linear-gradient
  */
-let repeatingLinearGradient: (angle, list((int, color))) => [> | gradient ];
+let repeatingLinearGradient: (angle, list((int, color))) => [> gradient];
 /**
  * The `radial-gradient()` CSS function creates an image consisting of a progressive
  * transition between two or more colors that radiate from an origin.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/radial-gradient
  */
-let radialGradient: list((int, color)) => [> | gradient ];
+let radialGradient: list((int, color)) => [> gradient];
 /**
  * The `repeating-radial-gradient()` CSS function creates an image consisting of repeating gradients that radiate from an origin.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/repeating-radial-gradient
  */
-let repeatingRadialGradient: list((int, color)) => [> | gradient ];
+let repeatingRadialGradient: list((int, color)) => [> gradient];
 
-let aliceblue: [> | color ];
-let antiquewhite: [> | color ];
-let aqua: [> | color ];
-let aquamarine: [> | color ];
-let azure: [> | color ];
-let beige: [> | color ];
-let bisque: [> | color ];
-let black: [> | color ];
-let blanchedalmond: [> | color ];
-let blue: [> | color ];
-let blueviolet: [> | color ];
-let brown: [> | color ];
-let burlywood: [> | color ];
-let cadetblue: [> | color ];
-let chartreuse: [> | color ];
-let chocolate: [> | color ];
-let coral: [> | color ];
-let cornflowerblue: [> | color ];
-let cornsilk: [> | color ];
-let crimson: [> | color ];
-let cyan: [> | color ];
-let darkblue: [> | color ];
-let darkcyan: [> | color ];
-let darkgoldenrod: [> | color ];
-let darkgray: [> | color ];
-let darkgrey: [> | color ];
-let darkgreen: [> | color ];
-let darkkhaki: [> | color ];
-let darkmagenta: [> | color ];
-let darkolivegreen: [> | color ];
-let darkorange: [> | color ];
-let darkorchid: [> | color ];
-let darkred: [> | color ];
-let darksalmon: [> | color ];
-let darkseagreen: [> | color ];
-let darkslateblue: [> | color ];
-let darkslategray: [> | color ];
-let darkslategrey: [> | color ];
-let darkturquoise: [> | color ];
-let darkviolet: [> | color ];
-let deeppink: [> | color ];
-let deepskyblue: [> | color ];
-let dimgray: [> | color ];
-let dimgrey: [> | color ];
-let dodgerblue: [> | color ];
-let firebrick: [> | color ];
-let floralwhite: [> | color ];
-let forestgreen: [> | color ];
-let fuchsia: [> | color ];
-let gainsboro: [> | color ];
-let ghostwhite: [> | color ];
-let gold: [> | color ];
-let goldenrod: [> | color ];
-let gray: [> | color ];
-let grey: [> | color ];
-let green: [> | color ];
-let greenyellow: [> | color ];
-let honeydew: [> | color ];
-let hotpink: [> | color ];
-let indianred: [> | color ];
-let indigo: [> | color ];
-let ivory: [> | color ];
-let khaki: [> | color ];
-let lavender: [> | color ];
-let lavenderblush: [> | color ];
-let lawngreen: [> | color ];
-let lemonchiffon: [> | color ];
-let lightblue: [> | color ];
-let lightcoral: [> | color ];
-let lightcyan: [> | color ];
-let lightgoldenrodyellow: [> | color ];
-let lightgray: [> | color ];
-let lightgrey: [> | color ];
-let lightgreen: [> | color ];
-let lightpink: [> | color ];
-let lightsalmon: [> | color ];
-let lightseagreen: [> | color ];
-let lightskyblue: [> | color ];
-let lightslategray: [> | color ];
-let lightslategrey: [> | color ];
-let lightsteelblue: [> | color ];
-let lightyellow: [> | color ];
-let lime: [> | color ];
-let limegreen: [> | color ];
-let linen: [> | color ];
-let magenta: [> | color ];
-let maroon: [> | color ];
-let mediumaquamarine: [> | color ];
-let mediumblue: [> | color ];
-let mediumorchid: [> | color ];
-let mediumpurple: [> | color ];
-let mediumseagreen: [> | color ];
-let mediumslateblue: [> | color ];
-let mediumspringgreen: [> | color ];
-let mediumturquoise: [> | color ];
-let mediumvioletred: [> | color ];
-let midnightblue: [> | color ];
-let mintcream: [> | color ];
-let mistyrose: [> | color ];
-let moccasin: [> | color ];
-let navajowhite: [> | color ];
-let navy: [> | color ];
-let oldlace: [> | color ];
-let olive: [> | color ];
-let olivedrab: [> | color ];
-let orange: [> | color ];
-let orangered: [> | color ];
-let orchid: [> | color ];
-let palegoldenrod: [> | color ];
-let palegreen: [> | color ];
-let paleturquoise: [> | color ];
-let palevioletred: [> | color ];
-let papayawhip: [> | color ];
-let peachpuff: [> | color ];
-let peru: [> | color ];
-let pink: [> | color ];
-let plum: [> | color ];
-let powderblue: [> | color ];
-let purple: [> | color ];
-let rebeccapurple: [> | color ];
-let red: [> | color ];
-let rosybrown: [> | color ];
-let royalblue: [> | color ];
-let saddlebrown: [> | color ];
-let salmon: [> | color ];
-let sandybrown: [> | color ];
-let seagreen: [> | color ];
-let seashell: [> | color ];
-let sienna: [> | color ];
-let silver: [> | color ];
-let skyblue: [> | color ];
-let slateblue: [> | color ];
-let slategray: [> | color ];
-let slategrey: [> | color ];
-let snow: [> | color ];
-let springgreen: [> | color ];
-let steelblue: [> | color ];
-let tan: [> | color ];
-let teal: [> | color ];
-let thistle: [> | color ];
-let tomato: [> | color ];
-let turquoise: [> | color ];
-let violet: [> | color ];
-let wheat: [> | color ];
-let white: [> | color ];
-let whitesmoke: [> | color ];
-let yellow: [> | color ];
-let yellowgreen: [> | color ];
+let aliceblue: [> color];
+let antiquewhite: [> color];
+let aqua: [> color];
+let aquamarine: [> color];
+let azure: [> color];
+let beige: [> color];
+let bisque: [> color];
+let black: [> color];
+let blanchedalmond: [> color];
+let blue: [> color];
+let blueviolet: [> color];
+let brown: [> color];
+let burlywood: [> color];
+let cadetblue: [> color];
+let chartreuse: [> color];
+let chocolate: [> color];
+let coral: [> color];
+let cornflowerblue: [> color];
+let cornsilk: [> color];
+let crimson: [> color];
+let cyan: [> color];
+let darkblue: [> color];
+let darkcyan: [> color];
+let darkgoldenrod: [> color];
+let darkgray: [> color];
+let darkgrey: [> color];
+let darkgreen: [> color];
+let darkkhaki: [> color];
+let darkmagenta: [> color];
+let darkolivegreen: [> color];
+let darkorange: [> color];
+let darkorchid: [> color];
+let darkred: [> color];
+let darksalmon: [> color];
+let darkseagreen: [> color];
+let darkslateblue: [> color];
+let darkslategray: [> color];
+let darkslategrey: [> color];
+let darkturquoise: [> color];
+let darkviolet: [> color];
+let deeppink: [> color];
+let deepskyblue: [> color];
+let dimgray: [> color];
+let dimgrey: [> color];
+let dodgerblue: [> color];
+let firebrick: [> color];
+let floralwhite: [> color];
+let forestgreen: [> color];
+let fuchsia: [> color];
+let gainsboro: [> color];
+let ghostwhite: [> color];
+let gold: [> color];
+let goldenrod: [> color];
+let gray: [> color];
+let grey: [> color];
+let green: [> color];
+let greenyellow: [> color];
+let honeydew: [> color];
+let hotpink: [> color];
+let indianred: [> color];
+let indigo: [> color];
+let ivory: [> color];
+let khaki: [> color];
+let lavender: [> color];
+let lavenderblush: [> color];
+let lawngreen: [> color];
+let lemonchiffon: [> color];
+let lightblue: [> color];
+let lightcoral: [> color];
+let lightcyan: [> color];
+let lightgoldenrodyellow: [> color];
+let lightgray: [> color];
+let lightgrey: [> color];
+let lightgreen: [> color];
+let lightpink: [> color];
+let lightsalmon: [> color];
+let lightseagreen: [> color];
+let lightskyblue: [> color];
+let lightslategray: [> color];
+let lightslategrey: [> color];
+let lightsteelblue: [> color];
+let lightyellow: [> color];
+let lime: [> color];
+let limegreen: [> color];
+let linen: [> color];
+let magenta: [> color];
+let maroon: [> color];
+let mediumaquamarine: [> color];
+let mediumblue: [> color];
+let mediumorchid: [> color];
+let mediumpurple: [> color];
+let mediumseagreen: [> color];
+let mediumslateblue: [> color];
+let mediumspringgreen: [> color];
+let mediumturquoise: [> color];
+let mediumvioletred: [> color];
+let midnightblue: [> color];
+let mintcream: [> color];
+let mistyrose: [> color];
+let moccasin: [> color];
+let navajowhite: [> color];
+let navy: [> color];
+let oldlace: [> color];
+let olive: [> color];
+let olivedrab: [> color];
+let orange: [> color];
+let orangered: [> color];
+let orchid: [> color];
+let palegoldenrod: [> color];
+let palegreen: [> color];
+let paleturquoise: [> color];
+let palevioletred: [> color];
+let papayawhip: [> color];
+let peachpuff: [> color];
+let peru: [> color];
+let pink: [> color];
+let plum: [> color];
+let powderblue: [> color];
+let purple: [> color];
+let rebeccapurple: [> color];
+let red: [> color];
+let rosybrown: [> color];
+let royalblue: [> color];
+let saddlebrown: [> color];
+let salmon: [> color];
+let sandybrown: [> color];
+let seagreen: [> color];
+let seashell: [> color];
+let sienna: [> color];
+let silver: [> color];
+let skyblue: [> color];
+let slateblue: [> color];
+let slategray: [> color];
+let slategrey: [> color];
+let snow: [> color];
+let springgreen: [> color];
+let steelblue: [> color];
+let tan: [> color];
+let teal: [> color];
+let thistle: [> color];
+let tomato: [> color];
+let turquoise: [> color];
+let violet: [> color];
+let wheat: [> color];
+let white: [> color];
+let whitesmoke: [> color];
+let yellow: [> color];
+let yellowgreen: [> color];
 
 /**
  * A CSS length. E.g. `10px`, `1rem`, `5em`.
@@ -373,74 +373,74 @@ type gridLength = [ length | `fr(float) | `minContent | `maxContent];
  * Returns a length in `ch` units (width, or more precisely the advance measure, of the glyph "0").
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#ex
  */
-let ch: float => [> | length ];
+let ch: float => [> length];
 /**
  * Returns a length in centimeters.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#cm
  */
-let cm: float => [> | length ];
+let cm: float => [> length];
 /**
  * Returns a length in `em` units (calculated font-size of the element).
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#em
  */
-let em: float => [> | length ];
+let em: float => [> length];
 /**
  * Returns a length in `ex` units (x-height of the element's font).
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#ex
  */
-let ex: float => [> | length ];
+let ex: float => [> length];
 /**
  * Returns a length in `flex` units (a flexible length within a grid container).
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#ex
  */
-let fr: float => [> | gridLength ];
+let fr: float => [> gridLength];
 /**
  * Returns a length in millimeters.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#mm
  */
-let mm: float => [> | length ];
+let mm: float => [> length];
 /**
  * Returns a length in percentual.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/percentage
  */
-let pct: float => [> | length ];
+let pct: float => [> length];
 /**
  * Returns a length in point units (`1pt` = 1/72nd of `1in`).
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem
  */
-let pt: int => [> | length ];
+let pt: int => [> length];
 /**
  * Returns a length in pixels.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#px
  */
-let px: int => [> | length];
+let px: int => [> length];
 /**
  * Returns a length in `rem` units (font-size of the root element).
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem
  */
-let rem: float => [> | length ];
+let rem: float => [> length];
 /**
  * Returns a length in `vh` units (1% of the height of the viewport's initial containing block).
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#vh
  */
-let vh: float => [> | length ];
+let vh: float => [> length];
 /**
  * Returns a length in `vw`/`vh` (whichever is larger) unit.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#vmax
  */
-let vmax: float => [> | length ];
+let vmax: float => [> length];
 /**
  * Returns a length in `vw`/`vh` (whichever is smaller) unit.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#vmin
  */
-let vmin: float => [> | length ];
+let vmin: float => [> length];
 /**
  * Returns a length in `vw` units (1% of the width of the viewport's initial containing block).
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#vw
  */
-let vw: float => [> | length ];
+let vw: float => [> length];
 /** Returns a length of zero. */
-let zero: [> | length];
+let zero: [> length];
 
 /**
  * The `calc()` CSS function lets you perform calculations when specifying CSS property values.
@@ -815,7 +815,7 @@ let gridTemplateRows: list([ gridLength | `auto]) => rule;
  * The `grid-auto-rows` CSS property specifies the size of an implicitly-created grid row track.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
  */
-let gridAutoRows: [< | length | `auto] => rule;
+let gridAutoRows: [< length | `auto] => rule;
 /**
  * The `grid-column` CSS property is a shorthand property for `grid-column-start` and `grid-column-end`.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column
@@ -867,50 +867,50 @@ let gridGap: length => rule;
  * the width of the content area.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/width
  */
-let width: [< | length | `auto] => rule;
+let width: [< length | `auto] => rule;
 /**
  * The `min-width` CSS property sets the minimum width of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/min-width
  */
-let minWidth: [< | length | `auto] => rule;
+let minWidth: [< length | `auto] => rule;
 /**
  * The `max-width` CSS property sets the maximum width of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/max-width
  */
-let maxWidth: [< | length | `auto] => rule;
+let maxWidth: [< length | `auto] => rule;
 /**
  * The `height` CSS property specifies the height of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/height
  */
-let height: [< | length | `auto] => rule;
+let height: [< length | `auto] => rule;
 /**
  * The `min-height` CSS property sets the minimum height of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/min-height
  */
-let minHeight: [< | length | `auto] => rule;
+let minHeight: [< length | `auto] => rule;
 /**
  * The `max-height` CSS property sets the maximum height of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/max-height
  */
-let maxHeight: [< | length | `auto] => rule;
+let maxHeight: [< length | `auto] => rule;
 
 /**
  * The `margin` CSS property sets the margin area on all four sides of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/margin
  */
-let margin: [< | length | `auto] => rule;
+let margin: [< length | `auto] => rule;
 /**
  * Returns a margin from its vertical and horizontal components.
  */
-let margin2: (~v: [< | length | `auto], ~h: [< | length | `auto]) => rule;
+let margin2: (~v: [< length | `auto], ~h: [< length | `auto]) => rule;
 /**
  * Returns a margin from its top, horizontal, and bottom components.
  */
 let margin3:
   (
-    ~top: [< | length | `auto],
-    ~h: [< | length | `auto],
-    ~bottom: [< | length | `auto]
+    ~top: [< length | `auto],
+    ~h: [< length | `auto],
+    ~bottom: [< length | `auto]
   ) =>
   rule;
 /**
@@ -918,32 +918,32 @@ let margin3:
  */
 let margin4:
   (
-    ~top: [< | length | `auto],
-    ~right: [< | length | `auto],
-    ~bottom: [< | length | `auto],
-    ~left: [< | length | `auto]
+    ~top: [< length | `auto],
+    ~right: [< length | `auto],
+    ~bottom: [< length | `auto],
+    ~left: [< length | `auto]
   ) =>
   rule;
 /**
  * The `margin-left` CSS property sets the margin area on the left side of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/margin-left
  */
-let marginLeft: [< | length | `auto] => rule;
+let marginLeft: [< length | `auto] => rule;
 /**
  * The `margin-right` CSS property sets the margin area on the right side of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/margin-right
  */
-let marginRight: [< | length | `auto] => rule;
+let marginRight: [< length | `auto] => rule;
 /**
  * The `margin-top` CSS property sets the margin area on the top side of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/margin-top
  */
-let marginTop: [< | length | `auto] => rule;
+let marginTop: [< length | `auto] => rule;
 /**
  * The `margin-bottom` CSS property sets the margin area on the bottom side of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/margin-bottom
  */
-let marginBottom: [< | length | `auto] => rule;
+let marginBottom: [< length | `auto] => rule;
 
 /**
  * The `padding` CSS property sets the padding area on all four sides of an element.
@@ -1317,7 +1317,8 @@ type listStyleType = [
   | `none
 ];
 let listStyle:
-  (listStyleType, [< | `inside | `outside], [< | `none | `url(string)]) => rule;
+  (listStyleType, [< | `inside | `outside], [< | `none | `url(string)]) =>
+  rule;
 /**
  * The `list-style-type` CSS property specifies the appearance of a list item element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type
@@ -1451,7 +1452,8 @@ let textAlign: [< | `left | `center | `right | `justify] => rule;
  * The `text-decoration` CSS property specifies the appearance of decorative lines used on text.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration
  */
-let textDecoration: [< | `none | `underline | `overline | `lineThrough] => rule;
+let textDecoration:
+  [< | `none | `underline | `overline | `lineThrough] => rule;
 /**
  * The `text-decoration-color` CSS property sets the color of the decorative additions to text that are specified by text-decoration-line.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-color
