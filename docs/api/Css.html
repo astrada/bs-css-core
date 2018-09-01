@@ -513,7 +513,9 @@
 <a href="#value-active" class='level-3 value'>active</a>
 <a href="#value-after" class='level-3 value'>after</a>
 <a href="#value-before" class='level-3 value'>before</a>
+<a href="#value-checked" class='level-3 value'>checked</a>
 <a href="#value-children" class='level-3 value'>children</a>
+<a href="#value-directSibling" class='level-3 value'>directSibling</a>
 <a href="#value-disabled" class='level-3 value'>disabled</a>
 <a href="#value-firstChild" class='level-3 value'>firstChild</a>
 <a href="#value-firstOfType" class='level-3 value'>firstOfType</a>
@@ -534,6 +536,7 @@
 <a href="#value-optional" class='level-3 value'>optional</a>
 <a href="#value-invalid" class='level-3 value'>invalid</a>
 <a href="#value-outOfRange" class='level-3 value'>outOfRange</a>
+<a href="#value-siblings" class='level-3 value'>siblings</a>
 <a href="#value-target" class='level-3 value'>target</a>
 <a href="#value-firstLine" class='level-3 value'>firstLine</a>
 <a href="#value-firstLetter" class='level-3 value'>firstLetter</a>
@@ -1424,9 +1427,11 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/length</p>
 | `ch of float
 | `px of int
 | `vw of float
+| `minContent
 | `zero
 | `rem of float
 | `pt of int
+| `maxContent
 | `percent of float
 | `vmin of float
 | `vmax of float
@@ -2209,12 +2214,14 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/order</p>
 | `vw of float
 | `px of int
 | `ch of float
+| `minContent
 | `zero
 | `rem of float
 | `pt of int
 | `auto
 | `vmin of float
 | `percent of float
+| `maxContent
 | `vmax of float
 | `fr of float
 | `calc of [ `sub | `add ] * length * length
@@ -2233,12 +2240,14 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns</p>
 | `vw of float
 | `px of int
 | `ch of float
+| `minContent
 | `zero
 | `rem of float
 | `pt of int
 | `auto
 | `vmin of float
 | `percent of float
+| `maxContent
 | `vmax of float
 | `fr of float
 | `calc of [ `sub | `add ] * length * length
@@ -3332,7 +3341,23 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-lineHeight" id="value-lineHeight">lineHeight</a>: float => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-lineHeight" id="value-lineHeight">lineHeight</a>: [ `mm of float
+| `vh of float
+| `ex of float
+| `cm of float
+| `ch of float
+| `px of int
+| `vw of float
+| `zero
+| `rem of float
+| `pt of int
+| `normal
+| `percent of float
+| `vmin of float
+| `abs of float
+| `vmax of float
+| `calc of [ `sub | `add ] * length * length
+| `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>line-height</code> CSS property sets the amount of space used for lines, such as in text.
 https://developer.mozilla.org/en-US/docs/Web/CSS/line-height</p>
@@ -3714,10 +3739,27 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/::after</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/::before</p>
 </div></div>
 
+<div class='doc-item'><h4 class='item'>let <a href="#value-checked" id="value-checked">checked</a>: list(<a href="#type-rule">rule</a>) => <a href="#type-rule">rule</a></h4>
+
+<div class='body '><p>The <code>:checked</code> CSS pseudo-class selector represents any radio (<code>&lt;input
+type=&quot;radio&quot;&gt;</code>), checkbox (<code>&lt;input type=&quot;checkbox&quot;&gt;</code>), or option
+(<code>&lt;option&gt;</code> in a <code>&lt;select&gt;</code>) element that is checked or toggled to an <code>on</code>
+state.
+https://developer.mozilla.org/en-US/docs/Web/CSS/:checked</p>
+</div></div>
+
 <div class='doc-item'><h4 class='item'>let <a href="#value-children" id="value-children">children</a>: list(<a href="#type-rule">rule</a>) => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>Selects all the children of an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/Child_selectors</p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-directSibling" id="value-directSibling">directSibling</a>: list(<a href="#type-rule">rule</a>) => <a href="#type-rule">rule</a></h4>
+
+<div class='body '><p>The adjacent sibling combinator (<code>+</code>) separates two selectors and matches
+the second element only if it <em>immediately</em> follows the first element, and
+both are children of the same parent element.
+https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_selectors</p>
 </div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-disabled" id="value-disabled">disabled</a>: list(<a href="#type-rule">rule</a>) => <a href="#type-rule">rule</a></h4>
@@ -3823,6 +3865,10 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/:visited</p>
 <div class='body body-empty'></div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-outOfRange" id="value-outOfRange">outOfRange</a>: list(<a href="#type-rule">rule</a>) => <a href="#type-rule">rule</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-siblings" id="value-siblings">siblings</a>: list(<a href="#type-rule">rule</a>) => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
