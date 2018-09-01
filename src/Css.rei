@@ -1,7 +1,7 @@
 /*
  * Based on https://github.com/SentiaAnalytics/bs-css/blob/master/src/Css.rei
- * bs-css v7.0.1
- * commit 30d0a296
+ * bs-css v7.1.0
+ * commit 16b3fd3
  */
 
 /**
@@ -367,7 +367,7 @@ type length = [
   | `zero
 ];
 
-type gridLength = [ length | `fr(float)];
+type gridLength = [ length | `fr(float) | `minContent | `maxContent];
 
 /**
  * Returns a length in `ch` units (width, or more precisely the advance measure, of the glyph "0").
@@ -1441,7 +1441,7 @@ let letterSpacing: [< | `normal | length] => rule;
  * The `line-height` CSS property sets the amount of space used for lines, such as in text.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
  */
-let lineHeight: float => rule;
+let lineHeight: [ | `normal | `abs(float) | length] => rule;
 /**
  * The `text-align` CSS property describes how inline content like text is aligned in its parent block element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-align
@@ -1718,10 +1718,25 @@ let after: list(rule) => rule;
  */
 let before: list(rule) => rule;
 /**
+ * The `:checked` CSS pseudo-class selector represents any radio (`<input
+ * type="radio">`), checkbox (`<input type="checkbox">`), or option
+ * (`<option>` in a `<select>`) element that is checked or toggled to an `on`
+ * state.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/:checked
+ */
+let checked: list(rule) => rule;
+/**
  * Selects all the children of an element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/Child_selectors
  */
 let children: list(rule) => rule;
+/**
+ * The adjacent sibling combinator (`+`) separates two selectors and matches
+ * the second element only if it _immediately_ follows the first element, and
+ * both are children of the same parent element.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_selectors
+ */
+let directSibling: list(rule) => rule;
 /**
  * The `:disabled` CSS pseudo-class represents any disabled element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/:disabled
@@ -1790,6 +1805,7 @@ let onlyOfType: list(rule) => rule;
 let optional: list(rule) => rule;
 let invalid: list(rule) => rule;
 let outOfRange: list(rule) => rule;
+let siblings: list(rule) => rule;
 let target: list(rule) => rule;
 let firstLine: list(rule) => rule;
 let firstLetter: list(rule) => rule;

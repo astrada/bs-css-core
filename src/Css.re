@@ -61,7 +61,9 @@ let animationBody = animation => {
 
 let d = (property, value) => `declaration((property, value));
 
-let func = (name, args) => name ++ "(" ++ join(", ", args) ++ ")";
+let func1 = (name, arg) => name ++ "(" ++ arg ++ ")";
+let func2 = (name, arg, arg') => name ++ "(" ++ arg ++ ", " ++ arg' ++ ")";
+let funcAny = (name, args) => name ++ "(" ++ join(", ", args) ++ ")";
 
 let string_of_float = (f: float) => {j|$(f)|j};
 
@@ -369,7 +371,7 @@ type length = [
   | `zero
 ];
 
-type gridLength = [ length | `fr(float)];
+type gridLength = [ length | `fr(float) | `minContent | `maxContent];
 
 let rec string_of_length =
   fun
@@ -555,7 +557,8 @@ let square = `square;
 let unsafe = d;
 /**
  * Layout
- **/
+ */
+
 let display = x =>
   d(
     "display",
@@ -621,6 +624,7 @@ let flexBasis = x =>
     | `auto => "auto"
     },
   );
+
 let flexDirection = x =>
   d(
     "flexDirection",
@@ -732,7 +736,10 @@ let string_of_dimension =
   | `vmin(x) => string_of_float(x) ++ "vmin"
   | `vw(x) => string_of_float(x) ++ "vw"
   | `fr(x) => string_of_float(x) ++ "fr"
-  | `zero => "0";
+  | `zero => "0"
+  | `minContent => "min-content"
+  | `maxContent => "max-content";
+
 let width = x => d("width", string_of_dimension(x));
 let maxWidth = x => d("maxWidth", string_of_dimension(x));
 let minWidth = x => d("minWidth", string_of_dimension(x));
@@ -839,7 +846,8 @@ let zIndex = i => d("zIndex", string_of_int(i));
 
 /**
  * Style
-**/
+ */
+
 let backfaceVisibility = x =>
   d(
     "backfaceVisibility",
@@ -1221,10 +1229,10 @@ let string_of_listStylePosition =
   | `inside => "inside"
   | `outside => "outside";
 
-let stirng_of_listStyleImage =
+let string_of_listStyleImage =
   fun
   | `none => "none"
-  | `url(url) => func("url", [url]);
+  | `url(url) => func1("url", url);
 
 let listStyle = (style, pos, img) =>
   d(
@@ -1232,7 +1240,7 @@ let listStyle = (style, pos, img) =>
     [
       string_of_listStyleType(style),
       string_of_listStylePosition(pos),
-      stirng_of_listStyleImage(img),
+      string_of_listStyleImage(img),
     ]
     |> join(" "),
   );
@@ -1242,7 +1250,7 @@ let listStyleType = x => d("listStyleType", string_of_listStyleType(x));
 let listStylePosition = x =>
   d("listStylePosition", string_of_listStylePosition(x));
 
-let listStyleImage = x => d("listStyleImage", stirng_of_listStyleImage(x));
+let listStyleImage = x => d("listStyleImage", string_of_listStyleImage(x));
 
 let opacity = x => d("opacity", string_of_float(x));
 
@@ -1293,7 +1301,7 @@ let outlineOffset = x => d("outlineOffset", string_of_length(x));
 
 /**
  * Text
- * */
+ */
 
 [@bs.deriving jsConverter]
 type fontStyle = [ | `normal | `italic | `oblique];
@@ -1340,7 +1348,33 @@ let fontFace = (~fontFamily, ~src, ~fontStyle=?, ~fontWeight=?, ()) => {
 
 let fontWeight = x => d("fontWeight", string_of_int(x));
 
-let lineHeight = x => d("lineHeight", string_of_float(x));
+let lineHeight = x =>
+  d(
+    "lineHeight",
+    switch (x) {
+    | `normal => "normal"
+    | `abs(x) => string_of_float(x)
+    | `calc(`add, a, b) =>
+      "calc(" ++ string_of_length(a) ++ " + " ++ string_of_length(b) ++ ")"
+    | `calc(`sub, a, b) =>
+      "calc(" ++ string_of_length(a) ++ " - " ++ string_of_length(b) ++ ")"
+    | `ch(x) => string_of_float(x) ++ "ch"
+    | `cm(x) => string_of_float(x) ++ "cm"
+    | `em(x) => string_of_float(x) ++ "em"
+    | `ex(x) => string_of_float(x) ++ "ex"
+    | `mm(x) => string_of_float(x) ++ "mm"
+    | `percent(x) => string_of_float(x) ++ "%"
+    | `pt(x) => string_of_int(x) ++ "pt"
+    | `px(x) => string_of_int(x) ++ "px"
+    | `rem(x) => string_of_float(x) ++ "rem"
+    | `vh(x) => string_of_float(x) ++ "vh"
+    | `vmax(x) => string_of_float(x) ++ "vmax"
+    | `vmin(x) => string_of_float(x) ++ "vmin"
+    | `vw(x) => string_of_float(x) ++ "vw"
+    | `auto => "auto"
+    | `zero => "0"
+    },
+  );
 
 let letterSpacing = x =>
   d(
@@ -1555,6 +1589,7 @@ let pointerEvents = x => d("pointerEvents", string_of_pointerEvents(x));
 /**
  * Transform
  */
+
 type transform = [
   | `translate(length, length)
   | `translate3d(length, length, length)
@@ -1580,21 +1615,21 @@ type transform = [
 let string_of_transform =
   fun
   | `translate(x, y) =>
-    func("translate", [string_of_length(x), string_of_length(y)])
+    func2("translate", string_of_length(x), string_of_length(y))
   | `translate3d(x, y, z) =>
-    func("translate3d", List.map(string_of_length, [x, y, z]))
-  | `translateX(x) => func("translateX", [string_of_length(x)])
-  | `translateY(y) => func("translateY", [string_of_length(y)])
-  | `translateZ(z) => func("translateZ", [string_of_length(z)])
-  | `scale(x, y) => func("scale", List.map(string_of_float, [x, y]))
+    funcAny("translate3d", List.map(string_of_length, [x, y, z]))
+  | `translateX(x) => func1("translateX", string_of_length(x))
+  | `translateY(y) => func1("translateY", string_of_length(y))
+  | `translateZ(z) => func1("translateZ", string_of_length(z))
+  | `scale(x, y) => funcAny("scale", List.map(string_of_float, [x, y]))
   | `scale3d(x, y, z) =>
-    func("scale3d", List.map(string_of_float, [x, y, z]))
-  | `scaleX(x) => func("scaleX", [string_of_float(x)])
-  | `scaleY(y) => func("scaleY", [string_of_float(y)])
-  | `scaleZ(z) => func("scaleZ", [string_of_float(z)])
-  | `rotate(a) => func("rotate", [string_of_angle(a)])
+    funcAny("scale3d", List.map(string_of_float, [x, y, z]))
+  | `scaleX(x) => func1("scaleX", string_of_float(x))
+  | `scaleY(y) => func1("scaleY", string_of_float(y))
+  | `scaleZ(z) => func1("scaleZ", string_of_float(z))
+  | `rotate(a) => func1("rotate", string_of_angle(a))
   | `rotate3d(x, y, z, a) =>
-    func(
+    funcAny(
       "rotate3d",
       [
         string_of_float(x),
@@ -1603,13 +1638,13 @@ let string_of_transform =
         string_of_angle(a),
       ],
     )
-  | `rotateX(a) => func("rotateX", [string_of_angle(a)])
-  | `rotateY(a) => func("rotateY", [string_of_angle(a)])
-  | `rotateZ(a) => func("rotateZ", [string_of_angle(a)])
-  | `skew(x, y) => func("skew", List.map(string_of_angle, [x, y]))
-  | `skewX(a) => func("skewX", [string_of_angle(a)])
-  | `skewY(a) => func("skewY", [string_of_angle(a)])
-  | `perspective(x) => func("perspective", [string_of_int(x)]);
+  | `rotateX(a) => func1("rotateX", string_of_angle(a))
+  | `rotateY(a) => func1("rotateY", string_of_angle(a))
+  | `rotateZ(a) => func1("rotateZ", string_of_angle(a))
+  | `skew(x, y) => funcAny("skew", List.map(string_of_angle, [x, y]))
+  | `skewX(a) => func1("skewX", string_of_angle(a))
+  | `skewY(a) => func1("skewY", string_of_angle(a))
+  | `perspective(x) => func1("perspective", string_of_int(x));
 
 let transform = x => d("transform", string_of_transform(x));
 
@@ -1636,7 +1671,7 @@ let transformStyle = x =>
 
 let perspective = x =>
   d(
-    "parspective",
+    "perspective",
     switch (x) {
     | `none => "none"
     | `calc(`add, a, b) =>
@@ -1684,10 +1719,10 @@ let string_of_timingFunction =
   | `easeInOut => "ease-in-out"
   | `stepStart => "step-start"
   | `stepEnd => "step-end"
-  | `steps(i, `start) => func("steps", [string_of_int(i), "start"])
-  | `steps(i, `end_) => func("steps", [string_of_int(i), "end"])
+  | `steps(i, `start) => func2("steps", string_of_int(i), "start")
+  | `steps(i, `end_) => func2("steps", string_of_int(i), "end")
   | `cubicBezier(a, b, c, d) =>
-    func("cubic-bezier", [a, b, c, d] |> List.map(string_of_float));
+    funcAny("cubic-bezier", [a, b, c, d] |> List.map(string_of_float));
 
 let transition = (~duration=0, ~delay=0, ~timingFunction=`ease, property) =>
   `transition(
@@ -1827,11 +1862,15 @@ let animationTimingFunction = x =>
  */
 
 let selector = (selector, rules) => `selector((selector, rules));
+
 /* MEDIA */
+
 let active = selector(":active");
 let after = selector("::after");
 let before = selector("::before");
+let checked = selector(":checked");
 let children = selector(" > *");
+let directSibling = selector(" + ");
 let disabled = selector(":disabled");
 let firstChild = selector(":first-child");
 let firstOfType = selector(":first-of-type");
@@ -1852,6 +1891,7 @@ let onlyOfType = selector(":only-of-type");
 let optional = selector(":optional");
 let invalid = selector(":invalid");
 let outOfRange = selector(":out-of-range");
+let siblings = selector(" ~ ");
 let target = selector(":target");
 let firstLine = selector("::first-line");
 let firstLetter = selector("::first-letter");
