@@ -31,7 +31,8 @@
 <a href="#where-is-the-documentation-" class='level-2 header'>Where is the documentation?</a>
 <a href="#thanks" class='level-2 header'>Thanks</a>
       </div>
-      <div class='project-title'>Package modules</div><div class='project-listing'><a href="./api/Css.html">Css</a></div>
+      <div class='project-title'>Package modules</div><div class='project-listing'><a href="./api/Css.html">Css</a>
+<a href="./api/Css_Colors.html">Css_Colors</a></div>
     </div>
     </div>
   
@@ -74,7 +75,45 @@ let <span class='pattern-ident' data-type="theme => Css.style">makeStyle</span> 
   Css.color
 ) => [ `shadow of string ]">boxShadow</span>(~y=<span class='ident' data-type="int => Css.length">px</span>(<span class='int' data-type="int">3</span>), ~blur=<span class='ident' data-type="int => Css.length">px</span>(<span class='int' data-type="int">5</span>), <span class='ident' data-type="(int, int, int, float) => Css.color">rgba</span>(<span class='int' data-type="int">0</span>, <span class='int' data-type="int">0</span>, <span class='int' data-type="int">0</span>, <span class='float' data-type="float">0.3</span>))</span>]),
       <span data-type="list(Css.rule)"><span class='ident' data-type="Css.length => Css.rule">padding</span>(<span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.length">basePadding</span>),
-      <span data-type="list(Css.rule)"><span class='ident' data-type="Css.length => Css.rule">fontSize</span>(<span class='ident' data-type="float => Css.length">rem</span>(<span class='float' data-type="float">1.5</span>)),
+      <span data-type="list(Css.rule)"><span class='ident' data-type="[&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `inherit_
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `percent of float
+ | `vmin of float
+ | `unset
+ | `vmax of float
+ | `pxFloat of float
+ | `calc of [ `sub | `add ] * Css.length * Css.length
+ | `em of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ] => Css.rule">fontSize</span>(<span class='ident' data-type="float => [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `inherit_
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `percent of float
+ | `vmin of float
+ | `unset
+ | `vmax of float
+ | `pxFloat of float
+ | `calc of [ `sub | `add ] * Css.length * Css.length
+ | `em of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ]">rem</span>(<span class='float' data-type="float">1.5</span>)),
       <span data-type="list(Css.rule)"><span class='ident' data-type="Css.color => Css.rule">color</span>(<span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.color">textColor</span>),
       <span data-type="list(Css.rule)"><span class='ident' data-type="[&lt; `mm of float
  | `vh of float
@@ -90,9 +129,11 @@ let <span class='pattern-ident' data-type="theme => Css.style">makeStyle</span> 
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ] => Css.rule">marginBottom</span>(<span class='ident' data-type="int => [&lt; `mm of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ] => Css.rule">marginBottom</span>(<span class='ident' data-type="int => [&lt; `mm of float
  | `vh of float
  | `ex of float
  | `cm of float
@@ -106,9 +147,11 @@ let <span class='pattern-ident' data-type="theme => Css.style">makeStyle</span> 
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ]">px</span>(<span class='int' data-type="int">10</span>))</span></span></span></span></span></span>
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ]">px</span>(<span class='int' data-type="int">10</span>))</span></span></span></span></span></span>
     ])
   );</code></pre>
   
@@ -133,7 +176,45 @@ let <span class='pattern-ident' data-type="theme => Css.style">makeStyle</span> 
   Css.color
 ) => [ `shadow of string ]">boxShadow</span> ~y:(<span class='ident' data-type="int => Css.length">px</span> <span class='int' data-type="int">3</span>) ~blur:(<span class='ident' data-type="int => Css.length">px</span> <span class='int' data-type="int">5</span>) (<span class='ident' data-type="(int, int, int, float) => Css.color">rgba</span> <span class='int' data-type="int">0</span> <span class='int' data-type="int">0</span> <span class='int' data-type="int">0</span> <span class='float' data-type="float">0.3</span>)];
       <span class='ident' data-type="Css.length => Css.rule">padding</span> <span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.length">basePadding</span>;
-      <span class='ident' data-type="Css.length => Css.rule">fontSize</span> (<span class='ident' data-type="float => Css.length">rem</span> <span class='float' data-type="float">1.5</span>);
+      <span class='ident' data-type="[&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `inherit_
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `percent of float
+ | `vmin of float
+ | `unset
+ | `vmax of float
+ | `pxFloat of float
+ | `calc of [ `sub | `add ] * Css.length * Css.length
+ | `em of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ] => Css.rule">fontSize</span> (<span class='ident' data-type="float => [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `inherit_
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `percent of float
+ | `vmin of float
+ | `unset
+ | `vmax of float
+ | `pxFloat of float
+ | `calc of [ `sub | `add ] * Css.length * Css.length
+ | `em of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ]">rem</span> <span class='float' data-type="float">1.5</span>);
       <span class='ident' data-type="Css.color => Css.rule">color</span> <span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.color">textColor</span>;
       <span class='ident' data-type="[&lt; `mm of float
  | `vh of float
@@ -149,9 +230,11 @@ let <span class='pattern-ident' data-type="theme => Css.style">makeStyle</span> 
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ] => Css.rule">marginBottom</span> (<span class='ident' data-type="int => [&lt; `mm of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ] => Css.rule">marginBottom</span> (<span class='ident' data-type="int => [&lt; `mm of float
  | `vh of float
  | `ex of float
  | `cm of float
@@ -165,9 +248,11 @@ let <span class='pattern-ident' data-type="theme => Css.style">makeStyle</span> 
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ]">px</span> <span class='int' data-type="int">10</span>)]</code></pre>
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ]">px</span> <span class='int' data-type="int">10</span>)]</code></pre>
   
   
   
@@ -205,9 +290,11 @@ let <span class='pattern-ident' data-type="'a => Css.style">makeStyle</span> = (
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ] => Css.rule">width</span>(<span class='ident' data-type="int => [&lt; `mm of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ] => Css.rule">width</span>(<span class='ident' data-type="int => [&lt; `mm of float
  | `vh of float
  | `ex of float
  | `cm of float
@@ -221,9 +308,11 @@ let <span class='pattern-ident' data-type="'a => Css.style">makeStyle</span> = (
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ]">px</span>(<span class='int' data-type="int">50</span>)),
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ]">px</span>(<span class='int' data-type="int">50</span>)),
       <span data-type="list(Css.rule)"><span class='ident' data-type="[&lt; `mm of float
  | `vh of float
  | `ex of float
@@ -238,9 +327,11 @@ let <span class='pattern-ident' data-type="'a => Css.style">makeStyle</span> = (
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ] => Css.rule">height</span>(<span class='ident' data-type="int => [&lt; `mm of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ] => Css.rule">height</span>(<span class='ident' data-type="int => [&lt; `mm of float
  | `vh of float
  | `ex of float
  | `cm of float
@@ -254,9 +345,11 @@ let <span class='pattern-ident' data-type="'a => Css.style">makeStyle</span> = (
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ]">px</span>(<span class='int' data-type="int">50</span>)),
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ]">px</span>(<span class='int' data-type="int">50</span>)),
       <span data-type="list(Css.rule)"><span class='ident' data-type="Css.color => Css.rule">backgroundColor</span>(<span class='ident' data-type="(int, int, int) => Css.color">rgb</span>(<span class='int' data-type="int">255</span>, <span class='int' data-type="int">0</span>, <span class='int' data-type="int">0</span>))</span></span></span></span></span>
     ])
   );</code></pre>
@@ -291,9 +384,11 @@ let <span class='pattern-ident' data-type="'a => Css.style">makeStyle</span> <sp
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ] => Css.rule">width</span> (<span class='ident' data-type="int => [&lt; `mm of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ] => Css.rule">width</span> (<span class='ident' data-type="int => [&lt; `mm of float
  | `vh of float
  | `ex of float
  | `cm of float
@@ -307,9 +402,11 @@ let <span class='pattern-ident' data-type="'a => Css.style">makeStyle</span> <sp
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ]">px</span> <span class='int' data-type="int">50</span>);
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ]">px</span> <span class='int' data-type="int">50</span>);
       <span class='ident' data-type="[&lt; `mm of float
  | `vh of float
  | `ex of float
@@ -324,9 +421,11 @@ let <span class='pattern-ident' data-type="'a => Css.style">makeStyle</span> <sp
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ] => Css.rule">height</span> (<span class='ident' data-type="int => [&lt; `mm of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ] => Css.rule">height</span> (<span class='ident' data-type="int => [&lt; `mm of float
  | `vh of float
  | `ex of float
  | `cm of float
@@ -340,9 +439,11 @@ let <span class='pattern-ident' data-type="'a => Css.style">makeStyle</span> <sp
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * Css.length * Css.length
  | `em of float
- &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `calc `em ]">px</span> <span class='int' data-type="int">50</span>);
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ]">px</span> <span class='int' data-type="int">50</span>);
       <span class='ident' data-type="Css.color => Css.rule">backgroundColor</span> (<span class='ident' data-type="(int, int, int) => Css.color">rgb</span> <span class='int' data-type="int">255</span> <span class='int' data-type="int">0</span> <span class='int' data-type="int">0</span>)]</code></pre>
   
   

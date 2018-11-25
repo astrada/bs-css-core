@@ -33,6 +33,9 @@
 <a href="#value-style" class='level-3 value'>style</a>
 <a href="#value-important" class='level-3 value'>important</a>
 <a href="#value-label" class='level-3 value'>label</a>
+<a href="#type-cascading" class='level-3 type'>cascading</a>
+<a href="#value-inherit_" class='level-3 value'>inherit_</a>
+<a href="#value-unset" class='level-3 value'>unset</a>
 <a href="#type-angle" class='level-3 type'>angle</a>
 <a href="#value-deg" class='level-3 value'>deg</a>
 <a href="#value-rad" class='level-3 value'>rad</a>
@@ -200,6 +203,8 @@
 <a href="#value-yellow" class='level-3 value'>yellow</a>
 <a href="#value-yellowgreen" class='level-3 value'>yellowgreen</a>
 <a href="#type-length" class='level-3 type'>length</a>
+<a href="#type-repeatValue" class='level-3 type'>repeatValue</a>
+<a href="#type-trackLength" class='level-3 type'>trackLength</a>
 <a href="#type-gridLength" class='level-3 type'>gridLength</a>
 <a href="#value-ch" class='level-3 value'>ch</a>
 <a href="#value-cm" class='level-3 value'>cm</a>
@@ -210,6 +215,7 @@
 <a href="#value-pct" class='level-3 value'>pct</a>
 <a href="#value-pt" class='level-3 value'>pt</a>
 <a href="#value-px" class='level-3 value'>px</a>
+<a href="#value-pxFloat" class='level-3 value'>pxFloat</a>
 <a href="#value-rem" class='level-3 value'>rem</a>
 <a href="#value-vh" class='level-3 value'>vh</a>
 <a href="#value-vmax" class='level-3 value'>vmax</a>
@@ -354,7 +360,9 @@
 <a href="#value-order" class='level-3 value'>order</a>
 <a href="#value-gridTemplateColumns" class='level-3 value'>gridTemplateColumns</a>
 <a href="#value-gridTemplateRows" class='level-3 value'>gridTemplateRows</a>
+<a href="#value-gridAutoColumns" class='level-3 value'>gridAutoColumns</a>
 <a href="#value-gridAutoRows" class='level-3 value'>gridAutoRows</a>
+<a href="#value-gridAutoFlow" class='level-3 value'>gridAutoFlow</a>
 <a href="#value-gridColumn" class='level-3 value'>gridColumn</a>
 <a href="#value-gridRow" class='level-3 value'>gridRow</a>
 <a href="#value-gridColumnStart" class='level-3 value'>gridColumnStart</a>
@@ -389,6 +397,7 @@
 <a href="#value-alignContent" class='level-3 value'>alignContent</a>
 <a href="#value-alignItems" class='level-3 value'>alignItems</a>
 <a href="#value-alignSelf" class='level-3 value'>alignSelf</a>
+<a href="#value-justifySelf" class='level-3 value'>justifySelf</a>
 <a href="#value-justifyContent" class='level-3 value'>justifyContent</a>
 <a href="#value-boxSizing" class='level-3 value'>boxSizing</a>
 <a href="#value-float" class='level-3 value'>float</a>
@@ -397,6 +406,8 @@
 <a href="#value-overflowX" class='level-3 value'>overflowX</a>
 <a href="#value-overflowY" class='level-3 value'>overflowY</a>
 <a href="#value-zIndex" class='level-3 value'>zIndex</a>
+<a href="#value-contentRule" class='level-3 value'>contentRule</a>
+<a href="#value-columnCount" class='level-3 value'>columnCount</a>
 <a href="#value-backfaceVisibility" class='level-3 value'>backfaceVisibility</a>
 <a href="#value-visibility" class='level-3 value'>visibility</a>
 <a href="#value-border" class='level-3 value'>border</a>
@@ -430,6 +441,7 @@
 <a href="#value-boxShadow" class='level-3 value'>boxShadow</a>
 <a href="#value-boxShadows" class='level-3 value'>boxShadows</a>
 <a href="#value-background" class='level-3 value'>background</a>
+<a href="#value-backgrounds" class='level-3 value'>backgrounds</a>
 <a href="#value-backgroundColor" class='level-3 value'>backgroundColor</a>
 <a href="#value-backgroundImage" class='level-3 value'>backgroundImage</a>
 <a href="#value-backgroundAttachment" class='level-3 value'>backgroundAttachment</a>
@@ -556,7 +568,8 @@
 <a href="#value-SVG.stopColor" class='level-4 value'>stopColor</a>
 <a href="#value-SVG.stopOpacity" class='level-4 value'>stopOpacity</a>
       </div>
-      <div class='project-title'>Package modules</div><div class='project-listing'><a href="Css.html">Css</a></div>
+      <div class='project-title'>Package modules</div><div class='project-listing'><a href="Css.html">Css</a>
+<a href="Css_Colors.html">Css_Colors</a></div>
     </div>
     </div>
   
@@ -587,7 +600,45 @@ let <span class='pattern-ident' data-type="theme => Css.style">makeStyle</span> 
   Css.color
 ) => [ `shadow of string ]">boxShadow</span>(~y=<span class='ident' data-type="int => Css.length">px</span>(<span class='int' data-type="int">3</span>), ~blur=<span class='ident' data-type="int => Css.length">px</span>(<span class='int' data-type="int">5</span>), <span class='ident' data-type="(int, int, int, float) => Css.color">rgba</span>(<span class='int' data-type="int">0</span>, <span class='int' data-type="int">0</span>, <span class='int' data-type="int">0</span>, <span class='float' data-type="float">0.3</span>))</span>]),
       <span data-type="list(Css.rule)"><span class='ident' data-type="Css.length => Css.rule">padding</span>(<span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.length">basePadding</span>),
-      <span data-type="list(Css.rule)"><span class='ident' data-type="Css.length => Css.rule">fontSize</span>(<span class='ident' data-type="float => Css.length">rem</span>(<span class='float' data-type="float">1.5</span>)),
+      <span data-type="list(Css.rule)"><span class='ident' data-type="[&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `inherit_
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `percent of float
+ | `vmin of float
+ | `unset
+ | `vmax of float
+ | `pxFloat of float
+ | `calc of [ `sub | `add ] * Css.length * Css.length
+ | `em of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ] => Css.rule">fontSize</span>(<span class='ident' data-type="float => [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `inherit_
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `percent of float
+ | `vmin of float
+ | `unset
+ | `vmax of float
+ | `pxFloat of float
+ | `calc of [ `sub | `add ] * Css.length * Css.length
+ | `em of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ]">rem</span>(<span class='float' data-type="float">1.5</span>)),
       <span data-type="list(Css.rule)"><span class='ident' data-type="Css.color => Css.rule">color</span>(<span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.color">textColor</span>)</span></span></span></span></span>
     ])
   );</code></pre>
@@ -614,7 +665,45 @@ let <span class='pattern-ident' data-type="theme => Css.style">makeStyle</span> 
   Css.color
 ) => [ `shadow of string ]">boxShadow</span> ~y:(<span class='ident' data-type="int => Css.length">px</span> <span class='int' data-type="int">3</span>) ~blur:(<span class='ident' data-type="int => Css.length">px</span> <span class='int' data-type="int">5</span>) (<span class='ident' data-type="(int, int, int, float) => Css.color">rgba</span> <span class='int' data-type="int">0</span> <span class='int' data-type="int">0</span> <span class='int' data-type="int">0</span> <span class='float' data-type="float">0.3</span>)];
       <span class='ident' data-type="Css.length => Css.rule">padding</span> <span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.length">basePadding</span>;
-      <span class='ident' data-type="Css.length => Css.rule">fontSize</span> (<span class='ident' data-type="float => Css.length">rem</span> <span class='float' data-type="float">1.5</span>);
+      <span class='ident' data-type="[&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `inherit_
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `percent of float
+ | `vmin of float
+ | `unset
+ | `vmax of float
+ | `pxFloat of float
+ | `calc of [ `sub | `add ] * Css.length * Css.length
+ | `em of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ] => Css.rule">fontSize</span> (<span class='ident' data-type="float => [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `inherit_
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `percent of float
+ | `vmin of float
+ | `unset
+ | `vmax of float
+ | `pxFloat of float
+ | `calc of [ `sub | `add ] * Css.length * Css.length
+ | `em of float
+ &gt; `mm `vh `ex `cm `ch `px `vw `zero `rem `pt `percent `vmin `vmax `pxFloat
+   `calc `em ]">rem</span> <span class='float' data-type="float">1.5</span>);
       <span class='ident' data-type="Css.color => Css.rule">color</span> <span class='ident' data-type="theme">theme</span>.<span class='field' data-type="Css.color">textColor</span>]</code></pre>
   
   
@@ -676,6 +765,18 @@ let _ = let open Css in <span class='ident' data-type="list(Css.rule) => Css.sty
 </div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-label" id="value-label">label</a>: string => <a href="#type-rule">rule</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-cascading" id="type-cascading">cascading</a> = [ `inherit_ | `unset ]</h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-inherit_" id="value-inherit_">inherit_</a>: [&gt; `inherit_ ]</h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-unset" id="value-unset">unset</a>: [&gt; `unset ]</h4>
 
 <div class='body body-empty'></div></div>
 
@@ -1413,6 +1514,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/repeating-radial-gradient</p>
 | `vmin of float
 | `percent of float
 | `vmax of float
+| `pxFloat of float
 | `calc of [ `sub | `add ] * length * length
 | `em of float ]</h4>
 
@@ -1420,7 +1522,11 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/repeating-radial-gradient</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/length</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>type <a href="#type-gridLength" id="type-gridLength">gridLength</a> = [ `mm of float
+<div class='doc-item'><h4 class='item'>type <a href="#type-repeatValue" id="type-repeatValue">repeatValue</a> = [ `autoFit | `autoFill | `n of int ]</h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-trackLength" id="type-trackLength">trackLength</a> = [ `mm of float
 | `vh of float
 | `ex of float
 | `cm of float
@@ -1435,6 +1541,30 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/length</p>
 | `percent of float
 | `vmin of float
 | `vmax of float
+| `fr of float
+| `pxFloat of float
+| `calc of [ `sub | `add ] * length * length
+| `em of float ]</h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-gridLength" id="type-gridLength">gridLength</a> = [ `mm of float
+| `vh of float
+| `repeat of repeatValue * trackLength
+| `ex of float
+| `cm of float
+| `vw of float
+| `px of int
+| `ch of float
+| `minContent
+| `zero
+| `rem of float
+| `pt of int
+| `vmin of float
+| `percent of float
+| `maxContent
+| `vmax of float
+| `pxFloat of float
 | `fr of float
 | `calc of [ `sub | `add ] * length * length
 | `em of float ]</h4>
@@ -1490,6 +1620,12 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem</p>
 </div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-px" id="value-px">px</a>: int => [&gt; length ]</h4>
+
+<div class='body '><p>Returns a length in pixels.
+https://developer.mozilla.org/en-US/docs/Web/CSS/length#px</p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-pxFloat" id="value-pxFloat">pxFloat</a>: float => [&gt; `pxFloat of float ]</h4>
 
 <div class='body '><p>Returns a length in pixels.
 https://developer.mozilla.org/en-US/docs/Web/CSS/length#px</p>
@@ -1919,7 +2055,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skewY</p>
 
 <div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-lineThrough" id="value-lineThrough">lineThrough</a>: [&gt; `lineThough ]</h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-lineThrough" id="value-lineThrough">lineThrough</a>: [&gt; `lineThrough ]</h4>
 
 <div class='body body-empty'></div></div>
 
@@ -2098,10 +2234,12 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skewY</p>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-display" id="value-display">display</a>: [&lt; `flex
  | `none
+ | `inherit_
  | `grid
  | `inlineFlex
  | `inlineBlock
  | `block
+ | `unset
  | `inline
  | `inlineGrid ] => <a href="#type-rule">rule</a></h4>
 
@@ -2109,7 +2247,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skewY</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/display</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-position" id="value-position">position</a>: [&lt; `relative | `static | `sticky | `fixed | `absolute ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-position" id="value-position">position</a>: [&lt; `relative | `static | `sticky | `inherit_ | `fixed | `absolute | `unset ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body body-empty'></div></div>
 
@@ -2179,6 +2317,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2209,21 +2348,23 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/order</p>
 <div class='doc-item'><h4 class='item'>let <a href="#value-gridTemplateColumns" id="value-gridTemplateColumns">gridTemplateColumns</a>: list(
   [ `mm of float
 | `vh of float
+| `repeat of repeatValue * trackLength
 | `ex of float
 | `cm of float
-| `vw of float
-| `px of int
 | `ch of float
+| `px of int
+| `vw of float
 | `minContent
 | `zero
 | `rem of float
 | `pt of int
 | `auto
-| `vmin of float
-| `percent of float
 | `maxContent
+| `percent of float
+| `vmin of float
 | `vmax of float
 | `fr of float
+| `pxFloat of float
 | `calc of [ `sub | `add ] * length * length
 | `em of float ]
 ) => <a href="#type-rule">rule</a></h4>
@@ -2235,27 +2376,51 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns</p>
 <div class='doc-item'><h4 class='item'>let <a href="#value-gridTemplateRows" id="value-gridTemplateRows">gridTemplateRows</a>: list(
   [ `mm of float
 | `vh of float
+| `repeat of repeatValue * trackLength
 | `ex of float
 | `cm of float
-| `vw of float
-| `px of int
 | `ch of float
+| `px of int
+| `vw of float
 | `minContent
 | `zero
 | `rem of float
 | `pt of int
 | `auto
-| `vmin of float
-| `percent of float
 | `maxContent
+| `percent of float
+| `vmin of float
 | `vmax of float
 | `fr of float
+| `pxFloat of float
 | `calc of [ `sub | `add ] * length * length
 | `em of float ]
 ) => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>grid-template-rows</code> CSS property defines the line names and track sizing functions of the grid rows.
 https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows</p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-gridAutoColumns" id="value-gridAutoColumns">gridAutoColumns</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `auto
+ | `percent of float
+ | `vmin of float
+ | `vmax of float
+ | `pxFloat of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
+
+<div class='body '><p>The <code>grid-auto-columns</code> CSS property specifies the size of an implicitly-created grid column track.
+https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns</p>
 </div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-gridAutoRows" id="value-gridAutoRows">gridAutoRows</a>: [&lt; `mm of float
@@ -2272,11 +2437,18 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>grid-auto-rows</code> CSS property specifies the size of an implicitly-created grid row track.
 https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows</p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-gridAutoFlow" id="value-gridAutoFlow">gridAutoFlow</a>: [&lt; `rowDense | `inherit_ | `row | `columnDense | `initial | `unset | `column ] => <a href="#type-rule">rule</a></h4>
+
+<div class='body '><p>The <code>grid-auto-flow</code> CSS property controls how the auto-placement algorithm works, specifying exactly how auto-placed items get flowed into the grid.
+https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow</p>
 </div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-gridColumn" id="value-gridColumn">gridColumn</a>: (int, int) => <a href="#type-rule">rule</a></h4>
@@ -2347,6 +2519,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/gap</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2369,6 +2542,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/width</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2390,6 +2564,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/min-width</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2411,6 +2586,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/max-width</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2432,6 +2608,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/height</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2453,6 +2630,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/min-height</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2474,6 +2652,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/max-height</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2496,6 +2675,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ],
   ~h: [&lt; `mm of float
@@ -2512,6 +2692,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ]
 ) => <a href="#type-rule">rule</a></h4>
@@ -2534,6 +2715,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ],
   ~h: [&lt; `mm of float
@@ -2550,6 +2732,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ],
   ~bottom: [&lt; `mm of float
@@ -2566,6 +2749,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ]
 ) => <a href="#type-rule">rule</a></h4>
@@ -2588,6 +2772,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ],
   ~right: [&lt; `mm of float
@@ -2604,6 +2789,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ],
   ~bottom: [&lt; `mm of float
@@ -2620,6 +2806,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ],
   ~left: [&lt; `mm of float
@@ -2636,6 +2823,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ]
 ) => <a href="#type-rule">rule</a></h4>
@@ -2657,6 +2845,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2678,6 +2867,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin-left</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2699,6 +2889,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin-right</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2720,6 +2911,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/margin-top</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -2802,14 +2994,20 @@ the <code>align-items</code> value.
 https://developer.mozilla.org/en-US/docs/Web/CSS/align-self</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-justifyContent" id="value-justifyContent">justifyContent</a>: [&lt; `flexStart | `flexEnd | `spaceAround | `center | `spaceBetween ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-justifySelf" id="value-justifySelf">justifySelf</a>: [&lt; `flexStart | `stretch | `flexEnd | `center ] => <a href="#type-rule">rule</a></h4>
+
+<div class='body '><p>The CSS <code>justify-self</code> property set the way a box is justified inside its alignment container along the appropriate axis.
+https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self</p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-justifyContent" id="value-justifyContent">justifyContent</a>: [&lt; `flexStart | `stretch | `flexEnd | `spaceAround | `center | `spaceBetween ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The CSS <code>justify-content</code> property defines how the browser distributes space between
 and around content items along the main axis of their container.
 https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-boxSizing" id="value-boxSizing">boxSizing</a>: [&lt; `contentBox | `borderBox ] => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-boxSizing" id="value-boxSizing">boxSizing</a>: [&lt; `inherit_ | `contentBox | `borderBox | `unset ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The CSS <code>box-sizing</code> property is used to alter the default CSS box model
 used to calculate width and height of the elements.
@@ -2858,6 +3056,16 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-y</p>
 
 <div class='body '><p>The <code>z-index</code> CSS property specifies the z-order of a positioned element and its descendants.
 https://developer.mozilla.org/en-US/docs/Web/CSS/z-index</p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-contentRule" id="value-contentRule">contentRule</a>: string => <a href="#type-rule">rule</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-columnCount" id="value-columnCount">columnCount</a>: [ `inherit_ | `auto | `unset | `count of int ] => <a href="#type-rule">rule</a></h4>
+
+<div class='body '><p>The <code>column-count</code> CSS property breaks an element&#39;s content into the specified number of columns.
+https://developer.mozilla.org/en-US/docs/Web/CSS/column-count</p>
 </div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-backfaceVisibility" id="value-backfaceVisibility">backfaceVisibility</a>: [&lt; `hidden | `visible ] => <a href="#type-rule">rule</a></h4>
@@ -3104,6 +3312,24 @@ style options at once.
 https://developer.mozilla.org/en-US/docs/Web/CSS/background</p>
 </div></div>
 
+<div class='doc-item'><h4 class='item'>let <a href="#value-backgrounds" id="value-backgrounds">backgrounds</a>: list(
+  [ `hsl of int * int * int
+| `rgb of int * int * int
+| `hsla of int * int * int * float
+| `none
+| `linearGradient of angle * (int * color) list
+| `radialGradient of (int * color) list
+| `rgba of int * int * int * float
+| `hex of string
+| `repeatingRadialGradient of (int * color) list
+| `transparent
+| `currentColor
+| `url of string
+| `repeatingLinearGradient of angle * (int * color) list ]
+) => <a href="#type-rule">rule</a></h4>
+
+<div class='body body-empty'></div></div>
+
 <div class='doc-item'><h4 class='item'>let <a href="#value-backgroundColor" id="value-backgroundColor">backgroundColor</a>: color => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>background-color</code> CSS property sets the background color of an element,
@@ -3165,26 +3391,42 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/background-size</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-cursor" id="value-cursor">cursor</a>: [ `contextMenu
+<div class='doc-item'><h4 class='item'>let <a href="#value-cursor" id="value-cursor">cursor</a>: [ `neswResize
+| `nwResize
+| `noDrop
+| `wResize
+| `contextMenu
+| `nwseResize
 | `grab
+| `rowResize
 | `alias
 | `zoomIn
 | `move
-| `none
+| `nResize
 | `allScroll
+| `none
 | `text
 | `default
+| `neResize
 | `notAllowed
+| `sResize
 | `crosshair
 | `grabbing
+| `nsResize
 | `copy
+| `ewResize
 | `cell
-| `auto
+| `eResize
 | `pointer
+| `auto
+| `seResize
+| `colResize
 | `progress
 | `help
+| `verticalText
 | `wait
-| `zoomOut ] => <a href="#type-rule">rule</a></h4>
+| `zoomOut
+| `swResize ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>cursor</code> CSS property specifies which mouse cursor to display when the mouse pointer is over an element.
 https://developer.mozilla.org/en-US/docs/Web/CSS/cursor</p>
@@ -3329,7 +3571,24 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/font-family</p>
 https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-fontSize" id="value-fontSize">fontSize</a>: <a href="#type-length">length</a> => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-fontSize" id="value-fontSize">fontSize</a>: [&lt; `mm of float
+ | `vh of float
+ | `ex of float
+ | `cm of float
+ | `inherit_
+ | `ch of float
+ | `px of int
+ | `vw of float
+ | `zero
+ | `rem of float
+ | `pt of int
+ | `percent of float
+ | `vmin of float
+ | `unset
+ | `vmax of float
+ | `pxFloat of float
+ | `calc of [ `sub | `add ] * length * length
+ | `em of float ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>font-size</code> CSS property specifies the size of the font.
 https://developer.mozilla.org/en-US/docs/Web/CSS/font-size</p>
@@ -3343,7 +3602,7 @@ and <code>font-variant-east-asian</code>.
 https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-fontStyle" id="value-fontStyle">fontStyle</a>: <a href="#type-fontStyle">fontStyle</a> => <a href="#type-rule">rule</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-fontStyle" id="value-fontStyle">fontStyle</a>: [&lt; `inherit_ | `normal | `unset | `oblique | `italic ] => <a href="#type-rule">rule</a></h4>
 
 <div class='body '><p>The <code>font-style</code> CSS property specifies whether a font should be styled with a normal,
  italic, or oblique face from its font-family.
@@ -3370,6 +3629,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -3381,6 +3641,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing</p>
 | `vh of float
 | `ex of float
 | `cm of float
+| `inherit_
 | `ch of float
 | `px of int
 | `vw of float
@@ -3391,7 +3652,9 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing</p>
 | `percent of float
 | `vmin of float
 | `abs of float
+| `unset
 | `vmax of float
+| `pxFloat of float
 | `calc of [ `sub | `add ] * length * length
 | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -3477,6 +3740,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform</p>
 | `middle
 | `vmax of float
 | `top
+| `pxFloat of float
 | `calc of [ `sub | `add ] * length * length
 | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -3512,6 +3776,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/word-break</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
@@ -3593,6 +3858,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style</p>
  | `percent of float
  | `vmin of float
  | `vmax of float
+ | `pxFloat of float
  | `calc of [ `sub | `add ] * length * length
  | `em of float ] => <a href="#type-rule">rule</a></h4>
 
