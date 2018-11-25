@@ -1,5 +1,7 @@
 /* Based on https://github.com/SentiaAnalytics/bs-css/blob/master/src/Css.re */
 
+include Css_Colors;
+
 let join = (separator, strings) => {
   let rec run = (acc, strings) =>
     switch (strings) {
@@ -12,6 +14,245 @@ let join = (separator, strings) => {
     };
   run("", strings);
 };
+
+let string_of_float = (f: float) => {j|$(f)|j};
+
+module Converter = {
+  let string_of_angle =
+    fun
+    | `deg(x) => string_of_int(x) ++ "deg"
+    | `rad(x) => string_of_float(x) ++ "rad"
+    | `grad(x) => string_of_float(x) ++ "grad"
+    | `turn(x) => string_of_float(x) ++ "turn";
+
+  let string_of_rgb = (r, g, b) =>
+    "rgb("
+    ++ string_of_int(r)
+    ++ ", "
+    ++ string_of_int(g)
+    ++ ", "
+    ++ string_of_int(b)
+    ++ ")";
+
+  let string_of_rgba = (r, g, b, a) =>
+    "rgba("
+    ++ string_of_int(r)
+    ++ ", "
+    ++ string_of_int(g)
+    ++ ", "
+    ++ string_of_int(b)
+    ++ ", "
+    ++ string_of_float(a)
+    ++ ")";
+
+  let string_of_hsl = (h, s, l) =>
+    "hsl("
+    ++ string_of_int(h)
+    ++ ", "
+    ++ string_of_int(s)
+    ++ "%, "
+    ++ string_of_int(l)
+    ++ "%"
+    ++ ")";
+
+  let string_of_hsla = (h, s, l, a) =>
+    "hsla("
+    ++ string_of_int(h)
+    ++ ", "
+    ++ string_of_int(s)
+    ++ "%, "
+    ++ string_of_int(l)
+    ++ "%, "
+    ++ string_of_float(a)
+    ++ ")";
+
+  let string_of_color =
+    fun
+    | `rgb(r, g, b) => string_of_rgb(r, g, b)
+    | `rgba(r, g, b, a) => string_of_rgba(r, g, b, a)
+    | `hsl(h, s, l) => string_of_hsl(h, s, l)
+    | `hsla(h, s, l, a) => string_of_hsla(h, s, l, a)
+    | `hex(s) => "#" ++ s
+    | `transparent => "transparent"
+    | `currentColor => "currentColor";
+
+  let string_of_stops = stops =>
+    stops
+    |> List.map(((i, c)) =>
+         join(" ", [string_of_color(c), string_of_int(i) ++ "%"])
+       )
+    |> join(", ");
+
+  let string_of_linearGradient = (angle, stops) =>
+    "linear-gradient("
+    ++ string_of_angle(angle)
+    ++ ", "
+    ++ string_of_stops(stops)
+    ++ ")";
+
+  let string_of_repeatingLinearGradient = (angle, stops) =>
+    "repeating-linear-gradient("
+    ++ string_of_angle(angle)
+    ++ ", "
+    ++ string_of_stops(stops)
+    ++ ")";
+
+  let rec string_of_length =
+    fun
+    | `calc(`add, a, b) =>
+      "calc(" ++ string_of_length(a) ++ " + " ++ string_of_length(b) ++ ")"
+    | `calc(`sub, a, b) =>
+      "calc(" ++ string_of_length(a) ++ " - " ++ string_of_length(b) ++ ")"
+    | `ch(x) => string_of_float(x) ++ "ch"
+    | `cm(x) => string_of_float(x) ++ "cm"
+    | `em(x) => string_of_float(x) ++ "em"
+    | `ex(x) => string_of_float(x) ++ "ex"
+    | `mm(x) => string_of_float(x) ++ "mm"
+    | `percent(x) => string_of_float(x) ++ "%"
+    | `pt(x) => string_of_int(x) ++ "pt"
+    | `px(x) => string_of_int(x) ++ "px"
+    | `pxFloat(x) => string_of_float(x) ++ "px"
+    | `rem(x) => string_of_float(x) ++ "rem"
+    | `vh(x) => string_of_float(x) ++ "vh"
+    | `vmax(x) => string_of_float(x) ++ "vmax"
+    | `vmin(x) => string_of_float(x) ++ "vmin"
+    | `vw(x) => string_of_float(x) ++ "vw"
+    | `zero => "0";
+
+  let string_of_translate3d = (x, y, z) =>
+    "translate3d("
+    ++ string_of_length(x)
+    ++ ", "
+    ++ string_of_length(y)
+    ++ ", "
+    ++ string_of_length(z)
+    ++ ")";
+
+  let string_of_scale = (x, y) =>
+    "scale(" ++ string_of_float(x) ++ ", " ++ string_of_float(y) ++ ")";
+
+  let string_of_time = t => string_of_int(t) ++ "ms";
+
+  let string_of_overflow =
+    fun
+    | `auto => "auto"
+    | `scroll => "scroll"
+    | `hidden => "hidden"
+    | `visible => "visible";
+
+  let string_of_visibility =
+    fun
+    | `hidden => "hidden"
+    | `visible => "visible";
+
+  let string_of_background = bg =>
+    switch (bg) {
+    | `none => "none"
+    | `url(url) => "url(" ++ url ++ ")"
+    | `rgb(r, g, b) =>
+      "rgb("
+      ++ join(
+           ", ",
+           [string_of_int(r), string_of_int(g), string_of_int(b)],
+         )
+      ++ ")"
+    | `rgba(r, g, b, a) =>
+      "rgba("
+      ++ join(
+           ", ",
+           [
+             string_of_int(r),
+             string_of_int(g),
+             string_of_int(b),
+             string_of_float(a),
+           ],
+         )
+      ++ ")"
+    | `hsl(h, s, l) =>
+      "hsl("
+      ++ join(
+           ", ",
+           [
+             string_of_int(h),
+             string_of_int(s) ++ "%",
+             string_of_int(l) ++ "%",
+           ],
+         )
+      ++ ")"
+    | `hsla(h, s, l, a) =>
+      "hsla("
+      ++ join(
+           ", ",
+           [
+             string_of_int(h),
+             string_of_int(s) ++ "%",
+             string_of_int(l) ++ "%",
+             string_of_float(a),
+           ],
+         )
+      ++ ")"
+    | `hex(s) => "#" ++ s
+    | `transparent => "transparent"
+    | `currentColor => "currentColor"
+    | `linearGradient(angle, stops) =>
+      "linear-gradient("
+      ++ string_of_angle(angle)
+      ++ ", "
+      ++ string_of_stops(stops)
+      ++ ")"
+    | `repeatingLinearGradient(angle, stops) =>
+      "repeating-linear-gradient("
+      ++ string_of_angle(angle)
+      ++ ", "
+      ++ string_of_stops(stops)
+      ++ ")"
+    | `radialGradient(stops) =>
+      "radial-gradient(" ++ string_of_stops(stops) ++ ")"
+    | `repeatingRadialGradient(stops) =>
+      "repeating-radial-gradient(" ++ string_of_stops(stops) ++ ")"
+    };
+
+  let string_of_cursor = x =>
+    switch (x) {
+    | `auto => "auto"
+    | `default => "default"
+    | `none => "none"
+    | `contextMenu => "context-menu"
+    | `help => "help"
+    | `pointer => "pointer"
+    | `progress => "progress"
+    | `wait => "wait"
+    | `cell => "cell"
+    | `crosshair => "crosshair"
+    | `text => "text"
+    | `verticalText => "vertical-text"
+    | `alias => "alias"
+    | `copy => "copy"
+    | `move => "move"
+    | `noDrop => "no-drop"
+    | `notAllowed => "not-allowed"
+    | `grab => "grab"
+    | `grabbing => "grabbing"
+    | `allScroll => "all-scroll"
+    | `colResize => "col-resize"
+    | `rowResize => "row-resize"
+    | `nResize => "n-resize"
+    | `eResize => "e-resize"
+    | `sResize => "s-resize"
+    | `wResize => "w-resize"
+    | `neResize => "ne-resize"
+    | `nwResize => "nw-resize"
+    | `seResize => "se-resize"
+    | `swResize => "sw-resize"
+    | `ewResize => "ew-resize"
+    | `nsResize => "ns-resize"
+    | `neswResize => "nesw-resize"
+    | `nwseResize => "nwse-resize"
+    | `zoomIn => "zoom-in"
+    | `zoomOut => "zoom-out"
+    };
+};
+include Converter;
 
 type declaration = [ | `declaration(string, string)];
 type rule = [
@@ -63,12 +304,6 @@ let animationBody = animation => {
 
 let d = (property, value) => `declaration((property, value));
 
-let func1 = (name, arg) => name ++ "(" ++ arg ++ ")";
-let func2 = (name, arg, arg') => name ++ "(" ++ arg ++ ", " ++ arg' ++ ")";
-let funcAny = (name, args) => name ++ "(" ++ join(", ", args) ++ ")";
-
-let string_of_float = (f: float) => {j|$(f)|j};
-
 let important = v =>
   switch (v) {
   | `declaration(name, value) => `declaration((name, value ++ " !important"))
@@ -80,17 +315,14 @@ let label = label => `declaration(("label", label));
 /********************************************************
  ************************ VALUES ************************
  ********************************************************/
+type cascading = [ | `inherit_ | `unset];
+
+let inherit_ = `inherit_;
+let unset = `unset;
+
 type angle = [ | `deg(int) | `rad(float) | `grad(float) | `turn(float)];
 
-let string_of_angle =
-  fun
-  | `deg(x) => string_of_int(x) ++ "deg"
-  | `rad(x) => string_of_float(x) ++ "rad"
-  | `grad(x) => string_of_float(x) ++ "grad"
-  | `turn(x) => string_of_float(x) ++ "turn";
-
 let deg = x => `deg(x);
-
 let rad = x => `rad(x);
 let grad = x => `grad(x);
 let turn = x => `turn(x);
@@ -105,51 +337,6 @@ type color = [
   | `currentColor
 ];
 
-let string_of_color =
-  fun
-  | `rgb(r, g, b) =>
-    "rgb("
-    ++ join(", ", [string_of_int(r), string_of_int(g), string_of_int(b)])
-    ++ ")"
-  | `rgba(r, g, b, a) =>
-    "rgba("
-    ++ join(
-         ", ",
-         [
-           string_of_int(r),
-           string_of_int(g),
-           string_of_int(b),
-           string_of_float(a),
-         ],
-       )
-    ++ ")"
-  | `hsl(h, s, l) =>
-    "hsl("
-    ++ join(
-         ", ",
-         [
-           string_of_int(h),
-           string_of_int(s) ++ "%",
-           string_of_int(l) ++ "%",
-         ],
-       )
-    ++ ")"
-  | `hsla(h, s, l, a) =>
-    "hsla("
-    ++ join(
-         ", ",
-         [
-           string_of_int(h),
-           string_of_int(s) ++ "%",
-           string_of_int(l) ++ "%",
-           string_of_float(a),
-         ],
-       )
-    ++ ")"
-  | `hex(s) => "#" ++ s
-  | `transparent => "transparent"
-  | `currentColor => "currentColor";
-
 let rgb = (r, g, b) => `rgb((r, g, b));
 let rgba = (r, g, b, a) => `rgba((r, g, b, a));
 let hsl = (h, s, l) => `hsl((h, s, l));
@@ -158,190 +345,12 @@ let hex = x => `hex(x);
 
 let currentColor = `currentColor;
 
-let aliceblue = `hex("F0F8FF");
-let antiquewhite = `hex("FAEBD7");
-let aqua = `hex("00FFFF");
-let aquamarine = `hex("7FFFD4");
-let azure = `hex("F0FFFF");
-let beige = `hex("F5F5DC");
-let bisque = `hex("FFE4C4");
-let black = `hex("000000");
-let blanchedalmond = `hex("FFEBCD");
-let blue = `hex("0000FF");
-let blueviolet = `hex("8A2BE2");
-let brown = `hex("A52A2A");
-let burlywood = `hex("DEB887");
-let cadetblue = `hex("5F9EA0");
-let chartreuse = `hex("7FFF00");
-let chocolate = `hex("D2691E");
-let coral = `hex("FF7F50");
-let cornflowerblue = `hex("6495ED");
-let cornsilk = `hex("FFF8DC");
-let crimson = `hex("DC143C");
-let cyan = `hex("00FFFF");
-let darkblue = `hex("00008B");
-let darkcyan = `hex("008B8B");
-let darkgoldenrod = `hex("B8860B");
-let darkgray = `hex("A9A9A9");
-let darkgreen = `hex("006400");
-let darkgrey = `hex("A9A9A9");
-let darkkhaki = `hex("BDB76B");
-let darkmagenta = `hex("8B008B");
-let darkolivegreen = `hex("556B2F");
-let darkorange = `hex("FF8C00");
-let darkorchid = `hex("9932CC");
-let darkred = `hex("8B0000");
-let darksalmon = `hex("E9967A");
-let darkseagreen = `hex("8FBC8F");
-let darkslateblue = `hex("483D8B");
-let darkslategray = `hex("2F4F4F");
-let darkslategrey = `hex("2F4F4F");
-let darkturquoise = `hex("00CED1");
-let darkviolet = `hex("9400D3");
-let deeppink = `hex("FF1493");
-let deepskyblue = `hex("00BFFF");
-let dimgray = `hex("696969");
-let dimgrey = `hex("696969");
-let dodgerblue = `hex("1E90FF");
-let firebrick = `hex("B22222");
-let floralwhite = `hex("FFFAF0");
-let forestgreen = `hex("228B22");
-let fuchsia = `hex("FF00FF");
-let gainsboro = `hex("DCDCDC");
-let ghostwhite = `hex("F8F8FF");
-let gold = `hex("FFD700");
-let goldenrod = `hex("DAA520");
-let gray = `hex("808080");
-let green = `hex("008000");
-let greenyellow = `hex("ADFF2F");
-let grey = `hex("808080");
-let honeydew = `hex("F0FFF0");
-let hotpink = `hex("FF69B4");
-let indianred = `hex("CD5C5C");
-let indigo = `hex("4B0082");
-let ivory = `hex("FFFFF0");
-let khaki = `hex("F0E68C");
-let lavender = `hex("E6E6FA");
-let lavenderblush = `hex("FFF0F5");
-let lawngreen = `hex("7CFC00");
-let lemonchiffon = `hex("FFFACD");
-let lightblue = `hex("ADD8E6");
-let lightcoral = `hex("F08080");
-let lightcyan = `hex("E0FFFF");
-let lightgoldenrodyellow = `hex("FAFAD2");
-let lightgray = `hex("D3D3D3");
-let lightgreen = `hex("90EE90");
-let lightgrey = `hex("D3D3D3");
-let lightpink = `hex("FFB6C1");
-let lightsalmon = `hex("FFA07A");
-let lightseagreen = `hex("20B2AA");
-let lightskyblue = `hex("87CEFA");
-let lightslategray = `hex("778899");
-let lightslategrey = `hex("778899");
-let lightsteelblue = `hex("B0C4DE");
-let lightyellow = `hex("FFFFE0");
-let lime = `hex("00FF00");
-let limegreen = `hex("32CD32");
-let linen = `hex("FAF0E6");
-let magenta = `hex("FF00FF");
-let maroon = `hex("800000");
-let mediumaquamarine = `hex("66CDAA");
-let mediumblue = `hex("0000CD");
-let mediumorchid = `hex("BA55D3");
-let mediumpurple = `hex("9370DB");
-let mediumseagreen = `hex("3CB371");
-let mediumslateblue = `hex("7B68EE");
-let mediumspringgreen = `hex("00FA9A");
-let mediumturquoise = `hex("48D1CC");
-let mediumvioletred = `hex("C71585");
-let midnightblue = `hex("191970");
-let mintcream = `hex("F5FFFA");
-let mistyrose = `hex("FFE4E1");
-let moccasin = `hex("FFE4B5");
-let navajowhite = `hex("FFDEAD");
-let navy = `hex("000080");
-let oldlace = `hex("FDF5E6");
-let olive = `hex("808000");
-let olivedrab = `hex("6B8E23");
-let orange = `hex("FFA500");
-let orangered = `hex("FF4500");
-let orchid = `hex("DA70D6");
-let palegoldenrod = `hex("EEE8AA");
-let palegreen = `hex("98FB98");
-let paleturquoise = `hex("AFEEEE");
-let palevioletred = `hex("DB7093");
-let papayawhip = `hex("FFEFD5");
-let peachpuff = `hex("FFDAB9");
-let peru = `hex("CD853F");
-let pink = `hex("FFC0CB");
-let plum = `hex("DDA0DD");
-let powderblue = `hex("B0E0E6");
-let purple = `hex("800080");
-let rebeccapurple = `hex("663399");
-let red = `hex("FF0000");
-let rosybrown = `hex("BC8F8F");
-let royalblue = `hex("4169E1");
-let saddlebrown = `hex("8B4513");
-let salmon = `hex("FA8072");
-let sandybrown = `hex("F4A460");
-let seagreen = `hex("2E8B57");
-let seashell = `hex("FFF5EE");
-let sienna = `hex("A0522D");
-let silver = `hex("C0C0C0");
-let skyblue = `hex("87CEEB");
-let slateblue = `hex("6A5ACD");
-let slategray = `hex("708090");
-let slategrey = `hex("708090");
-let snow = `hex("FFFAFA");
-let springgreen = `hex("00FF7F");
-let steelblue = `hex("4682B4");
-let tan = `hex("D2B48C");
-let teal = `hex("008080");
-let thistle = `hex("D8BFD8");
-let tomato = `hex("FF6347");
-let transparent = `transparent;
-let turquoise = `hex("40E0D0");
-let violet = `hex("EE82EE");
-let wheat = `hex("F5DEB3");
-let white = `hex("FFFFFF");
-let whitesmoke = `hex("F5F5F5");
-let yellow = `hex("FFFF00");
-let yellowgreen = `hex("9ACD3");
-
 type gradient = [
   | `linearGradient(angle, list((int, color)))
   | `repeatingLinearGradient(angle, list((int, color)))
   | `radialGradient(list((int, color)))
   | `repeatingRadialGradient(list((int, color)))
 ];
-
-let string_of_stops = stops =>
-  stops
-  |> List.map(((i, c)) =>
-       join(" ", [string_of_color(c), string_of_int(i) ++ "%"])
-     )
-  |> join(", ");
-
-/* Not used
-   let string_of_gradient =
-     fun
-     | `linearGradient(angle, stops) =>
-       "linear-gradient("
-       ++ string_of_angle(angle)
-       ++ ", "
-       ++ string_of_stops(stops)
-       ++ ")"
-     | `repeatingLinearGradient(angle, stops) =>
-       "repeating-linear-gradient("
-       ++ string_of_angle(angle)
-       ++ ", "
-       ++ string_of_stops(stops)
-       ++ ")"
-     | `radialGradient(stops) =>
-       "radial-gradient(" ++ string_of_stops(stops) ++ ")"
-     | `repeatingRadialGradient(stops) =>
-       "repeating-radial-gradient(" ++ string_of_stops(stops) ++ ")";
-   */
 
 let linearGradient = (angle, stops) => `linearGradient((angle, stops));
 
@@ -355,6 +364,7 @@ let repeatingRadialGradient = stops => `repeatingRadialGradient(stops);
 /**
  * Units
  */
+
 type length = [
   | `calc([ | `add | `sub], length, length)
   | `ch(float)
@@ -365,6 +375,7 @@ type length = [
   | `percent(float)
   | `pt(int)
   | `px(int)
+  | `pxFloat(float)
   | `rem(float)
   | `vh(float)
   | `vmax(float)
@@ -373,9 +384,7 @@ type length = [
   | `zero
 ];
 
-type gridLength = [ length | `fr(float) | `minContent | `maxContent];
-
-let rec string_of_length =
+let string_of_length_cascading =
   fun
   | `calc(`add, a, b) =>
     "calc(" ++ string_of_length(a) ++ " + " ++ string_of_length(b) ++ ")"
@@ -389,12 +398,15 @@ let rec string_of_length =
   | `percent(x) => string_of_float(x) ++ "%"
   | `pt(x) => string_of_int(x) ++ "pt"
   | `px(x) => string_of_int(x) ++ "px"
+  | `pxFloat(x) => string_of_float(x) ++ "px"
   | `rem(x) => string_of_float(x) ++ "rem"
   | `vh(x) => string_of_float(x) ++ "vh"
   | `vmax(x) => string_of_float(x) ++ "vmax"
   | `vmin(x) => string_of_float(x) ++ "vmin"
   | `vw(x) => string_of_float(x) ++ "vw"
-  | `zero => "0";
+  | `zero => "0"
+  | `inherit_ => "inherit"
+  | `unset => "unset";
 
 let ch = x => `ch(x);
 let cm = x => `cm(x);
@@ -405,6 +417,7 @@ let mm = x => `mm(x);
 let pct = x => `percent(x);
 let pt = x => `pt(x);
 let px = x => `px(x);
+let pxFloat = x => `pxFloat(x);
 let rem = x => `rem(x);
 let vh = x => `vh(x);
 let vmax = x => `vmax(x);
@@ -513,7 +526,7 @@ let oblique = `oblique;
 
 let underline = `underline;
 let overline = `overline;
-let lineThrough = `lineThough;
+let lineThrough = `lineThrough;
 let clip = `clip;
 let ellipsis = `ellipsis;
 
@@ -557,6 +570,7 @@ let square = `square;
  ********************************************************/
 
 let unsafe = d;
+
 /**
  * Layout
  */
@@ -568,11 +582,13 @@ let display = x =>
     | `block => "block"
     | `inline => "inline"
     | `inlineBlock => "inline-block"
-    | `none => "none"
     | `flex => "flex"
     | `inlineFlex => "inline-flex"
     | `grid => "grid"
     | `inlineGrid => "inline-grid"
+    | `none => "none"
+    | `inherit_ => "inherit"
+    | `unset => "unset"
     },
   );
 
@@ -585,6 +601,8 @@ let position = x =>
     | `fixed => "fixed"
     | `relative => "relative"
     | `sticky => "sticky"
+    | `inherit_ => "inherit"
+    | `unset => "unset"
     },
   );
 
@@ -612,18 +630,19 @@ let flexBasis = x =>
     | `percent(x) => string_of_float(x) ++ "%"
     | `pt(x) => string_of_int(x) ++ "pt"
     | `px(x) => string_of_int(x) ++ "px"
+    | `pxFloat(x) => string_of_float(x) ++ "px"
     | `rem(x) => string_of_float(x) ++ "rem"
     | `vh(x) => string_of_float(x) ++ "vh"
     | `vmax(x) => string_of_float(x) ++ "vmax"
     | `vmin(x) => string_of_float(x) ++ "vmin"
     | `vw(x) => string_of_float(x) ++ "vw"
     | `zero => "0"
+    | `auto => "auto"
     | `fill => "fill"
+    | `content => "content"
     | `maxContent => "max-content"
     | `minContent => "min-content"
     | `fitContent => "fit-content"
-    | `content => "content"
-    | `auto => "auto"
     },
   );
 
@@ -664,6 +683,7 @@ let string_of_margin =
   | `percent(x) => string_of_float(x) ++ "%"
   | `pt(x) => string_of_int(x) ++ "pt"
   | `px(x) => string_of_int(x) ++ "px"
+  | `pxFloat(x) => string_of_float(x) ++ "px"
   | `rem(x) => string_of_float(x) ++ "rem"
   | `vh(x) => string_of_float(x) ++ "vh"
   | `vmax(x) => string_of_float(x) ++ "vmax"
@@ -673,27 +693,28 @@ let string_of_margin =
   | `auto => "auto";
 
 let margin = x => d("margin", string_of_margin(x));
-let margin2 = (~v, ~h) => {
-  let vString = string_of_margin(v);
-  let hString = string_of_margin(h);
-  d("margin", [vString, hString] |> join(" "));
-};
-let margin3 = (~top, ~h, ~bottom) => {
-  let topString = string_of_margin(top);
-  let hString = string_of_margin(h);
-  let bottomString = string_of_margin(bottom);
-  d("margin", [topString, hString, bottomString] |> join(" "));
-};
-let margin4 = (~top, ~right, ~bottom, ~left) => {
-  let topString = string_of_margin(top);
-  let leftString = string_of_margin(left);
-  let rightString = string_of_margin(right);
-  let bottomString = string_of_margin(bottom);
+let margin2 = (~v, ~h) =>
+  d("margin", string_of_margin(v) ++ " " ++ string_of_margin(h));
+let margin3 = (~top, ~h, ~bottom) =>
   d(
     "margin",
-    [topString, rightString, bottomString, leftString] |> join(" "),
+    string_of_margin(top)
+    ++ " "
+    ++ string_of_margin(h)
+    ++ " "
+    ++ string_of_margin(bottom),
   );
-};
+let margin4 = (~top, ~right, ~bottom, ~left) =>
+  d(
+    "margin",
+    string_of_margin(top)
+    ++ " "
+    ++ string_of_margin(right)
+    ++ " "
+    ++ string_of_margin(bottom)
+    ++ " "
+    ++ string_of_margin(left),
+  );
 let marginLeft = x => d("marginLeft", string_of_margin(x));
 let marginRight = x => d("marginRight", string_of_margin(x));
 let marginTop = x => d("marginTop", string_of_margin(x));
@@ -701,16 +722,26 @@ let marginBottom = x => d("marginBottom", string_of_margin(x));
 
 let padding = x => d("padding", string_of_length(x));
 let padding2 = (~v, ~h) =>
-  d("padding", [v, h] |> List.map(string_of_length) |> join(" "));
+  d("padding", string_of_length(v) ++ " " ++ string_of_length(h));
 let padding3 = (~top, ~h, ~bottom) =>
   d(
     "padding",
-    [top, h, bottom] |> List.map(string_of_length) |> join(" "),
+    string_of_length(top)
+    ++ " "
+    ++ string_of_length(h)
+    ++ " "
+    ++ string_of_length(bottom),
   );
 let padding4 = (~top, ~right, ~bottom, ~left) =>
   d(
     "padding",
-    [top, right, bottom, left] |> List.map(string_of_length) |> join(" "),
+    string_of_length(top)
+    ++ " "
+    ++ string_of_length(right)
+    ++ " "
+    ++ string_of_length(bottom)
+    ++ " "
+    ++ string_of_length(left),
   );
 let paddingLeft = x => d("paddingLeft", string_of_length(x));
 let paddingRight = x => d("paddingRight", string_of_length(x));
@@ -732,6 +763,7 @@ let string_of_dimension =
   | `percent(x) => string_of_float(x) ++ "%"
   | `pt(x) => string_of_int(x) ++ "pt"
   | `px(x) => string_of_int(x) ++ "px"
+  | `pxFloat(x) => string_of_float(x) ++ "px"
   | `rem(x) => string_of_float(x) ++ "rem"
   | `vh(x) => string_of_float(x) ++ "vh"
   | `vmax(x) => string_of_float(x) ++ "vmax"
@@ -749,14 +781,77 @@ let height = x => d("height", string_of_dimension(x));
 let minHeight = x => d("minHeight", string_of_dimension(x));
 let maxHeight = x => d("maxHeight", string_of_dimension(x));
 
+type gridAutoDirection = [
+  | `column
+  | `row
+  | `columnDense
+  | `rowDense
+  | `initial
+  | cascading
+];
+
+let gridAutoDirectionToJs =
+  fun
+  | `column => "column"
+  | `row => "row"
+  | `columnDense => "column dense"
+  | `rowDense => "row dense"
+  | `initial => "initial"
+  | `inherit_ => "inherit"
+  | `unset => "unset";
+
+let gridAutoFlow = (direction: [< | gridAutoDirection]) =>
+  d("gridAutoFlow", gridAutoDirectionToJs(direction));
+
+type repeatValue = [ | `autoFill | `autoFit | `n(int)];
+let repeatValueToJs =
+  fun
+  | `autoFill => "auto-fill"
+  | `autoFit => "auto-fit"
+  | `n(x) => x->string_of_int;
+
+type trackLength = [ length | `fr(float) | `minContent | `maxContent];
+type gridLength = [ trackLength | `repeat(repeatValue, trackLength)];
+
+let gridLengthToJs =
+  fun
+  | `auto => "auto"
+  | `calc(`add, a, b) =>
+    "calc(" ++ string_of_length(a) ++ " + " ++ string_of_length(b) ++ ")"
+  | `calc(`sub, a, b) =>
+    "calc(" ++ string_of_length(a) ++ " - " ++ string_of_length(b) ++ ")"
+  | `ch(x) => string_of_float(x) ++ "ch"
+  | `cm(x) => string_of_float(x) ++ "cm"
+  | `em(x) => string_of_float(x) ++ "em"
+  | `ex(x) => string_of_float(x) ++ "ex"
+  | `mm(x) => string_of_float(x) ++ "mm"
+  | `percent(x) => string_of_float(x) ++ "%"
+  | `pt(x) => string_of_int(x) ++ "pt"
+  | `px(x) => string_of_int(x) ++ "px"
+  | `pxFloat(x) => string_of_float(x) ++ "px"
+  | `rem(x) => string_of_float(x) ++ "rem"
+  | `vh(x) => string_of_float(x) ++ "vh"
+  | `vmax(x) => string_of_float(x) ++ "vmax"
+  | `vmin(x) => string_of_float(x) ++ "vmin"
+  | `vw(x) => string_of_float(x) ++ "vw"
+  | `fr(x) => string_of_float(x) ++ "fr"
+  | `zero => "0"
+  | `minContent => "min-content"
+  | `maxContent => "max-content"
+  | `repeat(n, x) =>
+    "repeat(" ++ n->repeatValueToJs ++ ", " ++ string_of_dimension(x) ++ ")";
+
 let string_of_dimensions = dimensions =>
-  dimensions |> List.map(string_of_dimension) |> String.concat(" ");
+  dimensions |> List.map(gridLengthToJs) |> String.concat(" ");
 
 let gridTemplateColumns = dimensions =>
   d("gridTemplateColumns", string_of_dimensions(dimensions));
 
 let gridTemplateRows = dimensions =>
   d("gridTemplateRows", string_of_dimensions(dimensions));
+
+let gridAutoColumns = dimensions =>
+  d("gridAutoColumns", string_of_dimension(dimensions));
 
 let gridAutoRows = dimensions =>
   d("gridAutoRows", string_of_dimension(dimensions));
@@ -767,17 +862,11 @@ let gridColumn = (start, end') =>
 let gridRow = (start, end') =>
   d("gridRow", string_of_int(start) ++ " / " ++ string_of_int(end'));
 let gridColumnStart = n => d("gridColumnStart", string_of_int(n));
-
 let gridColumnEnd = n => d("gridColumnEnd", string_of_int(n));
-
 let gridRowStart = n => d("gridRowStart", string_of_int(n));
-
 let gridRowEnd = n => d("gridRowEnd", string_of_int(n));
-
 let gridColumnGap = n => d("gridColumnGap", string_of_length(n));
-
 let gridRowGap = n => d("gridRowGap", string_of_length(n));
-
 let gridGap = n => d("gridGap", string_of_length(n));
 
 let string_of_align =
@@ -800,6 +889,7 @@ let string_of_justify =
   | `spaceBetween => "space-between"
   | `stretch => "stretch";
 let justifyContent = x => d("justifyContent", string_of_justify(x));
+let justifySelf = x => d("justifySelf", string_of_justify(x));
 let alignContent = x => d("alignContent", string_of_justify(x));
 
 let boxSizing = x =>
@@ -808,6 +898,8 @@ let boxSizing = x =>
     switch (x) {
     | `contentBox => "content-box"
     | `borderBox => "border-box"
+    | `inherit_ => "inherit"
+    | `unset => "unset"
     },
   );
 
@@ -831,57 +923,47 @@ let clear = x =>
     },
   );
 
-let string_of_overflow =
-  fun
-  | `auto => "auto"
-  | `scroll => "scroll"
-  | `hidden => "hidden"
-  | `visible => "visible";
-
 let overflow = x => d("overflow", string_of_overflow(x));
-
 let overflowX = x => d("overflowX", string_of_overflow(x));
-
 let overflowY = x => d("overflowY", string_of_overflow(x));
 
-let zIndex = i => d("zIndex", string_of_int(i));
+let zIndex = x => d("zIndex", string_of_int(x));
+
+let contentRule = x => d("content", {j|"$x"|j});
+
+let columnCount = x =>
+  d(
+    "columnCount",
+    switch (x) {
+    | `auto => "auto"
+    | `count(v) => string_of_int(v)
+    | `inherit_ => "inherit"
+    | `unset => "unset"
+    },
+  );
 
 /**
  * Style
  */
 
 let backfaceVisibility = x =>
-  d(
-    "backfaceVisibility",
-    switch (x) {
-    | `hidden => "hidden"
-    | `visible => "visible"
-    },
-  );
+  d("backfaceVisibility", string_of_visibility(x));
 
-let visibility = x =>
-  d(
-    "visibility",
-    switch (x) {
-    | `hidden => "hidden"
-    | `visible => "visible"
-    },
-  );
+let visibility = x => d("visibility", string_of_visibility(x));
 
 let boxShadow =
     (~x=zero, ~y=zero, ~blur=zero, ~spread=zero, ~inset=false, color) =>
   `shadow(
-    join(
-      " ",
-      [
-        string_of_length(x),
-        string_of_length(y),
-        string_of_length(blur),
-        string_of_length(spread),
-        string_of_color(color),
-        inset ? "inset" : "",
-      ],
-    ),
+    string_of_length(x)
+    ++ " "
+    ++ string_of_length(y)
+    ++ " "
+    ++ string_of_length(blur)
+    ++ " "
+    ++ string_of_length(spread)
+    ++ " "
+    ++ string_of_color(color)
+    ++ (inset ? " inset" : ""),
   );
 
 let string_of_shadow =
@@ -900,14 +982,11 @@ let string_of_borderstyle =
 let border = (px, style, color) =>
   d(
     "border",
-    join(
-      " ",
-      [
-        string_of_length(px),
-        string_of_borderstyle(style),
-        string_of_color(color),
-      ],
-    ),
+    string_of_length(px)
+    ++ " "
+    ++ string_of_borderstyle(style)
+    ++ " "
+    ++ string_of_color(color),
   );
 let borderWidth = x => d("borderWidth", string_of_length(x));
 let borderStyle = x => d("borderStyle", string_of_borderstyle(x));
@@ -916,14 +995,11 @@ let borderColor = x => d("borderColor", string_of_color(x));
 let borderLeft = (px, style, color) =>
   d(
     "borderLeft",
-    join(
-      " ",
-      [
-        string_of_length(px),
-        string_of_borderstyle(style),
-        string_of_color(color),
-      ],
-    ),
+    string_of_length(px)
+    ++ " "
+    ++ string_of_borderstyle(style)
+    ++ " "
+    ++ string_of_color(color),
   );
 let borderLeftWidth = x => d("borderLeftWidth", string_of_length(x));
 let borderLeftStyle = x => d("borderLeftStyle", string_of_borderstyle(x));
@@ -932,14 +1008,11 @@ let borderLeftColor = x => d("borderLeftColor", string_of_color(x));
 let borderRight = (px, style, color) =>
   d(
     "borderRight",
-    join(
-      " ",
-      [
-        string_of_length(px),
-        string_of_borderstyle(style),
-        string_of_color(color),
-      ],
-    ),
+    string_of_length(px)
+    ++ " "
+    ++ string_of_borderstyle(style)
+    ++ " "
+    ++ string_of_color(color),
   );
 
 let borderRightWidth = x => d("borderRightWidth", string_of_length(x));
@@ -948,14 +1021,11 @@ let borderRightStyle = x => d("borderRightStyle", string_of_borderstyle(x));
 let borderTop = (px, style, color) =>
   d(
     "borderTop",
-    join(
-      " ",
-      [
-        string_of_length(px),
-        string_of_borderstyle(style),
-        string_of_color(color),
-      ],
-    ),
+    string_of_length(px)
+    ++ " "
+    ++ string_of_borderstyle(style)
+    ++ " "
+    ++ string_of_color(color),
   );
 
 let borderTopWidth = x => d("borderTopWidth", string_of_length(x));
@@ -965,14 +1035,11 @@ let borderTopColor = x => d("borderTopColor", string_of_color(x));
 let borderBottom = (px, style, color) =>
   d(
     "borderBottom",
-    join(
-      " ",
-      [
-        string_of_length(px),
-        string_of_borderstyle(style),
-        string_of_color(color),
-      ],
-    ),
+    string_of_length(px)
+    ++ " "
+    ++ string_of_borderstyle(style)
+    ++ " "
+    ++ string_of_color(color),
   );
 let borderBottomWidth = x => d("borderBottomWidth", string_of_length(x));
 let borderBottomStyle = x =>
@@ -1008,75 +1075,9 @@ let borderCollapse = x =>
 
 let borderSpacing = i => d("borderSpacing", string_of_length(i));
 
-let background = x =>
-  d(
-    "background",
-    switch (x) {
-    | `none => "none"
-    | `url(url) => "url(" ++ url ++ ")"
-    | `rgb(r, g, b) =>
-      "rgb("
-      ++ join(
-           ", ",
-           [string_of_int(r), string_of_int(g), string_of_int(b)],
-         )
-      ++ ")"
-    | `rgba(r, g, b, a) =>
-      "rgba("
-      ++ join(
-           ", ",
-           [
-             string_of_int(r),
-             string_of_int(g),
-             string_of_int(b),
-             string_of_float(a),
-           ],
-         )
-      ++ ")"
-    | `hsl(h, s, l) =>
-      "hsl("
-      ++ join(
-           ", ",
-           [
-             string_of_int(h),
-             string_of_int(s) ++ "%",
-             string_of_int(l) ++ "%",
-           ],
-         )
-      ++ ")"
-    | `hsla(h, s, l, a) =>
-      "hsla("
-      ++ join(
-           ", ",
-           [
-             string_of_int(h),
-             string_of_int(s) ++ "%",
-             string_of_int(l) ++ "%",
-             string_of_float(a),
-           ],
-         )
-      ++ ")"
-    | `hex(s) => "#" ++ s
-    | `transparent => "transparent"
-    | `currentColor => "currentColor"
-    | `linearGradient(angle, stops) =>
-      "linear-gradient("
-      ++ string_of_angle(angle)
-      ++ ", "
-      ++ string_of_stops(stops)
-      ++ ")"
-    | `repeatingLinearGradient(angle, stops) =>
-      "repeating-linear-gradient("
-      ++ string_of_angle(angle)
-      ++ ", "
-      ++ string_of_stops(stops)
-      ++ ")"
-    | `radialGradient(stops) =>
-      "radial-gradient(" ++ string_of_stops(stops) ++ ")"
-    | `repeatingRadialGradient(stops) =>
-      "repeating-radial-gradient(" ++ string_of_stops(stops) ++ ")"
-    },
-  );
+let background = x => d("background", string_of_background(x));
+let backgrounds = bg =>
+  d("background", bg |> List.map(string_of_background) |> join(", "));
 let backgroundColor = x => d("backgroundColor", string_of_color(x));
 let backgroundImage = x =>
   d(
@@ -1084,18 +1085,9 @@ let backgroundImage = x =>
     switch (x) {
     | `none => "none"
     | `url(url) => "url(" ++ url ++ ")"
-    | `linearGradient(angle, stops) =>
-      "linear-gradient("
-      ++ string_of_angle(angle)
-      ++ ", "
-      ++ string_of_stops(stops)
-      ++ ")"
+    | `linearGradient(angle, stops) => string_of_linearGradient(angle, stops)
     | `repeatingLinearGradient(angle, stops) =>
-      "repeating-linear-gradient("
-      ++ string_of_angle(angle)
-      ++ ", "
-      ++ string_of_stops(stops)
-      ++ ")"
+      string_of_repeatingLinearGradient(angle, stops)
     | `radialGradient(stops) =>
       "radial-gradient(" ++ string_of_stops(stops) ++ ")"
     | `repeatingRadialGradient(stops) =>
@@ -1161,32 +1153,7 @@ let backgroundSize = x =>
     },
   );
 
-let cursor = x =>
-  d(
-    "cursor",
-    switch (x) {
-    | `pointer => "pointer"
-    | `alias => "alias"
-    | `allScroll => "all-scroll"
-    | `auto => "auto"
-    | `cell => "cell"
-    | `contextMenu => "context-menu"
-    | `default => "default"
-    | `none => "none"
-    | `crosshair => "crosshair"
-    | `copy => "copy"
-    | `grab => "grab"
-    | `grabbing => "grabbing"
-    | `help => "help"
-    | `move => "move"
-    | `notAllowed => "not-allowed"
-    | `progress => "progress"
-    | `text => "text"
-    | `wait => "wait"
-    | `zoomIn => "zoom-in"
-    | `zoomOut => "zoom-out"
-    },
-  );
+let cursor = x => d("cursor", string_of_cursor(x));
 
 let clipPath = x =>
   d(
@@ -1234,17 +1201,16 @@ let string_of_listStylePosition =
 let string_of_listStyleImage =
   fun
   | `none => "none"
-  | `url(url) => func1("url", url);
+  | `url(url) => "url(" ++ url ++ ")";
 
 let listStyle = (style, pos, img) =>
   d(
     "listStyle",
-    [
-      string_of_listStyleType(style),
-      string_of_listStylePosition(pos),
-      string_of_listStyleImage(img),
-    ]
-    |> join(" "),
+    string_of_listStyleType(style)
+    ++ " "
+    ++ string_of_listStylePosition(pos)
+    ++ " "
+    ++ string_of_listStyleImage(img),
   );
 
 let listStyleType = x => d("listStyleType", string_of_listStyleType(x));
@@ -1285,12 +1251,11 @@ let string_of_outlineStyle =
 let outline = (size, style, color) =>
   d(
     "outline",
-    [
-      string_of_length(size),
-      string_of_outlineStyle(style),
-      string_of_color(color),
-    ]
-    |> join(" "),
+    string_of_length(size)
+    ++ " "
+    ++ string_of_outlineStyle(style)
+    ++ " "
+    ++ string_of_color(color),
   );
 
 let outlineStyle = x => d("outlineStyle", string_of_outlineStyle(x));
@@ -1307,12 +1272,19 @@ let outlineOffset = x => d("outlineOffset", string_of_length(x));
 
 [@bs.deriving jsConverter]
 type fontStyle = [ | `normal | `italic | `oblique];
+let fontStyleToJs =
+  fun
+  | `normal => "normal"
+  | `italic => "italic"
+  | `oblique => "oblique"
+  | `inherit_ => "inherit"
+  | `unset => "unset";
 
 let color = x => d("color", string_of_color(x));
 
 let fontFamily = x => d("fontFamily", x);
 
-let fontSize = x => d("fontSize", string_of_length(x));
+let fontSize = x => d("fontSize", string_of_length_cascading(x));
 
 let fontVariant = x =>
   d(
@@ -1324,6 +1296,7 @@ let fontVariant = x =>
   );
 
 let fontStyle = x => d("fontStyle", fontStyleToJs(x));
+let fontWeight = x => d("fontWeight", string_of_int(x));
 
 let fontFace = (~fontFamily, ~src, ~fontStyle=?, ~fontWeight=?, ()) => {
   let fontStyle =
@@ -1348,8 +1321,6 @@ let fontFace = (~fontFamily, ~src, ~fontStyle=?, ~fontWeight=?, ()) => {
   ds |> makeDict |> toStyleObject;
 };
 
-let fontWeight = x => d("fontWeight", string_of_int(x));
-
 let lineHeight = x =>
   d(
     "lineHeight",
@@ -1368,6 +1339,7 @@ let lineHeight = x =>
     | `percent(x) => string_of_float(x) ++ "%"
     | `pt(x) => string_of_int(x) ++ "pt"
     | `px(x) => string_of_int(x) ++ "px"
+    | `pxFloat(x) => string_of_float(x) ++ "px"
     | `rem(x) => string_of_float(x) ++ "rem"
     | `vh(x) => string_of_float(x) ++ "vh"
     | `vmax(x) => string_of_float(x) ++ "vmax"
@@ -1375,6 +1347,8 @@ let lineHeight = x =>
     | `vw(x) => string_of_float(x) ++ "vw"
     | `auto => "auto"
     | `zero => "0"
+    | `inherit_ => "inherit"
+    | `unset => "unset"
     },
   );
 
@@ -1395,6 +1369,7 @@ let letterSpacing = x =>
     | `percent(x) => string_of_float(x) ++ "%"
     | `pt(x) => string_of_int(x) ++ "pt"
     | `px(x) => string_of_int(x) ++ "px"
+    | `pxFloat(x) => string_of_float(x) ++ "px"
     | `rem(x) => string_of_float(x) ++ "rem"
     | `vh(x) => string_of_float(x) ++ "vh"
     | `vmax(x) => string_of_float(x) ++ "vmax"
@@ -1456,15 +1431,13 @@ let textOverflow = x =>
 let textShadow = (~x=zero, ~y=zero, ~blur=zero, color) =>
   d(
     "textShadow",
-    join(
-      " ",
-      [
-        string_of_length(x),
-        string_of_length(y),
-        string_of_length(blur),
-        string_of_color(color),
-      ],
-    ),
+    string_of_length(x)
+    ++ " "
+    ++ string_of_length(y)
+    ++ " "
+    ++ string_of_length(blur)
+    ++ " "
+    ++ string_of_color(color),
   );
 
 let textTransform = x =>
@@ -1513,6 +1486,7 @@ let verticalAlign = x =>
     | `percent(x) => string_of_float(x) ++ "%"
     | `pt(x) => string_of_int(x) ++ "pt"
     | `px(x) => string_of_int(x) ++ "px"
+    | `pxFloat(x) => string_of_float(x) ++ "px"
     | `rem(x) => string_of_float(x) ++ "rem"
     | `vh(x) => string_of_float(x) ++ "vh"
     | `vmax(x) => string_of_float(x) ++ "vmax"
@@ -1562,6 +1536,7 @@ let wordSpacing = x =>
     | `percent(x) => string_of_float(x) ++ "%"
     | `pt(x) => string_of_int(x) ++ "pt"
     | `px(x) => string_of_int(x) ++ "px"
+    | `pxFloat(x) => string_of_float(x) ++ "px"
     | `rem(x) => string_of_float(x) ++ "rem"
     | `vh(x) => string_of_float(x) ++ "vh"
     | `vmax(x) => string_of_float(x) ++ "vmax"
@@ -1617,36 +1592,42 @@ type transform = [
 let string_of_transform =
   fun
   | `translate(x, y) =>
-    func2("translate", string_of_length(x), string_of_length(y))
-  | `translate3d(x, y, z) =>
-    funcAny("translate3d", List.map(string_of_length, [x, y, z]))
-  | `translateX(x) => func1("translateX", string_of_length(x))
-  | `translateY(y) => func1("translateY", string_of_length(y))
-  | `translateZ(z) => func1("translateZ", string_of_length(z))
-  | `scale(x, y) => funcAny("scale", List.map(string_of_float, [x, y]))
+    "translate(" ++ string_of_length(x) ++ ", " ++ string_of_length(y) ++ ")"
+  | `translate3d(x, y, z) => string_of_translate3d(x, y, z)
+  | `translateX(x) => "translateX(" ++ string_of_length(x) ++ ")"
+  | `translateY(y) => "translateY(" ++ string_of_length(y) ++ ")"
+  | `translateZ(z) => "translateZ(" ++ string_of_length(z) ++ ")"
+  | `scale(x, y) => string_of_scale(x, y)
   | `scale3d(x, y, z) =>
-    funcAny("scale3d", List.map(string_of_float, [x, y, z]))
-  | `scaleX(x) => func1("scaleX", string_of_float(x))
-  | `scaleY(y) => func1("scaleY", string_of_float(y))
-  | `scaleZ(z) => func1("scaleZ", string_of_float(z))
-  | `rotate(a) => func1("rotate", string_of_angle(a))
+    "scale3d("
+    ++ string_of_float(x)
+    ++ ", "
+    ++ string_of_float(y)
+    ++ ", "
+    ++ string_of_float(z)
+    ++ ")"
+  | `scaleX(x) => "scaleX(" ++ string_of_float(x) ++ ")"
+  | `scaleY(y) => "scaleY(" ++ string_of_float(y) ++ ")"
+  | `scaleZ(z) => "scaleZ(" ++ string_of_float(z) ++ ")"
+  | `rotate(a) => "rotate(" ++ string_of_angle(a) ++ ")"
   | `rotate3d(x, y, z, a) =>
-    funcAny(
-      "rotate3d",
-      [
-        string_of_float(x),
-        string_of_float(y),
-        string_of_float(z),
-        string_of_angle(a),
-      ],
-    )
-  | `rotateX(a) => func1("rotateX", string_of_angle(a))
-  | `rotateY(a) => func1("rotateY", string_of_angle(a))
-  | `rotateZ(a) => func1("rotateZ", string_of_angle(a))
-  | `skew(x, y) => funcAny("skew", List.map(string_of_angle, [x, y]))
-  | `skewX(a) => func1("skewX", string_of_angle(a))
-  | `skewY(a) => func1("skewY", string_of_angle(a))
-  | `perspective(x) => func1("perspective", string_of_int(x));
+    "rotate3d("
+    ++ string_of_float(x)
+    ++ ", "
+    ++ string_of_float(y)
+    ++ ", "
+    ++ string_of_float(z)
+    ++ ", "
+    ++ string_of_angle(a)
+    ++ ")"
+  | `rotateX(a) => "rotateX(" ++ string_of_angle(a) ++ ")"
+  | `rotateY(a) => "rotateY(" ++ string_of_angle(a) ++ ")"
+  | `rotateZ(a) => "rotateZ(" ++ string_of_angle(a) ++ ")"
+  | `skew(x, y) =>
+    "skew(" ++ string_of_angle(x) ++ ", " ++ string_of_angle(y) ++ ")"
+  | `skewX(a) => "skewX(" ++ string_of_angle(a) ++ ")"
+  | `skewY(a) => "skewY(" ++ string_of_angle(a) ++ ")"
+  | `perspective(x) => "perspective(" ++ string_of_int(x) ++ ")";
 
 let transform = x => d("transform", string_of_transform(x));
 
@@ -1654,12 +1635,17 @@ let transforms = xs =>
   d("transform", xs |> List.map(string_of_transform) |> join(" "));
 
 let transformOrigin = (x, y) =>
-  d("transformOrigin", [x, y] |> List.map(string_of_length) |> join(" "));
+  d("transformOrigin", string_of_length(x) ++ " " ++ string_of_length(y));
 
 let transformOrigin3d = (x, y, z) =>
   d(
     "transformOrigin",
-    [x, y, z] |> List.map(string_of_length) |> join(" "),
+    string_of_length(x)
+    ++ " "
+    ++ string_of_length(y)
+    ++ " "
+    ++ string_of_length(z)
+    ++ " ",
   );
 
 let transformStyle = x =>
@@ -1688,6 +1674,7 @@ let perspective = x =>
     | `percent(x) => string_of_float(x) ++ "%"
     | `pt(x) => string_of_int(x) ++ "pt"
     | `px(x) => string_of_int(x) ++ "px"
+    | `pxFloat(x) => string_of_float(x) ++ "px"
     | `rem(x) => string_of_float(x) ++ "rem"
     | `vh(x) => string_of_float(x) ++ "vh"
     | `vmax(x) => string_of_float(x) ++ "vmax"
@@ -1721,22 +1708,28 @@ let string_of_timingFunction =
   | `easeInOut => "ease-in-out"
   | `stepStart => "step-start"
   | `stepEnd => "step-end"
-  | `steps(i, `start) => func2("steps", string_of_int(i), "start")
-  | `steps(i, `end_) => func2("steps", string_of_int(i), "end")
+  | `steps(i, `start) => "steps(" ++ string_of_int(i) ++ ", start)"
+  | `steps(i, `end_) => "steps(" ++ string_of_int(i) ++ ", end)"
   | `cubicBezier(a, b, c, d) =>
-    funcAny("cubic-bezier", [a, b, c, d] |> List.map(string_of_float));
+    "cubic-bezier("
+    ++ string_of_float(a)
+    ++ ", "
+    ++ string_of_float(b)
+    ++ ", "
+    ++ string_of_float(c)
+    ++ ", "
+    ++ string_of_float(d)
+    ++ ")";
 
 let transition = (~duration=0, ~delay=0, ~timingFunction=`ease, property) =>
   `transition(
-    join(
-      " ",
-      [
-        string_of_int(duration) ++ "ms",
-        string_of_timingFunction(timingFunction),
-        string_of_int(delay) ++ "ms",
-        property,
-      ],
-    ),
+    string_of_time(duration)
+    ++ " "
+    ++ string_of_timingFunction(timingFunction)
+    ++ " "
+    ++ string_of_time(delay)
+    ++ " "
+    ++ property,
   );
 
 let transitions = xs =>
@@ -1750,10 +1743,9 @@ let transitions = xs =>
     |> join(", "),
   );
 
-let transitionDelay = i => d("transitionDelay", string_of_int(i) ++ "ms");
+let transitionDelay = i => d("transitionDelay", string_of_time(i));
 
-let transitionDuration = i =>
-  d("transitionDuration", string_of_int(i) ++ "ms");
+let transitionDuration = i => d("transitionDuration", string_of_time(i));
 
 let transitionTimingFunction = x =>
   d("transitionTimingFunction", string_of_timingFunction(x));
@@ -1761,10 +1753,7 @@ let transitionTimingFunction = x =>
 let transitionProperty = x => d("transitionProperty", x);
 
 let perspectiveOrigin = (x, y) =>
-  d(
-    "perspectiveOrigin",
-    [x, y] |> List.map(string_of_length) |> join(" "),
-  );
+  d("perspectiveOrigin", string_of_length(x) ++ " " ++ string_of_length(y));
 
 /**
  * Animation
@@ -1823,19 +1812,21 @@ let animation =
     | `selector(name, _ruleset) => name
     };
   `animation(
-    join(
-      " ",
-      [
-        name,
-        string_of_int(duration) ++ "ms",
-        string_of_timingFunction(timingFunction),
-        string_of_int(delay) ++ "ms",
-        string_of_animationIterationCount(iterationCount),
-        string_of_animationDirection(direction),
-        string_of_animationFillMode(fillMode),
-        string_of_animationPlayState(playState),
-      ],
-    ),
+    name
+    ++ " "
+    ++ string_of_time(duration)
+    ++ " "
+    ++ string_of_timingFunction(timingFunction)
+    ++ " "
+    ++ string_of_time(delay)
+    ++ " "
+    ++ string_of_animationIterationCount(iterationCount)
+    ++ " "
+    ++ string_of_animationDirection(direction)
+    ++ " "
+    ++ string_of_animationFillMode(fillMode)
+    ++ " "
+    ++ string_of_animationPlayState(playState),
   );
 };
 
@@ -1845,11 +1836,10 @@ let string_of_animation =
 let animations = xs =>
   d("animation", xs |> List.map(string_of_animation) |> join(", "));
 
-let animationDelay = x => d("animationDelay", string_of_int(x) ++ "ms");
+let animationDelay = x => d("animationDelay", string_of_time(x));
 let animationDirection = x =>
   d("animationDirection", string_of_animationDirection(x));
-let animationDuration = x =>
-  d("animationDuration", string_of_int(x) ++ "ms");
+let animationDuration = x => d("animationDuration", string_of_time(x));
 let animationFillMode = x =>
   d("animationFillMode", string_of_animationFillMode(x));
 let animationIterationCount = x =>

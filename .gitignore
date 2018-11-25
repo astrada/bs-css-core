@@ -7,6 +7,7 @@
 /lib/ocaml
 /lib/js/__tests__
 npm-debug.log
+*.js
 .merlin
 .bsb.lock
 *.log

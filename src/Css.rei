@@ -1,7 +1,7 @@
 /*
  * Based on https://github.com/SentiaAnalytics/bs-css/blob/master/src/Css.rei
- * bs-css v7.1.0
- * commit 16b3fd3
+ * bs-css v8.0.0
+ * commit 542738c
  */
 
 /**
@@ -83,6 +83,12 @@ let label: string => rule;
 /********************************************************
  ************************ VALUES ************************
  ********************************************************/
+
+type cascading = [ | `inherit_ | `unset];
+
+let inherit_: [> | `inherit_];
+let unset: [> | `unset];
+
 /**
  * A CSS angle. E.g.: `90deg`, `100grad`, `1rad`, `0.25turn`.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/angle
@@ -359,6 +365,7 @@ type length = [
   | `percent(float)
   | `pt(int)
   | `px(int)
+  | `pxFloat(float)
   | `rem(float)
   | `vh(float)
   | `vmin(float)
@@ -367,7 +374,9 @@ type length = [
   | `zero
 ];
 
-type gridLength = [ length | `fr(float) | `minContent | `maxContent];
+type repeatValue = [ | `autoFill | `autoFit | `n(int)];
+type trackLength = [ length | `fr(float) | `minContent | `maxContent];
+type gridLength = [ trackLength | `repeat(repeatValue, trackLength)];
 
 /**
  * Returns a length in `ch` units (width, or more precisely the advance measure, of the glyph "0").
@@ -414,6 +423,11 @@ let pt: int => [> length];
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#px
  */
 let px: int => [> length];
+/**
+ * Returns a length in pixels.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/length#px
+ */
+let pxFloat: float => [> | `pxFloat(float)];
 /**
  * Returns a length in `rem` units (font-size of the root element).
  * https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem
@@ -641,7 +655,7 @@ let oblique: [> | `oblique];
 
 let underline: [> | `underline];
 let overline: [> | `overline];
-let lineThrough: [> | `lineThough];
+let lineThrough: [> | `lineThrough];
 
 let clip: [> | `clip];
 let ellipsis: [> | `ellipsis];
@@ -722,9 +736,12 @@ let display:
     | `inlineFlex
     | `grid
     | `inlineGrid
+    | `none
+    | cascading
   ] =>
   rule;
-let position: [< | `absolute | `relative | `static | `fixed | `sticky] => rule;
+let position:
+  [< | `absolute | `relative | `static | `fixed | `sticky | cascading] => rule;
 
 /**
  * The `top` CSS property participates in specifying the vertical position of
@@ -812,10 +829,30 @@ let gridTemplateColumns: list([ gridLength | `auto]) => rule;
  */
 let gridTemplateRows: list([ gridLength | `auto]) => rule;
 /**
+ * The `grid-auto-columns` CSS property specifies the size of an implicitly-created grid column track.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
+ */
+let gridAutoColumns: [< length | `auto] => rule;
+/**
  * The `grid-auto-rows` CSS property specifies the size of an implicitly-created grid row track.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
  */
 let gridAutoRows: [< length | `auto] => rule;
+/**
+ * The `grid-auto-flow` CSS property controls how the auto-placement algorithm works, specifying exactly how auto-placed items get flowed into the grid.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow
+ */
+let gridAutoFlow:
+  [<
+    | `column
+    | `row
+    | `columnDense
+    | `rowDense
+    | `inherit_
+    | `initial
+    | `unset
+  ] =>
+  rule;
 /**
  * The `grid-column` CSS property is a shorthand property for `grid-column-start` and `grid-column-end`.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column
@@ -1014,19 +1051,32 @@ let alignItems:
 let alignSelf:
   [< | `stretch | `flexStart | `center | `flexEnd | `baseline | `auto] => rule;
 /**
+ * The CSS `justify-self` property set the way a box is justified inside its alignment container along the appropriate axis.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self
+ */
+let justifySelf: [< | `flexStart | `center | `flexEnd | `stretch] => rule;
+/**
  * The CSS `justify-content` property defines how the browser distributes space between
  * and around content items along the main axis of their container.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content
  */
 let justifyContent:
-  [< | `flexStart | `center | `flexEnd | `spaceBetween | `spaceAround] => rule;
+  [<
+    | `flexStart
+    | `center
+    | `flexEnd
+    | `spaceBetween
+    | `spaceAround
+    | `stretch
+  ] =>
+  rule;
 
 /**
  * The CSS `box-sizing` property is used to alter the default CSS box model
  * used to calculate width and height of the elements.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing
  */
-let boxSizing: [< | `borderBox | `contentBox] => rule;
+let boxSizing: [< | `borderBox | `contentBox | cascading] => rule;
 
 /**
  * The `float` CSS property specifies that an element should be placed along
@@ -1068,6 +1118,12 @@ let overflowY: [< | `hidden | `visible | `scroll | `auto] => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/z-index
  */
 let zIndex: int => rule;
+let contentRule: string => rule;
+/**
+ * The `column-count` CSS property breaks an element's content into the specified number of columns.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/column-count
+ */
+let columnCount: [ | `auto | `count(int) | cascading] => rule;
 
 /**
  * Style
@@ -1260,6 +1316,7 @@ let boxShadows: list([< | `shadow(string)]) => rule;
  * https://developer.mozilla.org/en-US/docs/Web/CSS/background
  */
 let background: [ color | `url(string) | gradient | `none] => rule;
+let backgrounds: list([ color | `url(string) | gradient | `none]) => rule;
 /**
  * The `background-color` CSS property sets the background color of an element,
  * using a color value.
@@ -1316,24 +1373,40 @@ let backgroundSize:
  */
 let cursor:
   [
-    | `pointer
-    | `alias
-    | `allScroll
     | `auto
-    | `cell
-    | `contextMenu
     | `default
     | `none
+    | `contextMenu
+    | `help
+    | `pointer
+    | `progress
+    | `wait
+    | `cell
     | `crosshair
+    | `text
+    | `verticalText
+    | `alias
     | `copy
+    | `move
+    | `noDrop
+    | `notAllowed
     | `grab
     | `grabbing
-    | `help
-    | `move
-    | `notAllowed
-    | `progress
-    | `text
-    | `wait
+    | `allScroll
+    | `colResize
+    | `rowResize
+    | `nResize
+    | `eResize
+    | `sResize
+    | `wResize
+    | `neResize
+    | `nwResize
+    | `seResize
+    | `swResize
+    | `ewResize
+    | `nsResize
+    | `neswResize
+    | `nwseResize
     | `zoomIn
     | `zoomOut
   ] =>
@@ -1472,7 +1545,7 @@ let fontFace:
  * The `font-size` CSS property specifies the size of the font.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/font-size
  */
-let fontSize: length => rule;
+let fontSize: [< length | cascading] => rule;
 /**
  * The `font-variant` CSS property is a shorthand for the longhand properties
  * `font-variant-caps`, `font-variant-numeric`, `font-variant-alternates`, `font-variant-ligatures`,
@@ -1485,7 +1558,7 @@ let fontVariant: [< | `normal | `smallCaps] => rule;
  *  italic, or oblique face from its font-family.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/font-style
  */
-let fontStyle: fontStyle => rule;
+let fontStyle: [< fontStyle | cascading] => rule;
 /**
  * The `font-weight` CSS property specifies the weight (or boldness) of the font.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight
@@ -1500,7 +1573,7 @@ let letterSpacing: [< | `normal | length] => rule;
  * The `line-height` CSS property sets the amount of space used for lines, such as in text.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
  */
-let lineHeight: [ | `normal | `abs(float) | length] => rule;
+let lineHeight: [ | `normal | `abs(float) | length | cascading] => rule;
 /**
  * The `text-align` CSS property describes how inline content like text is aligned in its parent block element.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-align
