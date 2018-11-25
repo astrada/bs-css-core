@@ -17,8 +17,8 @@
     "url": "git+https://github.com/astrada/bs-css-core.git"
   },
   "devDependencies": {
-    "@glennsl/bs-jest": "^0.4.3",
-    "bs-platform": "^4.0.5"
+    "@glennsl/bs-jest": "^0.4.5",
+    "bs-platform": "^4.0.7"
   },
   "jest": {
     "testURL": "http://localhost/"
