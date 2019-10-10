@@ -4,7 +4,8 @@ Statically typed DSL for writing CSS in ReasonML.
 
 This is a fork of [bs-css](https://github.com/SentiaAnalytics/bs-css) that
 extracts the Css module, so that it can be used by various CSS-in-JS bindings.
-See [bs-react-fela-examples](https://github.com/astrada/bs-react-fela-examples)
+See
+[bs-react-fela-examples](https://github.com/astrada/bs-react-fela-examples)
 and
 [bs-styletron-react-examples](https://github.com/astrada/bs-styletron-react-examples)
 for practical examples of usage.
@@ -21,6 +22,8 @@ In your `bsconfig.json`, include `"@astrada/bs-css-core"` in the
 ## Usage
 
 ```reason
+open BsCssCore;
+
 type theme = {
   textColor: Css.color,
   basePadding: Css.length
@@ -44,6 +47,8 @@ let makeStyle = (theme) =>
 Define animation keyframes;
 
 ```reason
+open BsCssCore;
+
 let bounce =
   Css.(
     keyframes([

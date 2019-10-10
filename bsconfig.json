@@ -1,6 +1,10 @@
 {
   "name": "@astrada/bs-css-core",
+  "namespace": "bs-css-core",
   "refmt": 3,
+  "warnings": {
+    "number": "-32-26-44"
+  },
   "bs-dev-dependencies": ["@glennsl/bs-jest"],
   "sources": [
     {
