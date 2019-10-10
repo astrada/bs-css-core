@@ -137,7 +137,7 @@ describe("keyframes body", () => {
              }
            }
          } |> toStyleObject)
-    )
+    ) |> ignore
   );
 });
 
